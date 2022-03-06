@@ -6,14 +6,15 @@
     height: 100px;
     width: 200px;
     text-align: center;
-    border: 5px solid black;
-    border-radius: 10px;
+    border: 5px solid #006666;
+    border-radius: 10%;
     transform: rotateY(180deg);
     transition: transform 1000ms ease-out;
+    outline: None;
 }
 
 .card.focus{
-    border-color: blue;
+    border-color: #FFA500;
 }
 
 
