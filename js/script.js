@@ -5,7 +5,7 @@ var lastHoveredCard;
 document.addEventListener("keydown",tabListener);
 
 
-//alle functies alleen events dus addEventListener voor alle events
+
 function init(){
     var cardPositions = document.getElementsByClassName("cardPosition");
     var cards = document.getElementsByClassName("card");
@@ -23,7 +23,6 @@ function init(){
 }
 
 function tabListener(event){
-    // console.log("tabListener");
     if(event.code === "Enter"){
         turnCard(focusedCard);
     }
@@ -32,9 +31,6 @@ function tabListener(event){
 function tabUnfocus(event){
 
     var card = event.currentTarget;
-    // console.log("tabUnfocus");
-
-    // console.log(card);
     card.classList.remove("focus");
     
     focusedCard = undefined;
@@ -43,35 +39,24 @@ function tabUnfocus(event){
 function tabFocus(event){
 
     var card = event.currentTarget;
-    // console.log("tabFocus");
-    // console.log(card);
-    // console.log(lastHoveredCard);
     card.classList.add("focus");
     focusedCard = card;
     
     if(typeof lastHoveredCard !== 'undefined' && lastHoveredCard != focusedCard){
-        // console.log(lastHoveredCard.parentElement);
         lastHoveredCard.parentElement.addEventListener("mousemove",returnMouseFocus,true);
         lastHoveredCard.classList.remove("focus");
     }
 }
 
 function returnMouseFocus(event){
-    // console.log("returnMouseFocus");
-    // console.log(event.currentTarget);
     event.currentTarget.dispatchEvent(new Event("mouseenter"));
     event.currentTarget.removeEventListener("mousemove",returnMouseFocus,true);
 }
 
 function cardFocus(event){
-    // console.log("cardFocus");
-    // console.log(event.currentTarget);
-    // console.log(event.target);
     if(event.currentTarget === event.target){
-
         var card = event.currentTarget.firstElementChild;
         card.classList.add("focus");
-        
         focusedCard = card;
         lastHoveredCard = card;
         card.focus();
@@ -79,9 +64,6 @@ function cardFocus(event){
 }
 
 function cardUnfocus(event){
-    // console.log("cardUnfocus");
-    // console.log(event.currentTarget);
-    // console.log(event.target);
     if(event.currentTarget === event.target){
 
         event.currentTarget.firstElementChild.classList.remove("focus");
@@ -93,16 +75,48 @@ function cardUnfocus(event){
 function clickCard(event){
     if(event.currentTarget === event.target){
         var card = event.currentTarget;
-        // console.log("clickCard");
-        // console.log(card);
         turnCard(card);
     }
 }
 
-function turnCard(card){
-    if(clickedCards.length > 1){
-        clickedCards.pop().classList.remove("shown");
-    }
+function turnCard(card){ 
     card.classList.add("shown");
     clickedCards.unshift(card);
+    if(clickedCards.length > 1){
+        checkCards();
+    }
+}
+
+function checkCards(){
+    var card1Classes = [];
+    var card2Classes = [];
+    var card1 = clickedCards[0];
+    var card2 = clickedCards[1];
+    for(var i = 0; i < card1.classList.length; i++){
+        card1Classes[i] = card1.classList.item(i);
+    }
+    for(var i = 0; i < card2.classList.length; i++){
+        card2Classes[i] = card2.classList.item(i);
+    }
+
+    card1Classes = arrayRemove(card1Classes,"card");
+    card2Classes = arrayRemove(card2Classes,"card");
+    
+    if(card1Classes[0] === card2Classes[0]){
+        clickedCards[0].classList.add("correct");
+        clickedCards[1].classList.add("correct");
+        clickedCards.length = 0;
+    }else{
+        setTimeout(function(){
+        clickedCards[0].classList.remove("shown");
+        clickedCards[1].classList.remove("shown");
+        clickedCards.length = 0;},1000);
+    }
+}
+
+function arrayRemove(arr, value) { 
+    
+    return arr.filter(function(ele){ 
+        return ele != value; 
+    });
 }

@@ -18,7 +18,7 @@
 }
 
 
-.card:not(.shown) .img{
+.card:not(.shown):not(.correct) .img{
     opacity: 0;
     pointer-events: none;
     transition: opacity 344ms step-end; /*Voor ease-out 0.344*transition_delay*/
@@ -27,6 +27,13 @@
 .card.shown{
     transform: rotateY(0deg);
     transition: transform 1000ms ease-out;
+}
+
+.card.correct{
+    opacity: 1;
+    border-color: #B5E61D;
+    transform: rotateY(0deg);
+    transition: transform 1000ms ease-out, border-color 344ms step-end, opacity 344ms step-end;
 }
 
 .card.shown .img{
