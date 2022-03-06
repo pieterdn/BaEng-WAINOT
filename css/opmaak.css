@@ -1,0 +1,37 @@
+#table{
+    border-spacing: 20px;
+}
+
+.card{
+    height: 100px;
+    width: 200px;
+    text-align: center;
+    border: 5px solid black;
+    border-radius: 10px;
+    transform: rotateY(0deg);
+    transition: transform 1000ms ease-out;
+}
+
+.card:hover{
+    border-color: blue;
+}
+
+.card:not(.focus) .img{
+    opacity: 0;
+    transition: opacity 344ms step-end; /*Voor ease-out 0.344*transition_delay*/
+}
+
+.card.focus{
+    transform: rotateY(180deg);
+    transition: transform 1000ms ease-out;
+}
+
+.card.focus .img{
+    opacity: 1;
+    transition: opacity 344ms step-end; /*Voor ease-out 0.344*transition_delay*/
+}
+
+.img{
+    height: 100px;
+    /*width: 200px; moet nog wat aan gewerkt worden*/
+}
