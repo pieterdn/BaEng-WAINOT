@@ -80,10 +80,12 @@ function clickCard(event){
 }
 
 function turnCard(card){ 
-    card.classList.add("shown");
-    clickedCards.unshift(card);
-    if(clickedCards.length > 1){
-        checkCards();
+    if(!card.classList.contains("shown")){
+        card.classList.add("shown");
+        clickedCards.unshift(card);
+        if(clickedCards.length > 1){
+            checkCards();
+        }
     }
 }
 
@@ -107,10 +109,15 @@ function checkCards(){
         clickedCards[1].classList.add("correct");
         clickedCards.length = 0;
     }else{
+
+        var weg1 = clickedCards[0];
+        var weg2 = clickedCards[1];
+        clickedCards.length = 0;
+
         setTimeout(function(){
-        clickedCards[0].classList.remove("shown");
-        clickedCards[1].classList.remove("shown");
-        clickedCards.length = 0;},1000);
+        weg1.classList.remove("shown");
+        weg2.classList.remove("shown");
+        },1000);
     }
 }
 
