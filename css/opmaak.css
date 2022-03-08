@@ -10,7 +10,6 @@
     border-radius: 10%;
     transform: rotateY(180deg);
     transition: transform 1000ms ease-out;
-    outline: None;
 }
 
 .card.focus{

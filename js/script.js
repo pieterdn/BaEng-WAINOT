@@ -10,12 +10,12 @@ function init(){
     var cardPositions = document.getElementsByClassName("cardPosition");
     var cards = document.getElementsByClassName("card");
 
-    for(i in cardPositions){
+    for(i = 0; i < cardPositions.length;i++){
         cardPositions.item(i).addEventListener("mouseenter",cardFocus);
         cardPositions.item(i).addEventListener("mouseleave",cardUnfocus);
     }
 
-    for(i in cards){
+    for(i = 0; i < cards.length;i++){
         cards.item(i).addEventListener("click",clickCard);
         cards.item(i).addEventListener("focus",tabFocus);
         cards.item(i).addEventListener("focusout",tabUnfocus);
