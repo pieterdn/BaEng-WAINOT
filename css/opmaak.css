@@ -6,14 +6,14 @@
     height: 100px;
     width: 200px;
     text-align: center;
-    border: 5px solid #006666;
+    border: 1px solid #bbbbbb;
     border-radius: 10%;
     transform: rotateY(180deg);
     transition: transform 1000ms ease-out;
 }
 
 .card.focus{
-    border-color: #FFA500;
+    border-color: #fea62c;
 }
 
 
@@ -26,6 +26,7 @@
 .card.shown{
     transform: rotateY(0deg);
     transition: transform 1000ms ease-out;
+    border-color: #006666;
 }
 
 .card.correct{
