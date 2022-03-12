@@ -1,19 +1,29 @@
+/*
+ * COLORS
+ * ------
+ * - #006666 (Appelblauwzeegroen)
+ * - #dcecec (Lichtgroen)
+ * - #ffbd64 (Lichtoranje)
+ * - #febd65 (Oranje)
+ * - #bbbbbb (Grijs)
+ */
 #table{
     border-spacing: 20px;
 }
 
 .card{
-    height: 100px;
+    height: 150px;
     width: 200px;
     text-align: center;
-    border: 1px solid #bbbbbb;
+    border: 3px solid #bbbbbb;
     border-radius: 10%;
     transform: rotateY(180deg);
     transition: transform 1000ms ease-out;
+    background-color: #dcecec;
 }
 
 .card.focus{
-    border-color: #fea62c;
+    border: 3px solid #fea62c;
 }
 
 
