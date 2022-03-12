@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!\Users\Gebruiker\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
