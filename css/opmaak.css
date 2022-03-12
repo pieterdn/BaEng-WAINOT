@@ -15,7 +15,7 @@
     height: 150px;
     width: 200px;
     text-align: center;
-    border: 3px solid #bbbbbb;
+    border: 4px solid #bbbbbb;
     border-radius: 10%;
     transform: rotateY(180deg);
     transition: transform 1000ms ease-out;
@@ -23,7 +23,11 @@
 }
 
 .card.focus{
-    border: 3px solid #fea62c;
+    border-color: #fea62c;
+}
+
+.card:focus-visible{
+    outline-width: 0px;
 }
 
 
@@ -52,6 +56,6 @@
 }
 
 .img{
-    height: 100px;
+    height: 150px;
     /*width: 200px; moet nog wat aan gewerkt worden*/
 }
