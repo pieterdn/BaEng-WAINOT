@@ -2,7 +2,7 @@
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
-import cgi
+import cgi, cgitb
 import os
 
 print("Content-type: text/html\n\n")
