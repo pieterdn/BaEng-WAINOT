@@ -1,5 +1,6 @@
-#!D:\Lucas_data\Python\python.exe
+#!/usr/bin/env python3
 #^ systeem afhankelijk
+# -*- coding: UTF-8 -*-
 
 import cgi
 import os
