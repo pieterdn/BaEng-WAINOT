@@ -7,6 +7,7 @@ import os
 
 print("Content-type: text/html\n\n")
 
+
 print("""
 <!DOCTYPE html> 
 <html lang="nl">
