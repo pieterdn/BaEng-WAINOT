@@ -6,7 +6,7 @@ document.addEventListener("keydown",tabListener);
 
 
 
-function init(){
+window.addEventListener("load",function (){
     var cardPositions = document.getElementsByClassName("cardPosition");
     var cards = document.getElementsByClassName("card");
 
@@ -20,7 +20,7 @@ function init(){
         cards.item(i).addEventListener("focus",tabFocus);
         cards.item(i).addEventListener("focusout",tabUnfocus);
     }
-}
+});
 
 function tabListener(event){
     if(event.code === "Enter"){

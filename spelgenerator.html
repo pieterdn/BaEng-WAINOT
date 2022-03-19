@@ -2,16 +2,22 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title> spelgenerator </title>
+    <link rel="stylesheet" href="./css/opmaak.css">
+    <script src="./js/previewscript.js"></script>
+    <script src="./js/script.js"></script>
 </head>
     <body>
-        <form action="./py/generator.py" method="post">
+        <form name="spelgenerator" action="./py/generator.py" method="post">
             <fieldset>
                 <label for="width">Breedte</label>
-                <input type="number" name="width"/>
+                <input type="number" name="width" value="2"/>
                 <label for="height">Hoogte</label>
-                <input type="number" name="height"/>
+                <input type="number" name="height" value="2"/>
             </fieldset>
             <button type="submit">genereer!</button>
         </form>
     </body>
+    <div id="memoryPreview">
+
+    </div>
 </html>

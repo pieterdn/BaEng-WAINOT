@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!python
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
