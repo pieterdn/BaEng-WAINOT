@@ -23,8 +23,9 @@ window.addEventListener("load",function (){
 });
 
 function tabListener(event){
-    if(event.code === "Enter"){
-        turnCard(focusedCard);
+    if(event.code === "Enter" && document.activeElement.classList.contains("card")){
+        if(focusedCard != undefined)
+            turnCard(focusedCard);
     }
 }
 
@@ -49,6 +50,7 @@ function tabFocus(event){
 }
 
 function returnMouseFocus(event){
+    document.activeElement.classList.remove("focus");
     event.currentTarget.dispatchEvent(new Event("mouseenter"));
     event.currentTarget.removeEventListener("mousemove",returnMouseFocus,true);
 }
@@ -59,13 +61,12 @@ function cardFocus(event){
         card.classList.add("focus");
         focusedCard = card;
         lastHoveredCard = card;
-        card.focus();
+        //card.focus(); //<- misschien beter niet geforceerd focussen
     }
 }
 
 function cardUnfocus(event){
     if(event.currentTarget === event.target){
-
         event.currentTarget.firstElementChild.classList.remove("focus");
         focusedCard = undefined;
         lastHoveredCard = undefined;
