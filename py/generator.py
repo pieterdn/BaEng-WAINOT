@@ -1,9 +1,10 @@
-#!/usr/bin/env python3
+#!C:\Users\Gebruiker\AppData\Local\Microsoft\WindowsApps\python3.9.exe
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
-import cgi
+import cgi, cgitb
 import os
+import random
 
 print("Content-type: text/html\n\n")
 
@@ -39,12 +40,15 @@ width = int(fs.getvalue("width"))
 height = int(fs.getvalue("height"))
 
 
-# width = 5
-# height = 5
+#width = 5
+#height = 5
 
 #hard coded afb
-imgList = os.listdir("../media/")
+Templist =  os.listdir(os.path.abspath("../media"))
+imgList = Templist + Templist #elk pretje 2x laten voorkomen
+random.shuffle(imgList)
 classList = list.copy(imgList)
+print(imgList)
 
 for i in range(len(imgList)):
     classList[i] = os.path.splitext(classList[i])[0]
@@ -55,7 +59,6 @@ if height*width > 18:
 
 
 
-aant = 0
 tel = 0
 for y in range(height):
     file.write("\t\t<tr>")
@@ -69,10 +72,7 @@ for y in range(height):
                         </div>
                     </td>
         """)
-        aant += 1
-        if aant >= 2:
-            tel += 1
-            aant = 0
+        tel += 1
     file.write("\t\t</tr>")
 
 file.write("""
