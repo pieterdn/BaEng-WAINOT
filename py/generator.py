@@ -1,10 +1,11 @@
-#!C:\Users\Gebruiker\AppData\Local\Microsoft\WindowsApps\python3.9.exe
+#!python
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
 import cgi, cgitb
 import os
 import random
+import math
 
 print("Content-type: text/html\n\n")
 
@@ -43,19 +44,21 @@ height = int(fs.getvalue("height"))
 #width = 5
 #height = 5
 
+if height*width > 18:
+    width = 6   #hard coded aantal afb
+    height = 3
+
 #hard coded afb
 Templist =  os.listdir(os.path.abspath("../media"))
-imgList = Templist + Templist #elk pretje 2x laten voorkomen
+imgList = Templist[:math.ceil(height*width/2)] + Templist[:math.ceil(height*width/2)] #elk pretje 2x laten voorkomen
 random.shuffle(imgList)
 classList = list.copy(imgList)
-print(imgList)
+#print(imgList)
 
 for i in range(len(imgList)):
     classList[i] = os.path.splitext(classList[i])[0]
 
-if height*width > 18:
-    width = 6   #hard coded aantal afb
-    height = 3
+
 
 
 

@@ -6,9 +6,9 @@
     <body>
         <script type="text/javascript">
             function checkInput(){
-                if(document.sizeFrom.width_input.value=='' || Number(document.width_input.height)<0 ){
+                if(document.sizeFrom.width.value=='' || Number(document.width.height)<0 ){
                     alert('geen valide Breedte');
-                    document.sizeForm.width_input.focus();
+                    document.sizeForm.width.focus();
                     return false;
                 }
                 else if(document.sizeFrom.height.value=='' || Number(document.sizeFrom.height)<0){
@@ -16,7 +16,7 @@
                     document.sizeForm.height.focus();
                     return false;
                 }
-                else if((Number(document.sizeFrom.width_input)*Number(document.sizeFrom.height))%2 == 1){
+                else if((Number(document.sizeFrom.width)*Number(document.sizeFrom.height))%2 == 1){
                     alert('geen even aantal veltjes');
                     return false;
                 }
@@ -27,7 +27,7 @@
         <form action="./py/generator.py" method="post" name="sizeForm" onsubmit="return checkInput();">
             <fieldset>
                 <label for="width">Breedte</label>
-                <input type="number" name="width_input"/>
+                <input type="number" name="width"/>
                 <label for="height">Hoogte</label>
                 <input type="number" name="height"/>
             </fieldset>
