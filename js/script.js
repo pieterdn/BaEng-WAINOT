@@ -7,6 +7,10 @@ document.addEventListener("keydown",tabListener);
 
 
 window.addEventListener("load",function (){
+    addCardEventListeners();
+});
+
+function addCardEventListeners(){
     var cardPositions = document.getElementsByClassName("cardPosition");
     var cards = document.getElementsByClassName("card");
 
@@ -20,7 +24,7 @@ window.addEventListener("load",function (){
         cards.item(i).addEventListener("focus",tabFocus);
         cards.item(i).addEventListener("focusout",tabUnfocus);
     }
-});
+}
 
 function tabListener(event){
     if(event.code === "Enter" && document.activeElement.classList.contains("card")){

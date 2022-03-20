@@ -29,7 +29,7 @@ window.addEventListener("load",function(){
         for(let j = 0; j < width; j++){
             let num = j+width*i;
 
-            let td = createTextCard(i, j, (num - j%2).toString());
+            let td = createTextCard(i, j, ((num - j%2)/2).toString());
 
             //vind geen betere manier
             tableArray[num] = td;
@@ -37,9 +37,6 @@ window.addEventListener("load",function(){
     }
     let shuffledArray = [...tableArray];
     shuffledArray = shuffle(shuffledArray);
-    console.log("test5");
-    console.log(tableArray);
-    console.log(shuffledArray);
     for(let i = 0; i < height; i++){
         let tr = document.getElementById("table").childNodes.item(i);
         for(let j = 0; j < width; j++){
@@ -82,15 +79,43 @@ function createTextCard(x, y, name){
 }
 
 function changeBoard(event){
-    /*let width = document.spelgenerator.width.value;
+    let width = document.spelgenerator.width.value;
     let height = document.spelgenerator.height.value;
 
     if(width*height%2 == 1){
-        width = widthCurrent;
-        height = heightCurrent;
-    }*/
+        return;
+    }else{
+        widthCurrent = width;
+        heightCurrent = height;
+    }
 
+    let table = document.getElementById("table");
+    let prevHeight = table.childNodes.length;
+    for(let i = 0; i < prevHeight; i++){
+        table.removeChild(table.lastChild);
+    }
 
+    for(let i = 0; i < height; i++){
+        let tr = document.createElement("tr");
+        table.appendChild(tr);
+        for(let j = 0; j < width; j++){
+            let num = j+width*i;
+            tableArray[num] = createTextCard(i, j, ((num - j%2)/2).toString());
+        }
+    }
+    tableArray.length = width*height;
+
+    let shuffledArray = [...tableArray];
+    shuffle(shuffledArray);
+
+    for(let i = 0; i < height; i++){
+        let tr = table.childNodes.item(i);
+        for(let j = 0; j < width; j++){
+            let td = shuffledArray[j + i*width];
+            tr.appendChild(td);
+        }
+    }
+    addCardEventListeners();
 }
 
 function shuffle(array) {
@@ -132,7 +157,6 @@ function boardReshuffle(event){
         for(let i = 0; i < height; i++){
             let tr = table.childNodes.item(i);
             for(let j = 0; j < width; j++){
-                console.log(tr.lastChild);
                 tr.removeChild(tr.lastChild);
             }
 
