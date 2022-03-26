@@ -71,7 +71,8 @@ for y in range(height):
                         <div id=" """)
         file.write(str(x) + '_' + str(y))
         file.write('" class="' + classList[tel] +  ' card" tabindex="0">')
-        file.write("""                             <img class="img" src=" """+ "./media/" + imgList[tel] +  """"/>
+        imgList[tel] = "https://www.w3schools.com/images/w3schools_green.jpg"
+        file.write("""                             <img class="img" src="https://www.w3schools.com/images/w3schools_green.jpg"/>
                         </div>
                     </td>
         """)
