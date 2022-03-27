@@ -88,7 +88,8 @@ function changeBoard(event){
         widthCurrent = width;
         heightCurrent = height;
     }
-
+    clickedCards = [];
+    
     let table = document.getElementById("table");
     let prevHeight = table.childNodes.length;
     for(let i = 0; i < prevHeight; i++){
@@ -138,6 +139,7 @@ function shuffle(array) {
 
 function boardRefresh(event){
     let cards = document.getElementsByClassName("card");
+    clickedCards = [];
     for(let i = 0; i < cards.length; i++){
         let card = cards.item(i);
         card.classList.remove("shown");
