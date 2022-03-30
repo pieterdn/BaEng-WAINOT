@@ -6,7 +6,11 @@ document.addEventListener("keydown",tabListener);
 
 
 
-function init(){
+window.addEventListener("load",function (){
+    addCardEventListeners();
+});
+
+function addCardEventListeners(){
     var cardPositions = document.getElementsByClassName("cardPosition");
     var cards = document.getElementsByClassName("card");
 
@@ -23,8 +27,9 @@ function init(){
 }
 
 function tabListener(event){
-    if(event.code === "Enter"){
-        turnCard(focusedCard);
+    if(event.code === "Enter" && document.activeElement.classList.contains("card")){
+        if(focusedCard != undefined)
+            turnCard(focusedCard);
     }
 }
 
@@ -42,30 +47,43 @@ function tabFocus(event){
     card.classList.add("focus");
     focusedCard = card;
     
-    if(typeof lastHoveredCard !== 'undefined' && lastHoveredCard != focusedCard){
-        lastHoveredCard.parentElement.addEventListener("mousemove",returnMouseFocus,true);
-        lastHoveredCard.classList.remove("focus");
+    if(lastHoveredCard != focusedCard){
+        Array.from(document.getElementsByClassName("cardPosition")).forEach(function(element){
+            console.log(element);
+            element.addEventListener("mousemove",returnMouseFocus,true);
+        });
+        if(typeof lastHoveredCard !== "undefined"){
+            lastHoveredCard.classList.remove("focus");
+        }
     }
 }
 
 function returnMouseFocus(event){
+    document.activeElement.classList.remove("focus");
+
     event.currentTarget.dispatchEvent(new Event("mouseenter"));
-    event.currentTarget.removeEventListener("mousemove",returnMouseFocus,true);
+
+    Array.from(document.getElementsByClassName("cardPosition")).forEach(function(element){
+        element.removeEventListener("mousemove",returnMouseFocus,true);
+    });
+
 }
 
 function cardFocus(event){
+    console.log("mouseeneter1");
     if(event.currentTarget === event.target){
+        console.log("mouseeneter2");
+        console.log(event.currentTarget);
         var card = event.currentTarget.firstElementChild;
         card.classList.add("focus");
         focusedCard = card;
         lastHoveredCard = card;
-        card.focus();
+        //card.focus(); //<- misschien beter niet geforceerd focussen
     }
 }
 
 function cardUnfocus(event){
     if(event.currentTarget === event.target){
-
         event.currentTarget.firstElementChild.classList.remove("focus");
         focusedCard = undefined;
         lastHoveredCard = undefined;
