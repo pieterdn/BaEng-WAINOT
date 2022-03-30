@@ -8,25 +8,24 @@
 </head>
     <body>
         <script type="text/javascript">
-            function checkInput(){
-                if(document.sizeFrom.width.value=='' || Number(document.width.height)<0 ){
-                    alert('geen valide Breedte');
+            function checkInput(event){
+                if(document.spelgenerator.width.value=='' || Number(document.spelgenerator.width.value)<0 ){
+                    window.alert('geen valide Breedte');
                     document.sizeForm.width.focus();
-                    return false;
+                    event.preventDefault();
                 }
-                else if(document.sizeFrom.height.value=='' || Number(document.sizeFrom.height)<0){
-                    alert('geen valide Hoogte');
+                else if(document.spelgenerator.height.value=='' || Number(document.spelgenerator.height.value)<0){
+                    window.alert('geen valide Hoogte');
                     document.sizeForm.height.focus();
-                    return false;
+                    event.preventDefault();
                 }
-                else if((Number(document.sizeFrom.width)*Number(document.sizeFrom.height))%2 == 1){
-                    alert('geen even aantal veltjes');
-                    return false;
+                else if((Number(document.spelgenerator.width.value)*Number(document.spelgenerator.height.value))%2 == 1){
+                    window.alert('geen even aantal veltjes');
+                    event.preventDefault();
                 }
-                return true;
             }
         </script>
-        <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" onsubmit="return checkInput();">
+        <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" >
             <fieldset>
                 <label for="width">Breedte</label>
                 <input type="number" name="width" value="2"/>

@@ -124,7 +124,9 @@ function checkCards(){
     
     if(card1Classes[0] === card2Classes[0]){
         clickedCards[0].classList.add("correct");
+        clickedCards[0].removeAttribute("tabindex");
         clickedCards[1].classList.add("correct");
+        clickedCards[1].removeAttribute("tabindex");
         clickedCards.length = 0;
     }else{
 
