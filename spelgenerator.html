@@ -26,7 +26,7 @@
                 return true;
             }
         </script>
-        <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" onsubmit="checkInput();">
+        <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" onsubmit="return checkInput();">
             <fieldset>
                 <label for="width">Breedte</label>
                 <input type="number" name="width" value="2"/>
