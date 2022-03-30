@@ -4,6 +4,11 @@
     <title> spelgenerator </title>
 </head>
     <body>
+        <!-- pixabay API key veranderen -->
+        <script>var pixabayWidget = { 'key': '26396227-a135d9f1b6b4609e8f1b86dd2' }</script>
+        <script src="https://goodies.pixabay.com/javascript/pixabay-widget/pixabay-widget.min.js" async defer></script>
+
+
         <script type="text/javascript">
             function checkInput(){
                 if(document.sizeFrom.width_input.value=='' || Number(document.width_input.height)<0 ){
@@ -33,5 +38,9 @@
             </fieldset>
             <button type="submit">genereer!</button>
         </form>
+
+        <div class="pixabay_widget" data-user="stevepb" data-max-rows="1" data-row-height="180" data-branding="false" data-navpos="top"></div>
+        
+
     </body>
 </html>
