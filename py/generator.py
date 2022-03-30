@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#!python
-=======
 #!/usr/bin/env python3
->>>>>>> 033c4b6ea59832376a7eb737e17585dac39ea3d9
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
