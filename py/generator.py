@@ -51,16 +51,22 @@ if height*width > 18:
 
 #hard coded afb
 Templist =  os.listdir(os.path.abspath("../media"))
-imgList = Templist[:math.ceil(height*width/2)] + Templist[:math.ceil(height*width/2)] #elk pretje 2x laten voorkomen
+#print(imgList)
+
+imgList = 0
+
+if (fs.getvalue("unique") == "same"):
+    imgList = Templist[:math.ceil(height*width/2)] + Templist[:math.ceil(height*width/2)] #elk pretje 2x laten voorkomen
+
+else:
+    # check dat er exact zoveel images aanwezig zijn
+    imgList = Templist[:height*width]
+
 random.shuffle(imgList)
 classList = list.copy(imgList)
-#print(imgList)
 
 for i in range(len(imgList)):
     classList[i] = os.path.splitext(classList[i])[0]
-
-
-
 
 
 tel = 0
@@ -72,8 +78,7 @@ for y in range(height):
                         <div id=" """)
         file.write(str(x) + '_' + str(y))
         file.write('" class="' + classList[tel] +  ' card" tabindex="0">')
-        imgList[tel] = "https://www.w3schools.com/images/w3schools_green.jpg"
-        file.write("""                             <img class="img" src="https://www.w3schools.com/images/w3schools_green.jpg"/>
+        file.write("""                             <img class="img" src=" """+ "./media/" + imgList[tel] +  """"/>
                         </div>
                     </td>
         """)
