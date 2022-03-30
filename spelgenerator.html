@@ -7,31 +7,13 @@
     <script src="./js/pixabay-widget.js"></script>
     <script src="./js/pixabay-widget.min.js"></script>
     <script src="./js/script.js"></script>
+    <script src="./js/generalGenerator.js"></script>
 </head>
     <body>
         <!-- pixabay API key veranderen -->
         <script>var pixabayWidget = { 'key': '26396227-a135d9f1b6b4609e8f1b86dd2' }</script>
         <script src="./js/pixabay-widget.min.js" async defer></script>
 
-
-        <script type="text/javascript">
-            function checkInput(event){
-                if(document.spelgenerator.width.value=='' || Number(document.spelgenerator.width.value)<0 ){
-                    window.alert('geen valide Breedte');
-                    document.sizeForm.width.focus();
-                    event.preventDefault();
-                }
-                else if(document.spelgenerator.height.value=='' || Number(document.spelgenerator.height.value)<0){
-                    window.alert('geen valide Hoogte');
-                    document.sizeForm.height.focus();
-                    event.preventDefault();
-                }
-                else if((Number(document.spelgenerator.width.value)*Number(document.spelgenerator.height.value))%2 == 1){
-                    window.alert('geen even aantal veltjes');
-                    event.preventDefault();
-                }
-            }
-        </script>
         <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" >
             <fieldset>
                 <label for="width">Breedte</label>
