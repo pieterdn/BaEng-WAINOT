@@ -26,7 +26,7 @@
                 return true;
             }
         </script>
-        <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" onsubmit="return checkInput();">
+        <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" onsubmit="checkInput();">
             <fieldset>
                 <label for="width">Breedte</label>
                 <input type="number" name="width" value="2"/>
@@ -35,6 +35,16 @@
             </fieldset>
             <button type="submit">genereer!</button>
         </form>
+
+        <!--Image upload -->
+        <p>Image upload</p>
+        <form id="formAjax" action="uploadHandling.php" method="POST">
+            <input type="file" id="fileAjax" name="fileAjax" multiple/><br /><br />
+            <input type="submit" id="submit" name="submit" value="Upload" />
+        </form>
+        <p id="status"></p>
+        <!--End of Image upload-->
+        <script type="text/javascript" src="./js/imageUpload.js"></script>
     </body>
     <button id="memoryRefresh">refresh</button>
     <button id="memoryShuffle">shuffle</button>
