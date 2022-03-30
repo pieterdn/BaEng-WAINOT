@@ -1,7 +1,8 @@
-#!python
+#!/usr/bin/env python3
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
+#(linux shebang: !/usr/bin/env python3)
 import cgi, cgitb
 import os
 import random
