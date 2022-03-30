@@ -4,29 +4,35 @@
     <title> spelgenerator </title>
     <link rel="stylesheet" href="./css/opmaak.css">
     <script src="./js/previewscript.js"></script>
+    <script src="./js/pixabay-widget.js"></script>
+    <script src="./js/pixabay-widget.min.js"></script>
     <script src="./js/script.js"></script>
 </head>
     <body>
+        <!-- pixabay API key veranderen -->
+        <script>var pixabayWidget = { 'key': '26396227-a135d9f1b6b4609e8f1b86dd2' }</script>
+        <script src="./js/pixabay-widget.min.js" async defer></script>
+
+
         <script type="text/javascript">
-            function checkInput(){
-                if(document.sizeFrom.width.value=='' || Number(document.width.height)<0 ){
-                    alert('geen valide Breedte');
+            function checkInput(event){
+                if(document.spelgenerator.width.value=='' || Number(document.spelgenerator.width.value)<0 ){
+                    window.alert('geen valide Breedte');
                     document.sizeForm.width.focus();
-                    return false;
+                    event.preventDefault();
                 }
-                else if(document.sizeFrom.height.value=='' || Number(document.sizeFrom.height)<0){
-                    alert('geen valide Hoogte');
+                else if(document.spelgenerator.height.value=='' || Number(document.spelgenerator.height.value)<0){
+                    window.alert('geen valide Hoogte');
                     document.sizeForm.height.focus();
-                    return false;
+                    event.preventDefault();
                 }
-                else if((Number(document.sizeFrom.width)*Number(document.sizeFrom.height))%2 == 1){
-                    alert('geen even aantal veltjes');
-                    return false;
+                else if((Number(document.spelgenerator.width.value)*Number(document.spelgenerator.height.value))%2 == 1){
+                    window.alert('geen even aantal veltjes');
+                    event.preventDefault();
                 }
-                return true;
             }
         </script>
-        <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" onsubmit="return checkInput();">
+        <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" >
             <fieldset>
                 <label for="width">Breedte</label>
                 <input type="number" name="width" value="2"/>
@@ -35,6 +41,32 @@
             </fieldset>
             <button type="submit">genereer!</button>
         </form>
+
+        <!--Image upload -->
+        <p>Image upload</p>
+        <form id="formAjax" action="uploadHandling.php" method="POST">
+            <input type="file" id="fileAjax" name="fileAjax" multiple/><br /><br />
+            <input type="submit" id="submit" name="submit" value="Upload" />
+        </form>
+        <p id="status"></p>
+        <script type="text/javascript" src="./js/imageUpload.js"></script>
+        <!--End of Image upload-->
+    
+        <input type="text" id="pixabay_input" name="pixabay_input" />
+        <button name="search_pixabay" onclick="zoekPixabay()"> zoek in pixabay </button>
+
+        <div class="pixabay_widget" id="pixaReslut" data-search=" " data-max-rows="1" data-row-height="180" data-branding="false" data-navpos="top"></div>
+
+        <script typr="text/javascript">
+            function zoekPixabay(){
+                string = document.getElementById("pixabay_input").value;
+                console.log(string);
+                document.getElementById("pixaReslut").setAttribute("data-search",string);
+                new initPixabayWidget();
+            }
+            
+        </script>
+
     </body>
     <button id="memoryRefresh">refresh</button>
     <button id="memoryShuffle">shuffle</button>
