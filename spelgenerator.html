@@ -5,14 +5,26 @@
     <link rel="stylesheet" href="./css/opmaak.css">
     <script src="./js/previewscript.js"></script>
     <script src="./js/pixabay-widget.js"></script>
-    <script src="./js/pixabay-widget.min.js"></script>
+    <script src="./js/pixabay-widget.min.js" async defer></script>
     <script src="./js/script.js"></script>
     <script src="./js/generalGenerator.js"></script>
+
+    <script>
+        var pixabayWidget = { 'key': '26396227-a135d9f1b6b4609e8f1b86dd2' }
+    </script>
+    <script typr="text/javascript">
+        function zoekPixabay(){
+            string = document.getElementById("pixabay_input").value;
+            console.log(string);
+            document.getElementById("pixaReslut").setAttribute("data-search",string);
+            new initPixabayWidget();
+        } 
+    </script>
+    <script src="./js/imageUpload.js"></script>
 </head>
     <body>
         <!-- pixabay API key veranderen -->
-        <script>var pixabayWidget = { 'key': '26396227-a135d9f1b6b4609e8f1b86dd2' }</script>
-        <script src="./js/pixabay-widget.min.js" async defer></script>
+        
 
         <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" >
             <fieldset>
@@ -24,6 +36,11 @@
             <button type="submit">genereer!</button>
         </form>
 
+        <h2>Geselecteerde afbeeldingen</h2>
+        <div id="chosenImages">
+            Geen gekozen afbeeldingen
+        </div>
+
         <!--Image upload -->
         <p>Image upload</p>
         <form id="formAjax" action="uploadHandling.php" method="POST">
@@ -31,29 +48,15 @@
             <input type="submit" id="submit" name="submit" value="Upload" />
         </form>
         <p id="status"></p>
-        <script type="text/javascript" src="./js/imageUpload.js"></script>
+        
         <!--End of Image upload-->
     
         <input type="text" id="pixabay_input" name="pixabay_input" />
-        <button name="search_pixabay" onclick="zoekPixabay()"> zoek in pixabay </button>
+        <button name="search_pixabay" onclick = "zoekPixabay();"> zoek in pixabay </button>
 
         <div class="pixabay_widget" id="pixaReslut" data-search=" " data-max-rows="1" data-row-height="180" data-branding="false" data-navpos="top"></div>
-
-        <script typr="text/javascript">
-            function zoekPixabay(){
-                string = document.getElementById("pixabay_input").value;
-                console.log(string);
-                document.getElementById("pixaReslut").setAttribute("data-search",string);
-                new initPixabayWidget();
-            }
-            
-        </script>
-
-    </body>
-    <button id="memoryRefresh">refresh</button>
-    <button id="memoryShuffle">shuffle</button>
-
-    <div id="memoryPreview">
-
-    </div>
+        <button id="memoryRefresh">refresh</button>
+        <button id="memoryShuffle">shuffle</button>
+        <div id="memoryPreview"></div>
+    </body>  
 </html>

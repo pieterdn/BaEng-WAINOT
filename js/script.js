@@ -4,15 +4,13 @@ var lastHoveredCard;
 
 document.addEventListener("keydown",tabListener);
 
-
-
 window.addEventListener("load",function (){
     addCardEventListeners();
 });
 
 function addCardEventListeners(){
-    var cardPositions = document.getElementsByClassName("cardPosition");
-    var cards = document.getElementsByClassName("card");
+    let cardPositions = document.getElementsByClassName("cardPosition");
+    let cards = document.getElementsByClassName("card");
 
     for(i = 0; i < cardPositions.length;i++){
         cardPositions.item(i).addEventListener("mouseenter",cardFocus);
@@ -35,7 +33,7 @@ function tabListener(event){
 
 function tabUnfocus(event){
 
-    var card = event.currentTarget;
+    let card = event.currentTarget;
     card.classList.remove("focus");
     
     focusedCard = undefined;
@@ -43,7 +41,7 @@ function tabUnfocus(event){
 
 function tabFocus(event){
 
-    var card = event.currentTarget;
+    let card = event.currentTarget;
     card.classList.add("focus");
     focusedCard = card;
     
@@ -74,7 +72,7 @@ function cardFocus(event){
     if(event.currentTarget === event.target){
         console.log("mouseeneter2");
         console.log(event.currentTarget);
-        var card = event.currentTarget.firstElementChild;
+        let card = event.currentTarget.firstElementChild;
         card.classList.add("focus");
         focusedCard = card;
         lastHoveredCard = card;
@@ -92,7 +90,7 @@ function cardUnfocus(event){
 
 function clickCard(event){
     if(event.currentTarget === event.target){
-        var card = event.currentTarget;
+        let card = event.currentTarget;
         turnCard(card);
     }
 }
@@ -108,14 +106,14 @@ function turnCard(card){
 }
 
 function checkCards(){
-    var card1Classes = [];
-    var card2Classes = [];
-    var card1 = clickedCards[0];
-    var card2 = clickedCards[1];
-    for(var i = 0; i < card1.classList.length; i++){
+    let card1Classes = [];
+    let card2Classes = [];
+    let card1 = clickedCards[0];
+    let card2 = clickedCards[1];
+    for(let i = 0; i < card1.classList.length; i++){
         card1Classes[i] = card1.classList.item(i);
     }
-    for(var i = 0; i < card2.classList.length; i++){
+    for(let i = 0; i < card2.classList.length; i++){
         card2Classes[i] = card2.classList.item(i);
     }
 
@@ -130,8 +128,8 @@ function checkCards(){
         clickedCards.length = 0;
     }else{
 
-        var weg1 = clickedCards[0];
-        var weg2 = clickedCards[1];
+        let weg1 = clickedCards[0];
+        let weg2 = clickedCards[1];
         clickedCards.length = 0;
 
         setTimeout(function(){
