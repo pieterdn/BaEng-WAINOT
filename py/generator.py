@@ -70,7 +70,13 @@ random.shuffle(imgList)
 classList = list.copy(imgList)
 
 for i in range(len(imgList)):
-    classList[i] = os.path.splitext(classList[i])[0]
+    id = str(fs.getvalue("image[" + str(i) + "]"))
+    if (id.split(';')[0] == os.path.splitext(classList[i])[0]):
+        classList[i] = id.split(';')[1]
+
+# for i in range(len(imgList)):
+#     classList[i] = os.path.splitext(classList[i])[0]
+
 
 
 tel = 0

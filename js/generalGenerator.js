@@ -1,5 +1,6 @@
 var selectedImages = [];
 const maxTableHeight = 5;
+var id = 0;
 
 window.addEventListener("load",function(){
     document.spelgenerator.addEventListener("submit",checkInput);
@@ -28,10 +29,21 @@ function addFileToTable(file){
     }
     let table = begin.firstChild;
     let tr = document.createElement("tr");
+    let td2 = document.createElement("td");
     let td = document.createElement("td");
+    tr.appendChild(td2);
+    td2.appendChild(document.createTextNode((Math.floor(id/2)).toString()));
     tr.appendChild(td);
     td.appendChild(document.createTextNode(file.name));
     table.appendChild(tr);
+    
+    let hidden = document.getElementById("hiddenImages");
+    let newImage = document.createElement("input");
+    newImage.setAttribute("type", "hidden");
+    newImage.setAttribute("value", file.name + ";" + (Math.floor(id/2)).toString());
+    newImage.setAttribute("name", "image[" + id + "]");
+    hidden.appendChild(newImage);
+    id += 1;
 }
 
 
