@@ -49,17 +49,12 @@ window.addEventListener("load",function(){
 function createTextCard(x, y, name){
     let td = document.createElement("td");
     let div = document.createElement("div");
-    let svg = document.createElement("svg");
-    let text = document.createElement("text");
+    let p = document.createElement("p");
     
-    svg.setAttribute("height","100%");
-    svg.setAttribute("width","50%");
-    svg.classList.add("img");
+    p.classList.add("img");
 
-    text.setAttribute("x","15");
-    text.setAttribute("y","10");
-    text.setAttribute("fill","black");
-    text.appendChild(document.createTextNode(name));
+
+    p.appendChild(document.createTextNode(name));
 
 
     div.setAttribute("id", x.toString() + "_" + y.toString());
@@ -73,8 +68,7 @@ function createTextCard(x, y, name){
     td.classList.add("cardPosition");
 
     td.appendChild(div);
-    div.appendChild(svg);
-    svg.appendChild(text)   
+    div.appendChild(p); 
     return td;
 }
 
