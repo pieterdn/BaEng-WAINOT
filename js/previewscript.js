@@ -3,7 +3,6 @@ var widthCurrent = 0;
 var heightCurrent = 0;
 
 window.addEventListener("load",function(){
-    document.spelgenerator.addEventListener("submit",checkInput);
     document.spelgenerator.width.addEventListener("change",changeBoard);
     document.spelgenerator.height.addEventListener("change",changeBoard);
     document.getElementById("memoryRefresh").addEventListener("click",boardRefresh);
