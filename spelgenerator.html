@@ -8,6 +8,7 @@
     <script src="./js/pixabay-widget.min.js" async defer></script>
     <script src="./js/script.js"></script>
     <script src="./js/generalGenerator.js"></script>
+    <script src="./listSeverFiles.php"></script>
 
     <script>
         var pixabayWidget = { 'key': '26396227-a135d9f1b6b4609e8f1b86dd2' }
@@ -35,10 +36,24 @@
             </fieldset>
             <button type="submit">genereer!</button>
         </form>
-
-        <h2>Geselecteerde afbeeldingen</h2>
-        <div id="chosenImages">
-            Geen gekozen afbeeldingen
+        <div style="display: flex;margin-right: 2em;">
+            <div style="display: flex;flex-grow: 0.25;"></div>
+            <div>
+                <h2>Geselecteerde afbeeldingen</h2>
+                <div id="chosenImages">
+                    Geen gekozen afbeeldingen
+                </div>
+            </div>
+            <div style="display: flex;flex-grow: 0.4;"></div>
+            <div>
+                <h2>Afbeeldingen op server</h2>
+                <div id="allImages">
+                    Geen Afbeeldingen op de server
+                </div>
+            </div>
+            <div style="width:200px;height:200px">
+                <div id="serverImage"></div>
+            </div>
         </div>
 
         <!--Image upload -->

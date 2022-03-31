@@ -4,6 +4,7 @@ const maxTableHeight = 5;
 window.addEventListener("load",function(){
     document.spelgenerator.addEventListener("submit",checkInput);
     document.getElementById('formAjax').addEventListener("submit",addToFileListFromUpload);
+    createServerImgTable();
 });
 
 
@@ -18,10 +19,53 @@ function addToFileListFromUpload(event){
     }
 }
 
+function createServerImgTable(){
+    let div = document.getElementById("allImages");
+    if(serverImages.length == 0)
+        return;
+    div.removeChild(div.firstChild);
+    let table = document.createElement("table");
+    for(let i = 0; i < serverImages.length; i++){
+        let td = document.createElement("td");
+        td.appendChild(document.createTextNode(serverImages[i]));
+        td.addEventListener("click",displayServerImage);
+        if(i<5){
+            let tr = document.createElement("tr");
+            tr.appendChild(td);
+            table.appendChild(tr);
+        }else{
+            table.children[i%5].appendChild(td);
+        }
+    }
+
+    div.appendChild(table);
+}
+
+function displayServerImage(event){
+    console.log(event.target);
+    let servImg = document.getElementById("serverImage");
+    
+    let img = document.createElement("img");
+    img.onload = function(){
+        
+        console.log(img.naturalWidth + "  " +img.naturalHeight);
+        if(img.naturalWidth>img.naturalHeight)
+            img.setAttribute("style","width:200px;margin:1em;");
+        else
+            img.setAttribute("style","height:200px;margin:1em;");
+        while(!img.complete);
+        if(servImg.firstChild != null)
+            servImg.removeChild(servImg.firstChild);
+
+        servImg.appendChild(img);
+    }
+    img.setAttribute("src","./media/" + event.target.textContent);
+    
+}
 
 function addFileToTable(file){
     let begin = document.getElementById("chosenImages");
-    console.log(begin.firstChild);
+    // console.log(begin.firstChild);
     if(begin.firstChild.nodeType == 3){
         begin.removeChild(begin.firstChild);
         begin.appendChild(document.createElement("table"));
