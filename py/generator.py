@@ -55,11 +55,12 @@ Templist =  os.listdir(os.path.abspath("../media"))
 
 imgList = 0
 
-if (fs.getvalue("unique") == "same"):
+if (fs.getvalue("unique") == "same"): # normal mode => 2 of the same image
     imgList = Templist[:math.ceil(height*width/2)] + Templist[:math.ceil(height*width/2)] #elk pretje 2x laten voorkomen
 
 else:
     # check dat er exact zoveel images aanwezig zijn
+    # unique mode => 2 unique images that form a pair
     imgList = Templist[:height*width]
 
 random.shuffle(imgList)
