@@ -58,9 +58,12 @@ imgList = 0
 if (fs.getvalue("unique") == "same"): # normal mode => 2 of the same image
     imgList = Templist[:math.ceil(height*width/2)] + Templist[:math.ceil(height*width/2)] #elk pretje 2x laten voorkomen
 
-else:
+elif(fs.getvalue("unique") == "text"):
     # check dat er exact zoveel images aanwezig zijn
-    # unique mode => 2 unique images that form a pair
+    # text mode => 1 unique image with 1 text
+    imgList = Templist[:math.ceil(height*width/2)]
+
+else:# unique mode => 2 unique images that form a pair
     imgList = Templist[:height*width]
 
 random.shuffle(imgList)
