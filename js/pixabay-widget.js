@@ -12,6 +12,29 @@
         new initPixabayWidget();
 */
 
+
+//toevoeging voor api
+function getAPIimage(id,key){
+    console.log("get api image"+id);
+    httpObject = getHTTPObject();
+    url = 'https://pixabay.com/api/key='+key+'&id='+id;
+    httpObject.open("GET",url);
+    httpObject.send(null);
+    httpObject.onreadystatechange = HttpResponse;
+}
+
+function HttpResponse(){
+    if(httpObject.readyState == 4){
+        console.log(httpObject.responseText);
+    }
+}
+
+function getHTTPObject(){
+    return new XMLHttpRequest();
+}
+var httpObject = null;
+
+
 (function(){
     var cache = {}, counter = 0, o = {
         class_name: 'pixabay_widget',
@@ -106,7 +129,7 @@
             for (var i=0,hits=data.hits;i<hits.length;i++) {
                 var w = hits[i].previewWidth, h = hits[i].previewHeight, src = hits[i].previewURL;
                 if (rh > h-10) w = w*(180/(h+1)), h = 180, src = src.replace('_150', '__180');
-                html += '<div class="item" data-w="'+w+'" data-h="'+h+'"><a title="'+escapeHTML(toTitleCase(hits[i].tags))+'" href="'+hits[i].pageURL+'" target="'+target+'"><img src="https://pixabay.com/static/img/blank.gif" data-src="'+src+'"></a></div>';
+                html += '<div class="item" data-w="'+w+'" data-h="'+h+'"><a title="'+escapeHTML(toTitleCase(hits[i].tags))+'"onClick="getAPIimage('+hits[i].id+",'"+o.key+"')"+'"'+' target="'+target+'"><img src="https://pixabay.com/static/img/blank.gif" data-src="'+src+'"></a></div>';  // was : href = hits[i].pageURL
             }
             if (navpos == 'bottom') html += nav;
 
@@ -115,6 +138,7 @@
         if (n.className.indexOf('flex_grid')<0) n.className += ' flex_grid';
         new flexImages({selector: n, rowHeight: rh, maxRows: mr, truncate: tr});
     }
+
 
     function closest(el, selector) { // IE9+
         var match = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
@@ -171,3 +195,8 @@
         else document.attachEvent('onreadystatechange', function(){ if (document.readyState=='complete') init(); });
     }
 }());
+
+
+
+
+
