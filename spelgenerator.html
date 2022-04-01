@@ -4,8 +4,6 @@
     <title> spelgenerator </title>
     <link rel="stylesheet" href="./css/opmaak.css">
     <script src="./js/previewscript.js"></script>
-    <script src="./js/pixabay-widget.js"></script>
-    <script src="./js/pixabay-widget.min.js" async defer></script>
     <script src="./js/script.js"></script>
     <script src="./js/generalGenerator.js"></script>
     <script src="./listSeverFiles.php"></script>
@@ -21,6 +19,8 @@
             new initPixabayWidget();
         } 
     </script>
+    <script src="./js/pixabay-widget.js"></script>
+    <script src="./js/pixabay-widget.min.js" async defer></script>
     <script src="./js/imageUpload.js"></script>
 </head>
     <body>
@@ -48,7 +48,6 @@
             <div>
                 <h2>Afbeeldingen op server</h2>
                 <div id="allImages">
-                    Geen Afbeeldingen op de server
                 </div>
             </div>
             <div style="width:200px;height:200px">
@@ -72,6 +71,7 @@
         <div class="pixabay_widget" id="pixaReslut" data-search=" " data-max-rows="1" data-row-height="180" data-branding="false" data-navpos="top"></div>
         <button id="memoryRefresh">refresh</button>
         <button id="memoryShuffle">shuffle</button>
+        <button id="memoryReveal">toon kaarten</button>
         <div id="memoryPreview"></div>
     </body>  
 </html>

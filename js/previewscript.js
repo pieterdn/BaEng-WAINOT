@@ -7,6 +7,7 @@ window.addEventListener("load",function(){
     document.spelgenerator.height.addEventListener("change",changeBoard);
     document.getElementById("memoryRefresh").addEventListener("click",boardRefresh);
     document.getElementById("memoryShuffle").addEventListener("click",boardReshuffle);
+    document.getElementById("memoryReveal").addEventListener("click",revealAllCards);
 
     let width = document.spelgenerator.width.value;
     let height = document.spelgenerator.height.value;
@@ -169,4 +170,18 @@ function boardReshuffle(event){
             }
         }
     },1000);
+}
+
+function revealAllCards(){
+    let cards = document.getElementsByClassName("card");
+    clickedCards = [];
+    for(let i = 0; i < cards.length; i++){
+        let card = cards.item(i);
+        if(!card.classList.contains("shown"))
+            card.classList.add("shown");
+        if(!card.classList.contains("correct"))
+            card.classList.add("correct");
+
+        card.removeAttribute("tabindex","0");
+    }
 }

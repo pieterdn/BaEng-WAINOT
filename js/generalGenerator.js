@@ -21,14 +21,16 @@ function addToFileListFromUpload(event){
 
 function createServerImgTable(){
     let div = document.getElementById("allImages");
-    if(serverImages.length == 0)
+    if(serverImages.length == 0){
+        div.appendChild(document.createTextNode("Geen afbeeldingen op de server"));
         return;
-    div.removeChild(div.firstChild);
+    }
     let table = document.createElement("table");
     for(let i = 0; i < serverImages.length; i++){
         let td = document.createElement("td");
         td.appendChild(document.createTextNode(serverImages[i]));
         td.addEventListener("click",displayServerImage);
+        td.setAttribute("style","padding-right:1em");
         if(i<5){
             let tr = document.createElement("tr");
             tr.appendChild(td);
@@ -42,13 +44,13 @@ function createServerImgTable(){
 }
 
 function displayServerImage(event){
-    console.log(event.target);
+    //console.log(event.target);
     let servImg = document.getElementById("serverImage");
     
     let img = document.createElement("img");
     img.onload = function(){
         
-        console.log(img.naturalWidth + "  " +img.naturalHeight);
+        //console.log(img.naturalWidth + "  " +img.naturalHeight);
         if(img.naturalWidth>img.naturalHeight)
             img.setAttribute("style","width:200px;margin:1em;");
         else
