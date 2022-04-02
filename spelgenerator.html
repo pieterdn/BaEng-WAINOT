@@ -9,6 +9,7 @@
     <script src="./js/generalGenerator.js"></script>
     <script src="./js/serverImgTable.js"></script>
     <script src="./listSeverFiles.php"></script>
+    <script src="./js/imageUpload.js"></script>
 
     <script>
         var pixabayWidget = { 'key': '26396227-a135d9f1b6b4609e8f1b86dd2' }
@@ -23,32 +24,66 @@
     </script>
     <script src="./js/pixabay-widget.js"></script>
     <!-- <script src="./js/pixabay-widget.min.js" async defer></script> -->
-    <script src="./js/imageUpload.js"></script>
+    
 </head>
     <body>
         <!-- pixabay API key veranderen -->
         
-
+        <h1>Memory generator</h1>
         <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" >
             <fieldset>
-                <label for="width">Breedte</label>
-                <input type="number" name="width" value="2"/>
-                <label for="height">Hoogte</label>
-                <input type="number" name="height" value="3"/>
+                <label for="dimensions">Kies de grootte (breedte x hoogte): </label>
+                <select name="dimensions" id="dimensions">
+                    <option value="2x2">2 x 2</option>
+                    <option value="3x2">3 x 2</option>
+                    <option value="4x3">4 x 3</option>
+                    <option value="4x4">4 x 4</option>
+                    <option value="5x4">5 x 4</option>
+                    <option value="6x4">6 x 4</option>
+                    <option value="6x5">6 x 5</option>
+                    <option value="6x6">6 x 6</option>
+                </select>
+                <label for="gametype">Kies het speltype: </label>
+                <div class="tooltip">
+                    <label class="radiocontainer">Uniek
+                        <input type="radio" name="gametype" value="uniek">
+                        <span class="checkmark"></span>
+                    </label>
+                    <span class="tooltiptext">Combineren van twee unieke afbeeldingen die een
+                        link hebben.
+                    </span>
+                </div>
+                <div class="tooltip">
+                    <label class="radiocontainer">Paren
+                        <input type="radio" name="gametype" value="paren" checked="checked">
+                        <span class="checkmark"></span>
+                    </label>
+                    <span class="tooltiptext">Combineren van twee identieke afbeeldingen.
+                    </span>
+                </div>
+                <div class="tooltip">
+                    <label class="radiocontainer">Tekst en afbeelding
+                        <input type="radio" name="gametype" value="text">
+                        <span class="checkmark"></span>
+                    </label>
+                    <span class="tooltiptext">Combineren van een afbeelding met een woord.
+                    </span>
+                </div>
             </fieldset>
-            <button type="submit">genereer!</button>
+            <input type="submit" id="submit-form" class="hidden" />
         </form>
+        
         <div style="display: flex;margin-right: 2em;">
             <div style="display: flex;flex-grow: 0.25;"></div>
             <div>
                 <h2>Geselecteerde afbeeldingen</h2>
                 <div id="chosenImages">
-                    Geen gekozen afbeeldingen
+                    Er zijn momenteel geen afbeeldingen gekozen.
                 </div>
             </div>
             <div style="display: flex;flex-grow: 0.4;"></div>
             <div>
-                <h2>Afbeeldingen op server</h2>
+                <h2>Afbeeldingen beschikbaar op server</h2>
                 <div id="allImages">
                 </div>
             </div>
@@ -61,19 +96,21 @@
         <p>Image upload</p>
         <form id="formAjax" action="uploadHandling.php" method="POST">
             <input type="file" id="fileAjax" name="fileAjax" multiple/><br /><br />
-            <input type="submit" id="submit" name="submit" value="Upload" />
+            <label for="fileAjax" class="button-1">Kies bestand(en)</label>
+            <input class="button-1" type="submit" id="submit" name="submit" value="Upload" />
         </form>
         <p id="status"></p>
         
         <!--End of Image upload-->
     
         <input type="text" id="pixabay_input" name="pixabay_input" />
-        <button name="search_pixabay" onclick = "zoekPixabay();"> zoek in pixabay </button>
+        <button class="button-1" name="search_pixabay" onclick = "zoekPixabay();"> Zoek op pixabay </button>
 
         <div class="pixabay_widget" id="pixaReslut" data-search=" " data-max-rows="1" data-row-height="180" data-branding="false" data-navpos="top"></div>
-        <button id="memoryRefresh">refresh</button>
-        <button id="memoryShuffle">shuffle</button>
-        <button id="memoryReveal">toon kaarten</button>
+        <button class="button-1" id="memoryRefresh">Refresh</button>
+        <button class="button-1" id="memoryShuffle">Shuffle</button>
+        <button class="button-1" id="memoryReveal">Toon kaarten</button>
         <div id="memoryPreview"></div>
+        <label for="submit-form" class="button-1">Genereer!</label>
     </body>  
 </html>

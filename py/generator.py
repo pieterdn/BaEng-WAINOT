@@ -38,8 +38,14 @@ file.write("""
 """)
 
 fs = cgi.FieldStorage()
-width = int(fs.getvalue("width"))
-height = int(fs.getvalue("height"))
+dimensions = str(fs.getvalue("dimensions"))
+dimvalues = dimensions.split('x')
+
+width = int(dimvalues[0])
+height = int(dimvalues[1])
+
+#width = int(fs.getvalue("width"))
+#height = int(fs.getvalue("height"))
 
 
 #width = 5

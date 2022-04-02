@@ -1,3 +1,7 @@
+/* ========================================================================= */
+/*                                  GAME                                     */
+/* ========================================================================= */
+
 /*
  * COLORS
  * ------
@@ -7,11 +11,18 @@
  * - #febd65 (Oranje)
  * - #bbbbbb (Grijs)
  */
-#table{
+
+body{
+    font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#table {
     border-spacing: 20px;
 }
 
-.card{
+.card {
     height: 150px;
     width: 200px;
     text-align: center;
@@ -22,22 +33,22 @@
     background-color: #dcecec;
 }
 
-.card.focus{
-    border-color: #fea62c;
+.card.focus {
+    border-color: #fea62c ;
 }
 
-.card:focus-visible{
+.card:focus-visible {
     outline-width: 0px;
 }
 
 
-.card:not(.shown):not(.correct) .img{
+.card:not(.shown):not(.correct) .img {
     opacity: 0;
     pointer-events: none;
     transition: opacity 344ms step-end; /*Voor ease-out 0.344*transition_delay*/
 }
 
-.card.shown{
+.card.shown {
     transform: rotateY(0deg);
     transition: transform 1000ms ease-out;
     border-color: #006666;
@@ -50,12 +61,12 @@
     transition: transform 1000ms ease-out, border-color 344ms step-end, opacity 344ms step-end;
 }
 
-.card.shown .img{
+.card.shown .img {
     opacity: 1;
     transition: opacity 344ms step-end; /*Voor ease-out 0.344*transition_delay*/
 }
 
-p.img{
+p.img {
     position: relative;
     top: 50%;
     margin:0px;
@@ -63,7 +74,7 @@ p.img{
     transform: translate(0px, -1em);
 }
 
-.img{
+.img {
     height: 150px;
     /*width: 200px; moet nog wat aan gewerkt worden*/
 }
