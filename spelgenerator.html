@@ -29,13 +29,9 @@
     <body>
         <!-- pixabay API key veranderen -->
         
-
+        <h1>Memory generator</h1>
         <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" >
             <fieldset>
-                <!-- <label for="width">Breedte</label>
-                <input type="number" name="width" value="2"/>
-                <label for="height">Hoogte</label>
-                <input type="number" name="height" value="3"/> -->
                 <label for="dimensions">Kies de grootte (breedte x hoogte): </label>
                 <select name="dimensions" id="dimensions">
                     <option value="2x2">2 x 2</option>
@@ -74,9 +70,9 @@
                     </span>
                 </div>
             </fieldset>
-
-            <button class="button-1" type="submit">Genereer!</button>
+            <input type="submit" id="submit-form" class="hidden" />
         </form>
+        
         <div style="display: flex;margin-right: 2em;">
             <div style="display: flex;flex-grow: 0.25;"></div>
             <div>
@@ -115,5 +111,6 @@
         <button class="button-1" id="memoryShuffle">Shuffle</button>
         <button class="button-1" id="memoryReveal">Toon kaarten</button>
         <div id="memoryPreview"></div>
+        <label for="submit-form" class="button-1">Genereer!</label>
     </body>  
 </html>
