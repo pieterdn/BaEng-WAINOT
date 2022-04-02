@@ -72,28 +72,28 @@ function createServerImgTable(){
 
 function nextServerImages(event){
     let max = serverImages.length/(maxServerTableHeight * maxServerTableWidth);
-    console.log(max);
-    if(selectedTable + 1 > max)
+    // console.log(max);
+    if(selectedServerTable + 1 > max)
         return;
-    if(selectedTable == 0)
+    if(selectedServerTable == 0)
         document.getElementById("prevServerImg").classList.remove("last");
-    loadServerImagesFromIndex(++selectedTable);
-    if(selectedTable + 1 > max)
+    loadServerImagesFromIndex(++selectedServerTable);
+    if(selectedServerTable + 1 > max)
         document.getElementById("nextServerImg").classList.add("last");
 }
 
 function previousServerImages(event){
     
-    if(selectedTable == 0)
+    if(selectedServerTable == 0)
         return;
 
     let max = serverImages.length/(maxServerTableHeight * maxServerTableWidth);
-    if(selectedTable + 1 > max)
+    if(selectedServerTable + 1 > max)
         document.getElementById("nextServerImg").classList.remove("last");
 
-    loadServerImagesFromIndex(--selectedTable);
-    console.log(selectedTable);
-    if(selectedTable == 0)
+    loadServerImagesFromIndex(--selectedServerTable);
+    // console.log(selectedServerTable);
+    if(selectedServerTable == 0)
         document.getElementById("prevServerImg").classList.add("last");
 }
 
@@ -102,10 +102,10 @@ function loadServerImagesFromIndex(start){
     let end = start + maxServerTableHeight * maxServerTableWidth;
 
     let servtable = document.getElementById("allImages");
-    console.log(servtable);
+    // console.log(servtable);
     let tds = servtable.getElementsByTagName("td")
-    console.log(start);
-    console.log(end);
+    // console.log(start);
+    // console.log(end);
     for(let i = start; i < end; i++){
         if(i < serverImages.length){
             if((i - start) < maxServerTableHeight)
