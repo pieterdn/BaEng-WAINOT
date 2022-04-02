@@ -103,7 +103,8 @@ function changeBoard(event){
         table.appendChild(tr);
         for(let j = 0; j < width; j++){
             let num = j+width*i;
-            tableArray[num] = createTextCard(i, j, ((num - j%2)/2).toString());
+
+            tableArray[num] = createTextCard(i, j, (Math.floor((num - j%2)/2)).toString());
         }
     }
     tableArray.length = width*height;
