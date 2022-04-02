@@ -14,25 +14,32 @@
 
 
 //toevoeging voor api
-function getAPIimage(id,key){
-    console.log("get api image"+id);
-    httpObject = getHTTPObject();
-    url = 'https://pixabay.com/api/key='+key+'&id='+id;
-    httpObject.open("GET",url);
-    httpObject.send(null);
-    httpObject.onreadystatechange = HttpResponse;
+function getAPIimage(id,url){
+    
+    console.log("get image");
+    fetch(url)
+        .then(resp => resp.blob())
+        .then(blobobject => {
+            const blob = window.URL.createObjectURL(blobobject);
+            const anchor = document.createElement('a');
+            anchor.style.display = 'none';
+            anchor.href = blob;
+            anchor.download = id+".png";
+            document.body.appendChild(anchor);
+            anchor.click();
+            window.URL.revokeObjectURL(blob);
+            // Set up the request
+            var xhr = new XMLHttpRequest();
+            // Open the connection
+            xhr.open('POST', '/uploadHandling.php', true);
+            xhr.send(blob);
+        })
+        .catch(() => console.log('An error in downloadin gthe file sorry'));
+
+    
+
 }
 
-function HttpResponse(){
-    if(httpObject.readyState == 4){
-        console.log(httpObject.responseText);
-    }
-}
-
-function getHTTPObject(){
-    return new XMLHttpRequest();
-}
-var httpObject = null;
 
 
 (function(){
@@ -129,7 +136,8 @@ var httpObject = null;
             for (var i=0,hits=data.hits;i<hits.length;i++) {
                 var w = hits[i].previewWidth, h = hits[i].previewHeight, src = hits[i].previewURL;
                 if (rh > h-10) w = w*(180/(h+1)), h = 180, src = src.replace('_150', '__180');
-                html += '<div class="item" data-w="'+w+'" data-h="'+h+'"><a title="'+escapeHTML(toTitleCase(hits[i].tags))+'"onClick="getAPIimage('+hits[i].id+",'"+o.key+"')"+'"'+' target="'+target+'"><img src="https://pixabay.com/static/img/blank.gif" data-src="'+src+'"></a></div>';  // was : href = hits[i].pageURL
+                html += '<div class="item" data-w="'+w+'" data-h="'+h+'"><a title="'+escapeHTML(toTitleCase(hits[i].tags))+'" onClick="getAPIimage('+hits[i].id+",'"+src+"'"+")"+ '" target="'+target+'"><img src="https://pixabay.com/static/img/blank.gif" data-src="'+src+'"></a></div>';  // was : href = hits[i].pageURL
+            //
             }
             if (navpos == 'bottom') html += nav;
 

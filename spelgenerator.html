@@ -4,7 +4,7 @@
     <title> spelgenerator </title>
     <link rel="stylesheet" href="./css/opmaak.css">
     <script src="./js/previewscript.js"></script>
-    
+    <script src="./js/pixabay-widget.js"></script>
     <script src="./js/script.js"></script>
 </head>
     <body>
@@ -41,16 +41,6 @@
             <button type="submit">genereer!</button>
         </form>
 
-        <!--Image upload -->
-        <p>Image upload</p>
-        <form id="formAjax" action="uploadHandling.php" method="POST">
-            <input type="file" id="fileAjax" name="fileAjax" multiple/><br /><br />
-            <input type="submit" id="submit" name="submit" value="Upload" />
-        </form>
-        <p id="status"></p>
-        <script type="text/javascript" src="./js/imageUpload.js"></script>
-        <!--End of Image upload-->
-    
         <input type="text" id="pixabay_input" name="pixabay_input" />
         <button name="search_pixabay" onclick="zoekPixabay()"> zoek in pixabay </button>
 
@@ -65,6 +55,16 @@
             }
             
         </script>
+
+        <!--Image upload -->
+        <p>Image upload</p>
+        <form id="formAjax" action="uploadHandling.php" method="POST">
+            <input type="file" id="fileAjax" name="fileAjax" multiple/><br /><br />
+            <input type="submit" id="submit" name="submit" value="Upload" />
+        </form>
+        <p id="status"></p>
+        <script type="text/javascript" src="./js/imageUpload.js"></script>
+        <!--End of Image upload-->
 
     </body>
     <button id="memoryRefresh">refresh</button>
