@@ -47,9 +47,9 @@ function addFileToSelectedTable(file){
     }
     else{
         selectedImages.push(file);
-        serverImages.push(file);
-        serverImages.sort();
-        loadServerImagesFromIndex(selectedServerTable);
+        //serverImages.push(file);
+        //serverImages.sort();
+        //loadServerImagesFromIndex(selectedServerTable);
     }
 
     let begin = document.getElementById("chosenImages");

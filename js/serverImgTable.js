@@ -223,7 +223,7 @@ function loadServerImagesFromIndex(page, direction){
         start = page*(maxServerTableHeight * maxServerTableWidth);
         end = start + (maxServerTableHeight * maxServerTableWidth) -1;
     }
-    console.log(paststart, pastend, start, end);
+    //console.log(paststart, pastend, start, end);
     
     let table = document.getElementById("serverImgTable");
 
@@ -255,6 +255,12 @@ function loadServerImagesFromIndex(page, direction){
             }
         });
 
+        for(let l = 0; l < selectedImages.length; l++){
+            if(strcmp(serverImages[i], selectedImages[l]) == 0){
+                check.checked = "true";
+            }
+                
+        }
 
         //console.log(i-start, i);
         let k = (i-start);
