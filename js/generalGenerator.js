@@ -32,6 +32,9 @@ function addToFileListFromUpload(event){
  */
 function addFileToSelectedTable(file){
     selectedImages.push(file);
+    serverImages.push(file);
+    serverImages.sort();
+    loadServerImagesFromIndex(selectedServerTable);
     let begin = document.getElementById("chosenImages");
 
     //If the first element is a textNode remove it and append the selected files table
