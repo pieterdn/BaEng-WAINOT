@@ -200,7 +200,7 @@ select{
     left: 0;
     height: 20px;
     width: 20px;
-    background-color: rgb(212, 209, 209);
+    background-color: rgb(233, 230, 230);
     border-radius: 50%;
 }
   
@@ -249,6 +249,7 @@ select{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    width: auto;
 }
   
 /* Hide the browser's default checkbox */
@@ -257,7 +258,7 @@ select{
     opacity: 0;
     cursor: pointer;
     height: 0;
-    width: 0;
+    width: 50px;
 }
   
 /* Create a custom checkbox */
