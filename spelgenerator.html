@@ -32,10 +32,47 @@
 
         <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" >
             <fieldset>
-                <label for="width">Breedte</label>
+                <!-- <label for="width">Breedte</label>
                 <input type="number" name="width" value="2"/>
                 <label for="height">Hoogte</label>
-                <input type="number" name="height" value="3"/>
+                <input type="number" name="height" value="3"/> -->
+                <label for="dimensions">Kies de grootte (breedte x hoogte): </label>
+                <select name="dimensions" id="dimensions">
+                    <option value="2x2">2 x 2</option>
+                    <option value="3x2">3 x 2</option>
+                    <option value="4x3">4 x 3</option>
+                    <option value="4x4">4 x 4</option>
+                    <option value="5x4">5 x 4</option>
+                    <option value="6x4">6 x 4</option>
+                    <option value="6x5">6 x 5</option>
+                    <option value="6x6">6 x 6</option>
+                </select>
+                <label for="gametype">Kies het speltype: </label>
+                <div class="tooltip">
+                    <label class="radiocontainer">Uniek
+                        <input type="radio" name="gametype" value="uniek">
+                        <span class="checkmark"></span>
+                    </label>
+                    <span class="tooltiptext">Combineren van twee unieke afbeeldingen die een
+                        link hebben.
+                    </span>
+                </div>
+                <div class="tooltip">
+                    <label class="radiocontainer">Paren
+                        <input type="radio" name="gametype" value="paren" checked="checked">
+                        <span class="checkmark"></span>
+                    </label>
+                    <span class="tooltiptext">Combineren van twee identieke afbeeldingen.
+                    </span>
+                </div>
+                <div class="tooltip">
+                    <label class="radiocontainer">Tekst en afbeelding
+                        <input type="radio" name="gametype" value="text">
+                        <span class="checkmark"></span>
+                    </label>
+                    <span class="tooltiptext">Combineren van een afbeelding met een woord.
+                    </span>
+                </div>
             </fieldset>
 
             <button class="button-1" type="submit">Genereer!</button>
@@ -45,12 +82,12 @@
             <div>
                 <h2>Geselecteerde afbeeldingen</h2>
                 <div id="chosenImages">
-                    Geen gekozen afbeeldingen
+                    Er zijn momenteel geen afbeeldingen gekozen.
                 </div>
             </div>
             <div style="display: flex;flex-grow: 0.4;"></div>
             <div>
-                <h2>Afbeeldingen op server</h2>
+                <h2>Afbeeldingen beschikbaar op server</h2>
                 <div id="allImages">
                 </div>
             </div>
