@@ -82,13 +82,17 @@ function createServerImgTable(){
         let td1 = document.createElement("td");
         let td2 = document.createElement("td");
         let tr = document.createElement("tr");
-        let arrowLeft = document.createElement("i");
-        let arrowRight = document.createElement("i");
+        let arrowLeft = document.createElement("div");
+        let arrowRight = document.createElement("div");
+        let spanLeft = document.createElement("span");
+        let spanRight = document.createElement("span");
 
         arrowLeft.classList.add("arrow");
         arrowLeft.classList.add("arrow_last");
         arrowLeft.classList.add("arrow_left");
         arrowLeft.setAttribute("id","prevServerImg");
+        spanLeft.className += "front";
+        spanRight.className += "front";
         td1.addEventListener("click",previousServerImages);
         arrowRight.classList.add("arrow");
         arrowRight.classList.add("arrow_right");
@@ -97,23 +101,47 @@ function createServerImgTable(){
         td1.setAttribute("style","text-align:center;");
         td2.setAttribute("style","text-align:center;");
 
+        arrowLeft.appendChild(spanLeft);
+        arrowRight.appendChild(spanRight);
         td1.appendChild(arrowLeft);
         td2.appendChild(arrowRight);
         tr.appendChild(td1);
         tr.appendChild(td2);
         table.appendChild(tr);
     }
+    console.log(serverImages);
     //Add server images to the table
     for(let i = 0; i < tableAmount; i++){
-        let td = document.createElement("td");            
-        td.appendChild(document.createTextNode(serverImages[i]));
+        
+        let td = document.createElement("td");
+        let check = document.createElement("input");
+        let label = document.createElement("label");
+        let span = document.createElement("span");
+        check.type = "checkbox";
+        span.className += "checkmark";
+        label.className += "checkcontainer";
+        label.appendChild(check);
+        label.appendChild(span);
+        label.appendChild(document.createTextNode(serverImages[i]));
+        td.appendChild(label);
+        check.addEventListener("change",function(){
+            if(this.checked){
+                addFileToSelectedTable(serverImages[i]);
+            }else{
+                removeFileFromSelectedTable(serverImages[i]);
+            }
+        });
         td.addEventListener("click",displayServerImage);
         td.setAttribute("style","padding-right:1em");
         td.classList.add("serverImgEntry");
+        td.id = serverImages[i].concat("x");
         if(i%2 == 0){
+            let k = i/2;
             let tr = document.createElement("tr");
+            console.log(k);
             tr.appendChild(td);
             table.appendChild(tr);
+            tr.id = "rowid".concat(k.toString());
         }else{
             //Start appending in de second column.
             //Arrow navigation takes up 1 row
@@ -137,7 +165,7 @@ function nextServerImages(){
         return;
     if(selectedServerTable == 0)
         document.getElementById("prevServerImg").classList.remove("arrow_last");
-    loadServerImagesFromIndex(++selectedServerTable);
+    loadServerImagesFromIndex(++selectedServerTable,1);
     if(selectedServerTable + 1 > max)
         document.getElementById("nextServerImg").classList.add("arrow_last");
 }
@@ -154,7 +182,7 @@ function previousServerImages(){
     if(selectedServerTable + 1 > max)
         document.getElementById("nextServerImg").classList.remove("arrow_last");
 
-    loadServerImagesFromIndex(--selectedServerTable);
+    loadServerImagesFromIndex(--selectedServerTable,-1);
     if(selectedServerTable == 0)
         document.getElementById("prevServerImg").classList.add("arrow_last");
 }
@@ -163,22 +191,88 @@ function previousServerImages(){
  * Changes the innerText of tds in the table to the specified 'page'
  * @param {number} start must be a positive integer smaller than number of server images divided by max height * max width 
  */
-function loadServerImagesFromIndex(start){
+function loadServerImagesFromIndex(page, direction){
     
-    start = start*(maxServerTableHeight * maxServerTableWidth);
-    let end = start + maxServerTableHeight * maxServerTableWidth;
-    let table = document.getElementById("serverImgTable");
-    for(let i = start; i < end; i++){
-        let td = table.children[Math.floor((i-start)/2) + 1].children[i%2];
-        if(i < serverImages.length){
-            if(td.innerText == "")
-                td.classList.add("serverImgEntry");
+    let paststart;
+    let pastend;
+    let start;
+    let end;
 
-            td.innerText = serverImages[i];
-        }else{
-            td.innerText = "";
-            td.classList.remove("serverImgEntry");
+    if(direction == 1) {
+        paststart = (page-1)*(maxServerTableHeight * maxServerTableWidth);
+        pastend = (page*(maxServerTableHeight * maxServerTableWidth)) - 1;
+        start = page*(maxServerTableHeight * maxServerTableWidth);
+        let maxend = start + (maxServerTableHeight * maxServerTableWidth);
+        if(serverImages.length > maxend){
+            end = maxend-1;
+            
         }
+        else{
+            end = serverImages.length-1;
+        }
+    }
+    else if (direction == -1) {
+        paststart = (page+1)*(maxServerTableHeight * maxServerTableWidth);
+        let maxend = paststart + (maxServerTableHeight *maxServerTableWidth);
+        if(serverImages.length > maxend){
+            pastend = maxend -1;
+        }
+        else{
+            pastend = serverImages.length -1;
+        }
+        start = page*(maxServerTableHeight * maxServerTableWidth);
+        end = start + (maxServerTableHeight * maxServerTableWidth) -1;
+    }
+    console.log(paststart, pastend, start, end);
+    
+    let table = document.getElementById("serverImgTable");
+
+    for (let i = paststart; i <= pastend; i++) {
+        let toremove = document.getElementById(serverImages[i].concat("x"));
+        toremove.parentNode.removeChild(toremove);
+      }
+
+    for(let i = start; i <= end; i++){
+ 
+        let td = document.createElement("td");
+
+        let check = document.createElement("input");
+        let label = document.createElement("label");
+        let span = document.createElement("span");
+        check.type = "checkbox";
+        span.className += "checkmark";
+        label.className += "checkcontainer";
+        label.appendChild(check);
+        label.appendChild(span);
+        label.appendChild(document.createTextNode(serverImages[i]));
+        td.appendChild(label);
+        td.id = serverImages[i].concat("x");
+        check.addEventListener("change",function(){
+            if(this.checked){
+                addFileToSelectedTable(serverImages[i]);
+            }else{
+                removeFileFromSelectedTable(serverImages[i]);
+            }
+        });
+
+
+        //console.log(i-start, i);
+        let k = (i-start);
+        let j
+        if(k<2)
+            j = 0;
+        else if(k<4)
+            j = 1;
+        else if(k<6)
+            j = 2;
+        else if(k<8)
+            j = 3;
+        else
+            j = 4;
+
+        //console.log(j);
+        let row = document.getElementById("rowid".concat(j.toString()));
+        row.appendChild(td);
 
         //Check if the selected images is on the page if it is give it the class selectedServerEntry
         //also check if there are elements with the class selectedServerEntry that are not the selected element
@@ -203,6 +297,9 @@ function displayServerImage(event){
         selectedServerImage.element.classList.remove("selectedServerEntry");
     }else{
         let servImg = document.getElementById("serverImage");
+
+        /* Old button 
+
         let button = document.createElement("button");
         button.className += "button-1";
         button.appendChild(document.createTextNode("Selecteer afbeelding"));
@@ -210,6 +307,8 @@ function displayServerImage(event){
             addFileToSelectedTable(selectedServerImage.text);
         });
         servImg.parentElement.appendChild(button);
+
+        */
     }
     event.target.classList.add("selectedServerEntry");
     selectedServerImage.element = event.target;
