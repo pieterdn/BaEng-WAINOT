@@ -131,6 +131,7 @@ function displayServerImage(event){
     }else{
         let servImg = document.getElementById("serverImage");
         let button = document.createElement("button");
+        button.className += "button-1";
         button.appendChild(document.createTextNode("Selecteer afbeelding"));
         button.addEventListener("click",function(){
             addFileToSelectedTable(selectedServerImage.textContent);
