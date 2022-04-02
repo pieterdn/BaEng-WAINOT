@@ -12,6 +12,10 @@ window.addEventListener("load",function(){
     document.getElementById('formAjax').addEventListener("submit",addToFileListFromUpload);
 });
 
+function strcmp ( str1, str2 ) {
+    return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
+}
+
 /**
  * Adds uploaded files to the selected list
  * @param {Event} event submit event from a form
@@ -31,7 +35,20 @@ function addToFileListFromUpload(event){
  * @param {String} file string of file to be added to list
  */
 function addFileToSelectedTable(file){
-    selectedImages.push(file);
+    let flag = false;
+    for(let i = 0; i < selectedImages.length; i++){
+        if(strcmp(selectedImages[i],file) == 0){
+            flag = true;
+        }
+    }
+    if(flag == true){
+        return;
+    }
+    else{
+        selectedImages.push(file);
+    }
+
+    
     let begin = document.getElementById("chosenImages");
 
     //If the first element is a textNode remove it and append the selected files table
@@ -44,7 +61,26 @@ function addFileToSelectedTable(file){
     let td = document.createElement("td");
     tr.appendChild(td);
     td.appendChild(document.createTextNode(file));
+    tr.id = file;
     table.appendChild(tr);
+}
+
+function removeFileFromSelectedTable(file){
+    let begin = document.getElementById("chosenImages");
+    for(let i = 0; i < selectedImages.length; i++){
+        if(selectedImages[i] == file){
+            selectedImages.splice(i,1);
+        }
+    }
+
+    let todelete = document.getElementById(file);
+    let parent = todelete.parentNode;
+    parent.removeChild(todelete);
+
+    if(!parent.hasChildNodes()){
+        parent.parentNode.removeChild(parent);
+        begin.appendChild(document.createTextNode("Er zijn momenteel geen afbeeldingen gekozen."))
+    }
 }
 
 /**
