@@ -77,7 +77,7 @@ p.img {
 /*                                GENERATOR                                  */
 /* ========================================================================= */
 
-/* CSS */
+/* Button-1 */
 .button-1 {
     appearance: none;
     background-color: #006666;
@@ -135,6 +135,7 @@ p.img {
     width: 0;
 }
 
+/* Input boxes */
 input[type="text"] {
     padding: 6px 16px; 
     line-height: 20px;
