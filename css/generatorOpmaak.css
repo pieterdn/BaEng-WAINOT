@@ -33,3 +33,11 @@ transform: rotate(45deg);
     width: 300px;
     overflow-wrap: break-word;
 }
+
+.serverImgEntry:hover{
+    cursor: pointer;
+}
+
+.selectedServerEntry{
+    font-weight: bold;
+}
