@@ -3,14 +3,18 @@ var widthCurrent = 0;
 var heightCurrent = 0;
 
 window.addEventListener("load",function(){
-    document.spelgenerator.width.addEventListener("change",changeBoard);
-    document.spelgenerator.height.addEventListener("change",changeBoard);
+    // document.spelgenerator.width.addEventListener("change",changeBoard);
+    // document.spelgenerator.height.addEventListener("change",changeBoard);
+    document.spelgenerator.dimensions.addEventListener("change",changeBoard);
     document.getElementById("memoryRefresh").addEventListener("click",boardRefresh);
     document.getElementById("memoryShuffle").addEventListener("click",boardReshuffle);
     document.getElementById("memoryReveal").addEventListener("click",revealAllCards);
 
-    let width = document.spelgenerator.width.value;
-    let height = document.spelgenerator.height.value;
+    let dimensions = document.spelgenerator.dimensions.value;
+    const dimvalues = dimensions.split("x");
+
+    let width = dimvalues[0];
+    let height = dimvalues[1];
     let memprev = document.getElementById("memoryPreview");
 
     if(width*height%2 == 1){
@@ -74,8 +78,11 @@ function createTextCard(x, y, name){
 }
 
 function changeBoard(event){
-    let width = document.spelgenerator.width.value;
-    let height = document.spelgenerator.height.value;
+    let dimensions = document.spelgenerator.dimensions.value;
+    const dimvalues = dimensions.split("x");
+
+    let width = dimvalues[0];
+    let height = dimvalues[1];
 
     if(width*height%2 == 1){
         return;
