@@ -1,32 +1,25 @@
-.arrow:not(.last) {
+.arrow:not(.arrow_last) {
     border: solid black;
     border-width: 0 3px 3px 0;
     display: inline-block;
-    padding: 5px;
+    padding: 7px;
 }
 
-.arrow.last {
+.arrow.arrow_last {
     border: solid grey;
     border-width: 0 3px 3px 0;
     display: inline-block;
-    padding: 5px;
+    padding: 7px;
 }
 
-.right {
+.arrow_right {
 transform: rotate(-45deg);
 }
 
-.left {
+.arrow_left {
 transform: rotate(135deg);
 }
 
-.up {
-transform: rotate(-135deg);
-}
-
-.down {
-transform: rotate(45deg);
-}
 
 #serverImgTable{
     table-layout: fixed;
