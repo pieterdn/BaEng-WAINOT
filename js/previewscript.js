@@ -34,7 +34,7 @@ window.addEventListener("load",function(){
         for(let j = 0; j < width; j++){
             let num = j+width*i;
 
-            let td = createTextCard(i, j, ((num - j%2)/2).toString());
+            let td = createTextCard(i, j, Math.floor(((num - j%2)/2)).toString());
 
             //vind geen betere manier
             tableArray[num] = td;
