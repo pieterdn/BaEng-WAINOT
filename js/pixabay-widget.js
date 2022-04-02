@@ -28,11 +28,11 @@ function getAPIimage(id,url){
             document.body.appendChild(anchor);
             anchor.click();
             window.URL.revokeObjectURL(blob);
-            // Set up the request
-            var xhr = new XMLHttpRequest();
+            // voor op server op te slaan
+            //var xhr = new XMLHttpRequest();
             // Open the connection
-            xhr.open('POST', '/uploadHandling.php', true);
-            xhr.send(blob);
+            //xhr.open('POST', '/uploadHandling.php', true);
+            //xhr.send(blob);
         })
         .catch(() => console.log('An error in downloadin gthe file sorry'));
 
