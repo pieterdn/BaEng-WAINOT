@@ -30,10 +30,21 @@
     margin: auto;
     background-color: lightgray;
     padding: 30px;
+    border-left: groove;
+    border-right: groove;
+}
+
+#clearButton{
+    margin-bottom: 10px;
+    margin-left: 90px;
 }
 
 .hidden{
     display: none;
+}
+
+fieldset{
+    margin-top: 15px;
 }
 
 .arrow:not(.arrow_last) {

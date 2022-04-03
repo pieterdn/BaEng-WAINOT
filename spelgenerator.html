@@ -73,7 +73,8 @@
             </fieldset>
             <input type="submit" id="submit-form" class="hidden" />
         </form>
-        
+        <fieldset>
+            <legend>Kies afbeeldingen</legend>
         <div style="display: flex;margin-right: 2em;">
             <div style="display: flex;flex-grow: 0.25;"></div>
             <div>
@@ -93,24 +94,28 @@
             </div>
         </div>
 
-        <!--Image upload -->
-        <h2>Image upload</h2>
-        <form id="formAjax" action="uploadHandling.php" method="POST">
-            <input type="file" id="fileAjax" name="fileAjax" multiple/>
-            <label for="fileAjax" class="button-1">Kies bestand(en)</label>
-            <input class="button-1" type="submit" id="submit" name="submit" value="Upload" />
-        </form>
-        <!--End of Image upload-->
-    
-        <h2>Pixabay</h2>
-        <input type="text" id="pixabay_input" name="pixabay_input" />
-        <button class="button-1" name="search_pixabay" onclick = "zoekPixabay();"> Zoek op pixabay </button>
+            <!--Image upload -->
+            <h2>Image upload</h2>
+            <form id="formAjax" action="uploadHandling.php" method="POST">
+                <input type="file" id="fileAjax" name="fileAjax" multiple/>
+                <label for="fileAjax" class="button-1">Kies bestand(en)</label>
+                <input class="button-1" type="submit" id="submit" name="submit" value="Upload" />
+            </form>
+            <!--End of Image upload-->
+        
+            <h2>Pixabay</h2>
+            <input type="text" id="pixabay_input" name="pixabay_input" />
+            <button class="button-1" name="search_pixabay" onclick = "zoekPixabay();"> Zoek op pixabay </button>
 
-        <div class="pixabay_widget" id="pixaReslut" data-search=" " data-max-rows="1" data-row-height="180" data-branding="false" data-navpos="top"></div>
+            <div class="pixabay_widget" id="pixaReslut" data-search=" " data-max-rows="1" data-row-height="180" data-branding="false" data-navpos="top"></div>
+        </fieldset>
+        <fieldset>
+            <legend>Preview</legend>
         <button class="button-1" id="memoryRefresh">Refresh</button>
         <button class="button-1" id="memoryShuffle">Shuffle</button>
         <button class="button-1" id="memoryReveal">Toon kaarten</button>
         <div id="memoryPreview"></div>
+        </fieldset>
         <label for="submit-form" class="button-1">Genereer!</label>
         </div>
     </body>  
