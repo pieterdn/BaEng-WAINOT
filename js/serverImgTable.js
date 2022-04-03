@@ -80,9 +80,6 @@ function createServerImgTable(){
         createArrows(table);
     }
 
-    //console.log(tableAmount);
-
-    //console.log(serverImages);
     //Add server images to the table
     for(let i = 0; i < tableAmount; i++){
         
@@ -113,29 +110,24 @@ function createServerImgTable(){
         td.setAttribute("style","padding-right:1em");
         td.classList.add("serverImgEntry");
         td.id = serverImages[i] + ("x");
-        //console.log(td);
+
         if(i%2 == 0){
             let k = i/2;
             if(arrows == true){k += 1;}
             let tr = table.insertRow(k);
 
-            //console.log(tr);
-            //console.log(k);
             tr.appendChild(td);
             //table.appendChild(tr);
             tr.id = "rowid" + (k.toString());
         }else{
             //Start appending in de second column.
             //Arrow navigation takes up 1 row
-            let appendRow = Math.floor(i/2);
-            //let appendRow = (Math.floor(i/2) + (arrows ? 1:0));
-            if(arrows == true){
-                appendRow += 1;
-            }
-            //console.log(appendRow);
-            //console.log(table.children[0].children[appendRow]);
+            //let appendRow = Math.floor(i/2);
+            let appendRow = (Math.floor(i/2) + (arrows ? 1:0));
+            //if(arrows == true){
+            //    appendRow += 1;
+            //}
             let toRow = table.children[0].children[appendRow];
-            //console.log(toRow);
             toRow.appendChild(td);
         }
         
@@ -144,8 +136,6 @@ function createServerImgTable(){
 }
 
 function createArrows(table){
-    //let table = document.getElementById("serverImgTable");
-    //console.log("CreateArrows() function called.");
 
     let td1 = document.createElement("td");
     let td2 = document.createElement("td");
@@ -176,8 +166,6 @@ function createArrows(table){
     td2.appendChild(arrowRight);
     tr.appendChild(td1);
     tr.appendChild(td2);
-    //console.log(tr);
-    //table.appendChild(tr);
 }
 
 /**
@@ -261,14 +249,12 @@ function loadServerImagesFromIndex(page, direction, previousLength){
         }
         paststart = start;
     }
-    console.log(paststart, pastend, start, end);
+    //console.log(paststart, pastend, start, end);
     
     let table = document.getElementById("serverImgTable");
 
     for (let i = paststart; i <= pastend; i++) {
         let toremove = document.getElementById(serverImages[i] + ("x"));
-        console.log("To remove " + toremove);
-        console.log("Element nr: " + i);
         toremove.parentNode.removeChild(toremove);
       }
 
@@ -307,7 +293,6 @@ function loadServerImagesFromIndex(page, direction, previousLength){
                 
         }
 
-        //console.log(i-start, i);
         let k = (i-start);
         let j
         if(k<2)
@@ -321,15 +306,11 @@ function loadServerImagesFromIndex(page, direction, previousLength){
         else
             j = 5;
 
-        //console.log(j);
-
         let row = document.getElementById("rowid" + (j.toString()));
         if (row != null){
-            //console.log(row);
             row.appendChild(td);
         }else{
             let newrow = document.createElement("tr");
-            //console.log(k);
             newrow.appendChild(td);
             table.appendChild(newrow);
             newrow.id = "rowid" + (j.toString());
@@ -345,7 +326,6 @@ function loadServerImagesFromIndex(page, direction, previousLength){
         }
     }
     tableAmount = (end - start) + 1;
-    console.log(tableAmount);
 }
 
 /**
@@ -388,7 +368,6 @@ function checkFileOnServer(filename){
 
     for (var j = 0; j < serverImages.length; j++){
         if((strcmp(serverImages[j],filename.toString())) == 0){
-            console.log("Current i = " + i + " j = " + j + " len = " + serverImages.length);
             return true;
         }
     }
@@ -397,7 +376,6 @@ function checkFileOnServer(filename){
 
 function addServerImage(files){
     let amountAdded = files.length;
-    console.log("Amount trying to be added" + amountAdded);
     previousLength = serverImages.length;
 
     for (var i = 0; i < amountAdded; i++){
@@ -410,21 +388,18 @@ function addServerImage(files){
         return;
     }
 
-    console.log(tableAmount);
     if(tableAmount == 10){
         return;
     }
     if((tableAmount) < 10){
         loadServerImagesFromIndex(selectedServerTable,0,previousLength);
         if(tableAmount == 10){
-            console.log("Removing now...")
             document.getElementById("nextServerImg").classList.remove("arrow_last");
         }
     }else{
         if(arrows == true){
             loadServerImagesFromIndex(selectedServerTable,0,previousLength);
             if(tableAmount == 10){
-                console.log("Removing now...")
                 document.getElementById("nextServerImg").classList.remove("arrow_last");
             }
         }
