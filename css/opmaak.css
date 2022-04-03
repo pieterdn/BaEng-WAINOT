@@ -76,5 +76,6 @@ p.img {
 
 .img {
     height: 150px;
+    border-radius: 10%;
     /*width: 200px; moet nog wat aan gewerkt worden*/
 }
