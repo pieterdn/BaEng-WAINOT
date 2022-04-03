@@ -39,6 +39,10 @@ body{
     margin-left: 90px;
 }
 
+#allImages{
+    text-align: -webkit-center;
+}
+
 .hidden{
     display: none;
 }

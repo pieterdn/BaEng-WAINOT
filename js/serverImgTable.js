@@ -324,9 +324,9 @@ function displayServerImage(event){
     let maxHeight = "200px"
     img.onload = function(){
         if(img.naturalWidth>img.naturalHeight)
-            img.setAttribute("style","width:" + maxWidth + ";margin:1em;");
+            img.setAttribute("style","width:" + maxWidth + ";margin:3px;");
         else
-            img.setAttribute("style","height:" + maxHeight + ";margin:1em;");
+            img.setAttribute("style","height:" + maxHeight + ";margin:3px;");
         while(!img.complete);
         if(servImg.firstChild != null)
             servImg.removeChild(servImg.firstChild);
