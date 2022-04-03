@@ -61,10 +61,10 @@ Templist =  os.listdir(os.path.abspath("../media"))
 
 imgList = 0
 
-if (fs.getvalue("unique") == "same"): # normal mode => 2 of the same image
+if (fs.getvalue("gametype") == "paren"): # normal mode => 2 of the same image
     imgList = Templist[:math.ceil(height*width/2)] + Templist[:math.ceil(height*width/2)] #elk pretje 2x laten voorkomen
 
-elif(fs.getvalue("unique") == "text"):
+elif(fs.getvalue("gametype") == "text"):
     # check dat er exact zoveel images aanwezig zijn
     # text mode => 1 unique image with 1 text
     imgList = Templist[:math.ceil(height*width/2)]
