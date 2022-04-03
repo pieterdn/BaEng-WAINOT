@@ -6,7 +6,7 @@ window.addEventListener("load",function(){
   myForm.addEventListener("submit",function(event) {
       event.preventDefault();
 
-      statusP.innerHTML = 'Uploading...';
+      //statusP.innerHTML = 'Uploading...';
 
       // Get the files from the form input
       var files = myFile.files;

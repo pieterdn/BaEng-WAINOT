@@ -12,7 +12,7 @@
  * - #bbbbbb (Grijs)
  */
 
- body{
+body{
     font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
     font-size: 14px;
     font-weight: 600;
@@ -154,6 +154,10 @@ transform: rotate(135deg);
     height: 0;
     overflow: hidden;
     width: 0;
+}
+
+#genbutton{
+    margin-top: 15px;
 }
 
 /* Input boxes */
