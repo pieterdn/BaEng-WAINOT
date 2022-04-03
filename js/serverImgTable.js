@@ -173,13 +173,15 @@ function createArrows(table){
  */
 function nextServerImages(){
     let max = serverImages.length/(maxServerTableHeight * maxServerTableWidth);
+    console.log(max);
+    console.log(selectedServerTable);
 
-    if(selectedServerTable + 1 > max)
+    if(selectedServerTable + 1 >= max)
         return;
     if(selectedServerTable == 0)
         document.getElementById("prevServerImg").classList.remove("arrow_last");
     loadServerImagesFromIndex(++selectedServerTable,1);
-    if(selectedServerTable + 1 > max)
+    if(selectedServerTable + 1 >= max)
         document.getElementById("nextServerImg").classList.add("arrow_last");
 }
 
@@ -192,7 +194,7 @@ function previousServerImages(){
         return;
 
     let max = serverImages.length/(maxServerTableHeight * maxServerTableWidth);
-    if(selectedServerTable + 1 > max)
+    if(selectedServerTable + 1 >= max)
         document.getElementById("nextServerImg").classList.remove("arrow_last");
 
     loadServerImagesFromIndex(--selectedServerTable,-1);
@@ -394,6 +396,12 @@ function addServerImage(files){
     if((tableAmount) < 10){
         loadServerImagesFromIndex(selectedServerTable,0,previousLength);
         if(tableAmount == 10){
+            let max = serverImages.length/(maxServerTableHeight * maxServerTableWidth);
+            console.log(max);
+            console.log(selectedServerTable);
+
+            if(selectedServerTable + 1 >= max)
+                return;
             document.getElementById("nextServerImg").classList.remove("arrow_last");
         }
     }else{
