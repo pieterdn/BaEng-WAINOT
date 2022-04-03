@@ -25,7 +25,7 @@ window.addEventListener("load",function(){
     heightCurrent = height;
 
     let table = document.createElement("table");
-    table.className += "previewtable";
+    table.id = "previewtable";
     memprev.appendChild(table);
 
     for(let i = 0; i < height; i++){
@@ -34,7 +34,7 @@ window.addEventListener("load",function(){
         for(let j = 0; j < width; j++){
             let num = j+width*i;
 
-            let td = createTextCard(i, j, Math.floor(((num - j%2)/2)).toString());
+            let td = createTextCard(i, j, Math.floor(((num - j%2)/2)).toString(),width);
 
             //vind geen betere manier
             tableArray[num] = td;
@@ -51,13 +51,13 @@ window.addEventListener("load",function(){
     }
 });
 
-function createTextCard(x, y, name){
+function createTextCard(x, y, name,width){
     let td = document.createElement("td");
     let div = document.createElement("div");
     let p = document.createElement("p");
     
     p.classList.add("img");
-
+    console.log(width);
 
     p.appendChild(document.createTextNode(name));
 
@@ -65,11 +65,21 @@ function createTextCard(x, y, name){
     div.setAttribute("id", x.toString() + "_" + y.toString());
     div.classList.add("card");
     
-    div.classList.add(name.toString());
-    
-    div.setAttribute("tabindex","0");
-    
+    if(width < 5){
+        div.style.width = "200px";
+        div.style.height = "150px";
+    }else{
+        let cardwidth = (1000-((parseInt(width)+3) * 20))/parseInt(width);
+        let cardheight = cardwidth*0.75;
+        console.log(cardwidth);
+        let widthstring = cardwidth.toString();
+        let heightstring = cardheight.toString();
+        div.style.width = widthstring.concat("px");
+        div.style.height = heightstring.concat("px");
+    }
 
+    div.classList.add(name.toString());
+    div.setAttribute("tabindex","0");
     td.classList.add("cardPosition");
 
     td.appendChild(div);
@@ -104,7 +114,7 @@ function changeBoard(event){
         for(let j = 0; j < width; j++){
             let num = j+width*i;
 
-            tableArray[num] = createTextCard(i, j, (Math.floor((num - j%2)/2)).toString());
+            tableArray[num] = createTextCard(i, j, (Math.floor((num - j%2)/2)).toString(),width);
         }
     }
     tableArray.length = width*height;
