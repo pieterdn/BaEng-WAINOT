@@ -1,4 +1,3 @@
-
 /* ========================================================================= */
 /*                                GENERATOR                                  */
 /* ========================================================================= */
@@ -18,10 +17,12 @@
     font-size: 14px;
     font-weight: 600;
     margin: 0px;
+    background-color: #006666;
 }
 
 #previewtable{
     margin: 0px auto;
+    border-spacing: 20px;
 }
 
 #wrapper{

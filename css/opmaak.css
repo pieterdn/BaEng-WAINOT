@@ -22,10 +22,6 @@ body{
     border-spacing: 20px;
 }
 
-#previewtable{
-    margin: 0px auto;
-}
-
 .card {
     height: 150px;
     width: 200px;
