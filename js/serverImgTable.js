@@ -119,7 +119,7 @@ function createServerImgTable(){
         let prevlabel = document.createElement("label")
         let span = document.createElement("span");
         check.type = "checkbox";
-        check.id = serverImages[i].concat("checkbox");
+        check.id = serverImages[i] + ("checkbox");
         check.className += "checkbox";
         span.className += "checkmark";
         label.className += "checkcontainer";
@@ -139,14 +139,14 @@ function createServerImgTable(){
         prevlabel.addEventListener("click",displayServerImage);
         td.setAttribute("style","padding-right:1em");
         td.classList.add("serverImgEntry");
-        td.id = serverImages[i].concat("x");
+        td.id = serverImages[i] + ("x");
         if(i%2 == 0){
             let k = i/2;
             let tr = document.createElement("tr");
             //console.log(k);
             tr.appendChild(td);
             table.appendChild(tr);
-            tr.id = "rowid".concat(k.toString());
+            tr.id = "rowid" + (k.toString());
         }else{
             //Start appending in de second column.
             //Arrow navigation takes up 1 row
@@ -233,7 +233,7 @@ function loadServerImagesFromIndex(page, direction){
     let table = document.getElementById("serverImgTable");
 
     for (let i = paststart; i <= pastend; i++) {
-        let toremove = document.getElementById(serverImages[i].concat("x"));
+        let toremove = document.getElementById(serverImages[i] + ("x"));
         toremove.parentNode.removeChild(toremove);
       }
 
@@ -247,7 +247,7 @@ function loadServerImagesFromIndex(page, direction){
         let span = document.createElement("span");
         check.type = "checkbox";
         check.className += "checkbox";
-        check.id = serverImages[i].concat("checkbox");
+        check.id = serverImages[i] + ("checkbox");
         span.className += "checkmark";
         label.className += "checkcontainer";
         label.appendChild(check);
@@ -256,7 +256,7 @@ function loadServerImagesFromIndex(page, direction){
         prevlabel.className += "checklabel";
         td.appendChild(label);
         td.appendChild(prevlabel);
-        td.id = serverImages[i].concat("x");
+        td.id = serverImages[i] + ("x");
         check.addEventListener("change",function(){
             if(this.checked){
                 addFileToSelectedTable(serverImages[i]);
@@ -287,7 +287,7 @@ function loadServerImagesFromIndex(page, direction){
             j = 4;
 
         //console.log(j);
-        let row = document.getElementById("rowid".concat(j.toString()));
+        let row = document.getElementById("rowid" + (j.toString()));
         row.appendChild(td);
 
         //Check if the selected images is on the page if it is give it the class selectedServerEntry
@@ -335,4 +335,8 @@ function displayServerImage(event){
     }
     img.setAttribute("src","./media/" + event.target.textContent);
     img.className += "zoom";
+}
+
+function addServerImage(files){
+    serverImages.push(files);
 }

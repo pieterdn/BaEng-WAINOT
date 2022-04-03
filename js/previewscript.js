@@ -55,24 +55,18 @@ function createTextCard(x, y, name,width){
     let td = document.createElement("td");
     let div = document.createElement("div");
     let p = document.createElement("p");
-    
     p.classList.add("img");
-    console.log(width);
-
     p.appendChild(document.createTextNode(name));
-
-
     div.setAttribute("id", x.toString() + "_" + y.toString());
     div.classList.add("card");
     
     if(width > 4){
         let cardwidth = (1000-((parseInt(width)+5) * 21))/parseInt(width);
         let cardheight = cardwidth*0.75;
-        console.log(cardwidth);
         let widthstring = cardwidth.toString();
         let heightstring = cardheight.toString();
-        div.style.width = widthstring.concat("px");
-        div.style.height = heightstring.concat("px");
+        div.style.width = widthstring + ("px");
+        div.style.height = heightstring + ("px");
     }
 
     div.classList.add(name.toString());
