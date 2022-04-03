@@ -45,6 +45,14 @@ transform: rotate(-45deg);
 transform: rotate(135deg);
 }
 
+#serverImage{
+    padding-top: 50px;
+    padding-left: 40px;
+}
+
+#serverImage img{
+    border-radius: 10%;
+}
 
 #serverImgTable{
     table-layout: fixed;
@@ -57,7 +65,8 @@ transform: rotate(135deg);
 }
 
 .selectedServerEntry{
-    font-weight: bold;
+    font-style: oblique;
+    color: #ffbd64;
 }
 
 /* Button-1 */
