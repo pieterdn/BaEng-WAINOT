@@ -118,6 +118,8 @@ function createServerImgTable(){
         let label = document.createElement("label");
         let span = document.createElement("span");
         check.type = "checkbox";
+        check.id = serverImages[i].concat("checkbox");
+        check.className += "checkbox";
         span.className += "checkmark";
         label.className += "checkcontainer";
         label.appendChild(check);
@@ -240,6 +242,8 @@ function loadServerImagesFromIndex(page, direction){
         let label = document.createElement("label");
         let span = document.createElement("span");
         check.type = "checkbox";
+        check.className += "checkbox";
+        check.id = serverImages[i].concat("checkbox");
         span.className += "checkmark";
         label.className += "checkcontainer";
         label.appendChild(check);

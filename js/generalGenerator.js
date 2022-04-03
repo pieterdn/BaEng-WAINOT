@@ -57,9 +57,17 @@ function addFileToSelectedTable(file){
     //If the first element is a textNode remove it and append the selected files table
     if(begin.firstChild.nodeType == 3){
         begin.removeChild(begin.firstChild);
-        begin.appendChild(document.createElement("table"));
+        let removeall = document.createElement("button");
+        let table = document.createElement("table");
+        table.id = "chosenImagesTable";
+        removeall.className += "button-1";
+        removeall.innerHTML = "Clear lijst";
+        removeall.id = "clearButton";
+        removeall.addEventListener("click",clearSelectedTable);
+        begin.appendChild(removeall);
+        begin.appendChild(table);
     }
-    let table = begin.firstChild;
+    let table = document.getElementById("chosenImagesTable");
     let tr = document.createElement("tr");
     let td = document.createElement("td");
     tr.appendChild(td);
@@ -82,7 +90,25 @@ function removeFileFromSelectedTable(file){
 
     if(!parent.hasChildNodes()){
         parent.parentNode.removeChild(parent);
+        button = document.getElementById("clearButton");
+        button.parentNode.removeChild(button);
         begin.appendChild(document.createTextNode("Er zijn momenteel geen afbeeldingen gekozen."))
+    }
+}
+
+function clearSelectedTable(){
+    while(selectedImages.length != 0){
+        //console.log(selectedImages, selectedImages[0]);
+        removeFileFromSelectedTable(selectedImages[0]);
+        unselectAllCheckmarks();
+        //console.log(selectedImages[0]);
+    }
+}
+
+function unselectAllCheckmarks(){
+    var checks = document.querySelectorAll('.checkbox');
+    for (var i = 0; i < checks.length; i++){
+        checks[i].checked = false;
     }
 }
 
