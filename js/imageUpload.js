@@ -2,8 +2,11 @@ window.addEventListener("load",function(){
   var myForm = document.getElementById('formAjax');  // Our HTML form's ID (wordt nog ergens anders gebruikt pas op bij aanpassen id)
   var myFile = document.getElementById('fileAjax');  // Our HTML files' ID (dit ook)
   var statusP = document.getElementById('status');
+  var amountNotUploaded = 0;
+  
 
   myForm.addEventListener("submit",function(event) {
+      amountNotUploaded = 0;
       event.preventDefault();
 
       statusP.innerHTML = 'Uploading...';
@@ -27,13 +30,16 @@ window.addEventListener("load",function(){
             statusP.innerHTML = 'Het geselecteerde bestand is geen afbeelding.';
             return;
         }
-        else{
+        
+        if(checkFileOnServer(file.name) == false){
+          // Add the file to the AJAX request
+          formData.append('fileAjax', file, file.name);
           //Add all uploaded files to the selected files list
-            addFileToSelectedTable(files[i].name)
+          addFileToSelectedTable(file.name)
         }
-
-        // Add the file to the AJAX request
-        formData.append('fileAjax', file, file.name);
+        else{
+          amountNotUploaded +=1;
+        }
 
         // Set up the request
         var xhr = new XMLHttpRequest();
@@ -44,7 +50,13 @@ window.addEventListener("load",function(){
         // Set up a handler for when the task for the request is complete
         xhr.onload = function () {
           if (xhr.status == 200) {
-            statusP.innerHTML = amount + ' Bestand(en) geupload!';
+            if(amountNotUploaded == 0){
+              statusP.innerHTML = amount + ' Bestand(en) geupload naar server! ';
+            }
+            else{
+              statusP.innerHTML = (amount-amountNotUploaded) + ' Bestand(en) geupload naar server! '
+                + amountNotUploaded + " Bestand(en) reeds aanwezig op server.";
+            }
             document.getElementById("choosebutton").innerHTML = "Kies bestand(en)";
             addServerImage(files);
           } else {

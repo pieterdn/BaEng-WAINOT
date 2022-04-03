@@ -17,6 +17,8 @@
  */
 var selectedImages = [];
 var selectedServerTable = 0;
+var tableAmount;
+var arrows = false;
 
 /**Helper class for keeping track of selected image */
 class ServerImage{
@@ -69,46 +71,17 @@ function createServerImgTable(){
     let table = document.createElement("table");
     table.setAttribute("id","serverImgTable");
 
+
     //If they are more server images than the max table height times width arrow keys are generated to navigate
-    let tableAmount = serverImages.length;
-    let arrows = false;
+    tableAmount = serverImages.length;
     if(tableAmount > maxServerTableHeight*maxServerTableWidth){
         tableAmount = maxServerTableHeight*maxServerTableWidth;
         arrows = true;
+        createArrows(table);
     }
-    
-    //generate arrow keys
-    if(arrows){
-        let td1 = document.createElement("td");
-        let td2 = document.createElement("td");
-        let tr = document.createElement("tr");
-        let arrowLeft = document.createElement("div");
-        let arrowRight = document.createElement("div");
-        let spanLeft = document.createElement("span");
-        let spanRight = document.createElement("span");
 
-        arrowLeft.classList.add("arrow");
-        arrowLeft.classList.add("arrow_last");
-        arrowLeft.classList.add("arrow_left");
-        arrowLeft.setAttribute("id","prevServerImg");
-        spanLeft.className += "front";
-        spanRight.className += "front";
-        td1.addEventListener("click",previousServerImages);
-        arrowRight.classList.add("arrow");
-        arrowRight.classList.add("arrow_right");
-        arrowRight.setAttribute("id","nextServerImg");
-        td2.addEventListener("click",nextServerImages);
-        td1.setAttribute("style","text-align:center;");
-        td2.setAttribute("style","text-align:center;");
+    //console.log(tableAmount);
 
-        arrowLeft.appendChild(spanLeft);
-        arrowRight.appendChild(spanRight);
-        td1.appendChild(arrowLeft);
-        td2.appendChild(arrowRight);
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        table.appendChild(tr);
-    }
     //console.log(serverImages);
     //Add server images to the table
     for(let i = 0; i < tableAmount; i++){
@@ -140,24 +113,71 @@ function createServerImgTable(){
         td.setAttribute("style","padding-right:1em");
         td.classList.add("serverImgEntry");
         td.id = serverImages[i] + ("x");
+        //console.log(td);
         if(i%2 == 0){
             let k = i/2;
-            let tr = document.createElement("tr");
+            if(arrows == true){k += 1;}
+            let tr = table.insertRow(k);
+
+            //console.log(tr);
             //console.log(k);
             tr.appendChild(td);
-            table.appendChild(tr);
+            //table.appendChild(tr);
             tr.id = "rowid" + (k.toString());
         }else{
             //Start appending in de second column.
             //Arrow navigation takes up 1 row
-            let appendRow = Math.floor(i/2) + (arrows ? 1:0);
-            // console.log(appendRow);
-            // console.log(table.children[appendRow]);
-            table.children[appendRow].appendChild(td);
+            let appendRow = Math.floor(i/2);
+            //let appendRow = (Math.floor(i/2) + (arrows ? 1:0));
+            if(arrows == true){
+                appendRow += 1;
+            }
+            //console.log(appendRow);
+            //console.log(table.children[0].children[appendRow]);
+            let toRow = table.children[0].children[appendRow];
+            //console.log(toRow);
+            toRow.appendChild(td);
         }
         
     }
     div.appendChild(table);
+}
+
+function createArrows(table){
+    //let table = document.getElementById("serverImgTable");
+    //console.log("CreateArrows() function called.");
+
+    let td1 = document.createElement("td");
+    let td2 = document.createElement("td");
+    let tr = table.insertRow(0);
+    tr.id = "arrowrow";
+    let arrowLeft = document.createElement("div");
+    let arrowRight = document.createElement("div");
+    let spanLeft = document.createElement("span");
+    let spanRight = document.createElement("span");
+
+    arrowLeft.classList.add("arrow");
+    arrowLeft.classList.add("arrow_last");
+    arrowLeft.classList.add("arrow_left");
+    arrowLeft.setAttribute("id","prevServerImg");
+    spanLeft.className += "front";
+    spanRight.className += "front";
+    td1.addEventListener("click",previousServerImages);
+    arrowRight.classList.add("arrow");
+    arrowRight.classList.add("arrow_right");
+    arrowRight.setAttribute("id","nextServerImg");
+    td2.addEventListener("click",nextServerImages);
+    td1.setAttribute("style","text-align:center;");
+    td2.setAttribute("style","text-align:center;");
+
+    arrowLeft.appendChild(spanLeft);
+    arrowRight.appendChild(spanRight);
+    td1.appendChild(arrowLeft);
+    td2.appendChild(arrowRight);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    //console.log(tr);
+    //table.appendChild(tr);
 }
 
 /**
@@ -196,7 +216,7 @@ function previousServerImages(){
  * Changes the innerText of tds in the table to the specified 'page'
  * @param {number} start must be a positive integer smaller than number of server images divided by max height * max width 
  */
-function loadServerImagesFromIndex(page, direction){
+function loadServerImagesFromIndex(page, direction, previousLength){
     
     let paststart;
     let pastend;
@@ -228,12 +248,27 @@ function loadServerImagesFromIndex(page, direction){
         start = page*(maxServerTableHeight * maxServerTableWidth);
         end = start + (maxServerTableHeight * maxServerTableWidth) -1;
     }
-    //console.log(paststart, pastend, start, end);
+    else if (direction == 0){
+        pastend = previousLength-1;
+        start = page*(maxServerTableHeight * maxServerTableWidth);
+        let maxend = start + (maxServerTableHeight * maxServerTableWidth);
+        if(serverImages.length > maxend){
+            end = maxend - 1;
+            
+        }
+        else{
+            end = serverImages.length - 1;
+        }
+        paststart = start;
+    }
+    console.log(paststart, pastend, start, end);
     
     let table = document.getElementById("serverImgTable");
 
     for (let i = paststart; i <= pastend; i++) {
         let toremove = document.getElementById(serverImages[i] + ("x"));
+        console.log("To remove " + toremove);
+        console.log("Element nr: " + i);
         toremove.parentNode.removeChild(toremove);
       }
 
@@ -276,19 +311,29 @@ function loadServerImagesFromIndex(page, direction){
         let k = (i-start);
         let j
         if(k<2)
-            j = 0;
-        else if(k<4)
             j = 1;
-        else if(k<6)
+        else if(k<4)
             j = 2;
-        else if(k<8)
+        else if(k<6)
             j = 3;
-        else
+        else if(k<8)
             j = 4;
+        else
+            j = 5;
 
         //console.log(j);
+
         let row = document.getElementById("rowid" + (j.toString()));
-        row.appendChild(td);
+        if (row != null){
+            //console.log(row);
+            row.appendChild(td);
+        }else{
+            let newrow = document.createElement("tr");
+            //console.log(k);
+            newrow.appendChild(td);
+            table.appendChild(newrow);
+            newrow.id = "rowid" + (j.toString());
+        }
 
         //Check if the selected images is on the page if it is give it the class selectedServerEntry
         //also check if there are elements with the class selectedServerEntry that are not the selected element
@@ -299,6 +344,8 @@ function loadServerImagesFromIndex(page, direction){
             td.classList.add("selectedServerEntry");
         }
     }
+    tableAmount = (end - start) + 1;
+    console.log(tableAmount);
 }
 
 /**
@@ -337,6 +384,54 @@ function displayServerImage(event){
     img.className += "zoom";
 }
 
+function checkFileOnServer(filename){
+
+    for (var j = 0; j < serverImages.length; j++){
+        if((strcmp(serverImages[j],filename.toString())) == 0){
+            console.log("Current i = " + i + " j = " + j + " len = " + serverImages.length);
+            return true;
+        }
+    }
+    return false;
+}
+
 function addServerImage(files){
-    serverImages.push(files);
+    let amountAdded = files.length;
+    console.log("Amount trying to be added" + amountAdded);
+    previousLength = serverImages.length;
+
+    for (var i = 0; i < amountAdded; i++){
+        if(checkFileOnServer(files[i].name) == false){
+            serverImages.push(files[i].name);
+        }
+    }
+ 
+    if(serverImages.length == previousLength){
+        return;
+    }
+
+    console.log(tableAmount);
+    if(tableAmount == 10){
+        return;
+    }
+    if((tableAmount) < 10){
+        loadServerImagesFromIndex(selectedServerTable,0,previousLength);
+        if(tableAmount == 10){
+            console.log("Removing now...")
+            document.getElementById("nextServerImg").classList.remove("arrow_last");
+        }
+    }else{
+        if(arrows == true){
+            loadServerImagesFromIndex(selectedServerTable,0,previousLength);
+            if(tableAmount == 10){
+                console.log("Removing now...")
+                document.getElementById("nextServerImg").classList.remove("arrow_last");
+            }
+        }
+        else{
+            arrows = true;
+            createArrows(document.getElementById("serverImgTable"));
+            loadServerImagesFromIndex(selectedServerTable,0,previousLength);
+        }
+    }
 }
