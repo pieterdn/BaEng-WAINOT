@@ -49,6 +49,12 @@ body{
 
 fieldset{
     margin-top: 15px;
+    border-style: solid;
+    border-color: darkgray;
+}
+
+legend{
+    margin-bottom: 10px;
 }
 
 .arrow:not(.arrow_last) {
