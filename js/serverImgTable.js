@@ -334,5 +334,5 @@ function displayServerImage(event){
         servImg.appendChild(img);
     }
     img.setAttribute("src","./media/" + event.target.textContent);
-    
+    img.className += "zoom";
 }
