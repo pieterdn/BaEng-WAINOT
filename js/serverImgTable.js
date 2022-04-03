@@ -311,20 +311,6 @@ function displayServerImage(event){
 
     if(selectedServerImage.element != null){
         selectedServerImage.element.classList.remove("selectedServerEntry");
-    }else{
-        let servImg = document.getElementById("serverImage");
-
-        /* Old button 
-
-        let button = document.createElement("button");
-        button.className += "button-1";
-        button.appendChild(document.createTextNode("Selecteer afbeelding"));
-        button.addEventListener("click",function(){
-            addFileToSelectedTable(selectedServerImage.text);
-        });
-        servImg.parentElement.appendChild(button);
-
-        */
     }
     event.target.classList.add("selectedServerEntry");
     selectedServerImage.element = event.target;
