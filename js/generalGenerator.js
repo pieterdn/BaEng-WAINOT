@@ -8,26 +8,12 @@
 
 
 window.addEventListener("load",function(){
-    document.spelgenerator.addEventListener("submit",checkInput);
-    document.getElementById('formAjax').addEventListener("submit",addToFileListFromUpload);
+    //document.spelgenerator.addEventListener("submit",checkInput);
+    //document.getElementById('formAjax').addEventListener("submit",addToFileListFromUpload);
 });
 
 function strcmp ( str1, str2 ) {
     return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
-}
-
-/**
- * Adds uploaded files to the selected list
- * @param {Event} event submit event from a form
- */
-function addToFileListFromUpload(event){
-    //Stay on the same page
-    event.preventDefault();
-    let files = document.getElementById('fileAjax').files;
-    //Add all uploaded files to the selected files list
-    for(let i = 0; i < files.length; i++){
-        addFileToSelectedTable(files[i].name)
-    }
 }
 
 /**
@@ -109,27 +95,5 @@ function unselectAllCheckmarks(){
     var checks = document.querySelectorAll('.checkbox');
     for (var i = 0; i < checks.length; i++){
         checks[i].checked = false;
-    }
-}
-
-/**
- * Check to see that the input is valid.
- * Valid input: width and height are both integers and their product is even.
- * @param {Event} event submit event from a form
- */
-function checkInput(event){
-    if(document.spelgenerator.width.value =='' || Number(document.spelgenerator.width.value)<0 ){
-        event.preventDefault();
-        window.alert("geen valide Breedte");
-        document.spelgenerator.width.focus();
-    }
-    else if(document.spelgenerator.height.value =='' || Number(document.spelgenerator.height.value)<0){
-        event.preventDefault();
-        window.alert('geen valide Hoogte');
-        document.spelgenerator.height.focus();
-    }
-    else if((Number(document.spelgenerator.width.value)*Number(document.spelgenerator.height.value))%2 == 1){
-        event.preventDefault();
-        window.alert('geen even aantal veltjes');
     }
 }

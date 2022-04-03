@@ -6,7 +6,7 @@ window.addEventListener("load",function(){
   myForm.addEventListener("submit",function(event) {
       event.preventDefault();
 
-      //statusP.innerHTML = 'Uploading...';
+      statusP.innerHTML = 'Uploading...';
 
       // Get the files from the form input
       var files = myFile.files;
@@ -26,6 +26,10 @@ window.addEventListener("load",function(){
         if (!file.type.match('image.*')) {
             statusP.innerHTML = 'The file selected is not an image.';
             return;
+        }
+        else{
+          //Add all uploaded files to the selected files list
+            addFileToSelectedTable(files[i].name)
         }
 
         // Add the file to the AJAX request
