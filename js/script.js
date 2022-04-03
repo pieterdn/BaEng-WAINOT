@@ -47,7 +47,7 @@ function tabFocus(event){
     
     if(lastHoveredCard != focusedCard){
         Array.from(document.getElementsByClassName("cardPosition")).forEach(function(element){
-            console.log(element);
+            // console.log(element);
             element.addEventListener("mousemove",returnMouseFocus,true);
         });
         if(typeof lastHoveredCard !== "undefined"){
@@ -68,10 +68,10 @@ function returnMouseFocus(event){
 }
 
 function cardFocus(event){
-    console.log("mouseeneter1");
+    // console.log("mouseeneter1");
     if(event.currentTarget === event.target){
-        console.log("mouseeneter2");
-        console.log(event.currentTarget);
+        // console.log("mouseeneter2");
+        // console.log(event.currentTarget);
         let card = event.currentTarget.firstElementChild;
         card.classList.add("focus");
         focusedCard = card;
