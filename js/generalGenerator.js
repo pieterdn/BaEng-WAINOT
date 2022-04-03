@@ -21,8 +21,21 @@ function changeUploadButton(){
     myFile = document.getElementById("fileAjax");
     var files = myFile.files;
     var amount = files.length;
-    let button = document.getElementById("choosebutton");
-    button.innerHTML = amount + " bestand(en) geselecteerd"
+    var statusP = document.getElementById('status');
+    for(var i = 0; i < amount; i++){
+
+        // Select file number i from files array
+        var file = files[i];
+
+        // Check the file type
+        if (!file.type.match('image.*')) {
+            statusP.innerHTML = 'Het geselecteerde bestand is geen afbeelding.';
+            return;
+        }else{
+            let button = document.getElementById("choosebutton");
+            button.innerHTML = amount + " bestand(en) geselecteerd"
+        }
+    }
 }
 
 /**
@@ -93,10 +106,8 @@ function removeFileFromSelectedTable(file){
 
 function clearSelectedTable(){
     while(selectedImages.length != 0){
-        //console.log(selectedImages, selectedImages[0]);
         removeFileFromSelectedTable(selectedImages[0]);
         unselectAllCheckmarks();
-        //console.log(selectedImages[0]);
     }
 }
 

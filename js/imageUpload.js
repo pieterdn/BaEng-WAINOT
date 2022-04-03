@@ -46,6 +46,7 @@ window.addEventListener("load",function(){
           if (xhr.status == 200) {
             statusP.innerHTML = amount + ' Bestand(en) geupload!';
             document.getElementById("choosebutton").innerHTML = "Kies bestand(en)";
+            addServerImage(files);
           } else {
             statusP.innerHTML = 'Upload error. Try again.';
           }
