@@ -19,6 +19,11 @@
     font-weight: 600;
 }
 
+#wrapper{
+    max-width: 1000px;
+    margin: auto;
+}
+
 .hidden{
     display: none;
 }

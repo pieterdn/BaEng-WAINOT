@@ -109,7 +109,7 @@ function createServerImgTable(){
         tr.appendChild(td2);
         table.appendChild(tr);
     }
-    console.log(serverImages);
+    //console.log(serverImages);
     //Add server images to the table
     for(let i = 0; i < tableAmount; i++){
         
@@ -143,7 +143,7 @@ function createServerImgTable(){
         if(i%2 == 0){
             let k = i/2;
             let tr = document.createElement("tr");
-            console.log(k);
+            //console.log(k);
             tr.appendChild(td);
             table.appendChild(tr);
             tr.id = "rowid".concat(k.toString());
