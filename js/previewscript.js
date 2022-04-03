@@ -65,10 +65,7 @@ function createTextCard(x, y, name,width){
     div.setAttribute("id", x.toString() + "_" + y.toString());
     div.classList.add("card");
     
-    if(width < 5){
-        div.style.width = "200px";
-        div.style.height = "150px";
-    }else{
+    if(width > 4){
         let cardwidth = (1000-((parseInt(width)+3) * 20))/parseInt(width);
         let cardheight = cardwidth*0.75;
         console.log(cardwidth);
