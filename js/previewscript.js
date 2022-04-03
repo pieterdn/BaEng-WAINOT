@@ -25,7 +25,7 @@ window.addEventListener("load",function(){
     heightCurrent = height;
 
     let table = document.createElement("table");
-    table.setAttribute("id","table");
+    table.className += "previewtable";
     memprev.appendChild(table);
 
     for(let i = 0; i < height; i++){
@@ -43,7 +43,7 @@ window.addEventListener("load",function(){
     let shuffledArray = [...tableArray];
     shuffledArray = shuffle(shuffledArray);
     for(let i = 0; i < height; i++){
-        let tr = document.getElementById("table").childNodes.item(i);
+        let tr = document.getElementById("previewtable").childNodes.item(i);
         for(let j = 0; j < width; j++){
                 let td = shuffledArray[j + i*width];
                 tr.appendChild(td);
@@ -92,7 +92,7 @@ function changeBoard(event){
     }
     clickedCards = [];
     
-    let table = document.getElementById("table");
+    let table = document.getElementById("previewtable");
     let prevHeight = table.childNodes.length;
     for(let i = 0; i < prevHeight; i++){
         table.removeChild(table.lastChild);
@@ -156,7 +156,7 @@ function boardRefresh(event){
 function boardReshuffle(event){
     boardRefresh();
     setTimeout(function(){
-        let table = document.getElementById("table");
+        let table = document.getElementById("previewtable");
         let width = widthCurrent;
         let height = heightCurrent;
         let shuffledArray = [...tableArray];

@@ -17,11 +17,18 @@
     font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
     font-size: 14px;
     font-weight: 600;
+    margin: 0px;
+}
+
+#previewtable{
+    margin: 0px auto;
 }
 
 #wrapper{
     max-width: 1000px;
     margin: auto;
+    background-color: lightgray;
+    padding: 30px;
 }
 
 .hidden{
@@ -79,8 +86,6 @@ transform: rotate(135deg);
     font-style: oblique;
     color: #ffbd64;
 }
-  
-
 
 /* Button-1 */
 .button-1 {
