@@ -8,12 +8,21 @@
 
 
 window.addEventListener("load",function(){
+    document.getElementById("fileAjax").addEventListener("change", changeUploadButton);
     //document.spelgenerator.addEventListener("submit",checkInput);
     //document.getElementById('formAjax').addEventListener("submit",addToFileListFromUpload);
 });
 
 function strcmp ( str1, str2 ) {
     return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
+}
+
+function changeUploadButton(){
+    myFile = document.getElementById("fileAjax");
+    var files = myFile.files;
+    var amount = files.length;
+    let button = document.getElementById("choosebutton");
+    button.innerHTML = amount + " bestand(en) geselecteerd"
 }
 
 /**

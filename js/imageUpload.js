@@ -24,7 +24,7 @@ window.addEventListener("load",function(){
 
         // Check the file type
         if (!file.type.match('image.*')) {
-            statusP.innerHTML = 'The file selected is not an image.';
+            statusP.innerHTML = 'Het geselecteerde bestand is geen afbeelding.';
             return;
         }
         else{
@@ -44,7 +44,8 @@ window.addEventListener("load",function(){
         // Set up a handler for when the task for the request is complete
         xhr.onload = function () {
           if (xhr.status == 200) {
-            statusP.innerHTML = 'Upload complete!';
+            statusP.innerHTML = amount + ' Bestand(en) geupload!';
+            document.getElementById("choosebutton").innerHTML = "Kies bestand(en)";
           } else {
             statusP.innerHTML = 'Upload error. Try again.';
           }

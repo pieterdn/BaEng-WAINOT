@@ -108,6 +108,11 @@ transform: rotate(135deg);
     color: #ffbd64;
 }
 
+#status{
+    padding-top: 10px;
+    padding-left: 5px;
+}
+
 /* Button-1 */
 .button-1 {
     appearance: none;
