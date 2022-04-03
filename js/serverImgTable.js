@@ -116,6 +116,7 @@ function createServerImgTable(){
         let td = document.createElement("td");
         let check = document.createElement("input");
         let label = document.createElement("label");
+        let prevlabel = document.createElement("label")
         let span = document.createElement("span");
         check.type = "checkbox";
         check.id = serverImages[i].concat("checkbox");
@@ -124,8 +125,10 @@ function createServerImgTable(){
         label.className += "checkcontainer";
         label.appendChild(check);
         label.appendChild(span);
-        label.appendChild(document.createTextNode(serverImages[i]));
+        prevlabel.appendChild(document.createTextNode(serverImages[i]));
+        prevlabel.className += "checklabel";
         td.appendChild(label);
+        td.appendChild(prevlabel);
         check.addEventListener("change",function(){
             if(this.checked){
                 addFileToSelectedTable(serverImages[i]);
@@ -133,7 +136,7 @@ function createServerImgTable(){
                 removeFileFromSelectedTable(serverImages[i]);
             }
         });
-        td.addEventListener("click",displayServerImage);
+        prevlabel.addEventListener("click",displayServerImage);
         td.setAttribute("style","padding-right:1em");
         td.classList.add("serverImgEntry");
         td.id = serverImages[i].concat("x");
@@ -240,6 +243,7 @@ function loadServerImagesFromIndex(page, direction){
 
         let check = document.createElement("input");
         let label = document.createElement("label");
+        let prevlabel = document.createElement("label");
         let span = document.createElement("span");
         check.type = "checkbox";
         check.className += "checkbox";
@@ -248,8 +252,10 @@ function loadServerImagesFromIndex(page, direction){
         label.className += "checkcontainer";
         label.appendChild(check);
         label.appendChild(span);
-        label.appendChild(document.createTextNode(serverImages[i]));
+        prevlabel.appendChild(document.createTextNode(serverImages[i]));
+        prevlabel.className += "checklabel";
         td.appendChild(label);
+        td.appendChild(prevlabel);
         td.id = serverImages[i].concat("x");
         check.addEventListener("change",function(){
             if(this.checked){
@@ -258,7 +264,7 @@ function loadServerImagesFromIndex(page, direction){
                 removeFileFromSelectedTable(serverImages[i]);
             }
         });
-
+        prevlabel.addEventListener("click", displayServerImage);
         for(let l = 0; l < selectedImages.length; l++){
             if(strcmp(serverImages[i], selectedImages[l]) == 0){
                 check.checked = "true";

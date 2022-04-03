@@ -13,7 +13,7 @@
  * - #bbbbbb (Grijs)
  */
 
-body{
+ body{
     font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
     font-size: 14px;
     font-weight: 600;
@@ -270,6 +270,7 @@ select{
     width: 20px;
     background-color: rgb(233, 230, 230);
     border-radius: 20%;
+    z-index: 1;
 }
   
 /* On mouse-over, add a grey background color */
@@ -305,4 +306,11 @@ select{
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+.checklabel{
+    position: relative;
+    padding-left: 35px;
+    bottom: 10px;
+    padding-bottom: 10px;
 }
