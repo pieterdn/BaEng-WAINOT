@@ -8,6 +8,7 @@
 
 let imagesNeeded = 0;
 let textNeeded = 0;
+var id = 0;
 
 window.addEventListener("load",function(){
     document.getElementById("fileAjax").addEventListener("change", changeUploadButton);
@@ -130,10 +131,12 @@ function addFileToSelectedTable(file){
     let hidden = document.getElementById("hiddenImages");
     let newImage = document.createElement("input"); // <input type="hidden" name="image[x]" value="name;id">
     newImage.setAttribute("type", "hidden"); 
-    newImage.setAttribute("value", file.name + "?" + (Math.floor(id/2)).toString()); 
+    newImage.setAttribute("value", file + "?" + (Math.floor(id/2)).toString()); 
     newImage.setAttribute("name", "image" + id);
     hidden.appendChild(newImage);
     id += 1;
+    let table = document.getElementById("chosenImagesTable");
+    let tr = document.createElement("tr");
     let td1 = document.createElement("td");
     tr.appendChild(td1);
     td1.appendChild(document.createTextNode(file));
@@ -141,6 +144,9 @@ function addFileToSelectedTable(file){
     table.appendChild(tr);
     document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
+
+    
+                
     if(textNeeded != 0){
         let td2 = document.createElement("td");
         let input = document.createElement("input");
@@ -172,6 +178,17 @@ function removeFileFromSelectedTable(file){
         document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
     }
+    let div = document.getElementById("hiddenImages");
+    let l = div.children.length;
+    for (let i = 0; i < l; i++)
+    {
+        if (file == div.children[i].value.split('?')[0])
+        {
+            div.removeChild(div.children[i]);
+            break;
+        }
+    }
+    
 }
 
 function clearSelectedTable(){

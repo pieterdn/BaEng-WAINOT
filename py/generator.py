@@ -22,6 +22,11 @@ print("""
 </html>
 """)
 
+
+try:
+    os.chmod("../spel.html", 0o774)
+except:
+    pass
 file = open("../spel.html","w")
 
 file.write("""
@@ -61,8 +66,9 @@ if height*width > 18:
 Templist = []
 
 for i in range(height*width):
-    Templist.append(fs.getvalue("image" + str(i)).split('?')[0])
-    print(Templist[i])
+    if fs.getvalue("image" + str(i)):
+        Templist.append(fs.getvalue("image" + str(i)).split('?')[0])
+    #print(Templist[i])
 
 imgList = 0
 
@@ -85,9 +91,6 @@ for i in range(len(imgList)): # find the id that is with the image
         id = str(fs.getvalue("image" + str(j))) # moet speciaal geval voor uniek zijn
         if (id.split('?')[0] == classList[i]): # check if image is image from id
             classList[i] = id.split('?')[1]
-
-print(classList)
-print(imgList)
 
 tel = 0
 for y in range(height):
