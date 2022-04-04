@@ -58,7 +58,7 @@ if height*width > 18:
     height = 3
 
 #hard coded afb
-Templist =  os.listdir(os.path.abspath("../media"))
+Templist =  os.listdir(os.path.abspath("../WAINOT/media"))
 #print(imgList)
 
 imgList = 0
@@ -78,7 +78,7 @@ random.shuffle(imgList)
 classList = list.copy(imgList)
 
 for i in range(len(imgList)): # find the id that is with the image
-    for j in range(len(height*width)):
+    for j in range(height*width):
         id = str(fs.getvalue("image[" + str(j) + "]"))
         if (id.split(';')[0] == os.path.splitext(classList[i])[0]): # check if image is image from id
             classList[i] = id.split(';')[1]
