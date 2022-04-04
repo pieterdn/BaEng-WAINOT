@@ -6,6 +6,8 @@
  * chosenImages : images chosen for memory generator
  */
 
+let imagesNeeded = 0;
+let textNeeded = 0;
 
 window.addEventListener("load",function(){
     document.getElementById("fileAjax").addEventListener("change", changeUploadButton);
@@ -52,8 +54,32 @@ function calculateImagesNeeded(){
         if(radioButtons[i].checked){
             console.log("Button: " + radioButtons[i] + "was checked.");
             document.getElementById("imagePicker").style.display = "block";
+            let dimensions = document.spelgenerator.dimensions.value;
+            const dimvalues = dimensions.split("x");
+            let width = dimvalues[0];
+            let height = dimvalues[1];
+            let tileAmount = width * height;
+            let checkedValue = radioButtons[i].value;
+
+            if(strcmp(checkedValue,"uniek") == 0){
+                imagesNeeded = tileAmount;
+            }
+            if(strcmp(checkedValue,"paren") == 0){
+                imagesNeeded = tileAmount/2;
+            }
+            if(strcmp(checkedValue,"text") == 0){
+                imagesNeeded = tileAmount/2;
+                textNeeded = imagesNeeded;
+            }
+            console.log("Images needed: " + imagesNeeded);
+            console.log("Text needed: " + textNeeded);
+
+            document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
+                + selectedImages.length + "/" + imagesNeeded + ")";
         }
     }
+
+
 }
 
 /**
@@ -101,7 +127,7 @@ function addFileToSelectedTable(file){
     tr.id = file;
     table.appendChild(tr);
     document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
-        + selectedImages.length + ")";
+                + selectedImages.length + "/" + imagesNeeded + ")";
 }
 
 function removeFileFromSelectedTable(file){
@@ -121,7 +147,8 @@ function removeFileFromSelectedTable(file){
         button = document.getElementById("clearButton");
         button.parentNode.removeChild(button);
         begin.appendChild(document.createTextNode("Er zijn momenteel geen afbeeldingen gekozen."))
-        document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen";
+        document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
+                + selectedImages.length + "/" + imagesNeeded + ")";
     }
 }
 
