@@ -219,7 +219,12 @@ input[type="number"] {
 }
 
 label[for="gametype"]{
-    padding-left: 15px;
+    padding-left: 90px;
+    padding-right: 10px;
+}
+
+label[for="savegame"]{
+    padding-left: 70px;
     padding-right: 10px;
 }
 
@@ -342,7 +347,16 @@ select{
     user-select: none;
     width: auto;
 }
-  
+
+#modcheckcontainer{
+    display: inline-block;
+}
+
+#modcheck{
+    margin-left: 4px;
+    top: -2px;
+}
+
 /* Hide the browser's default checkbox */
 .checkcontainer input {
     position: absolute;
