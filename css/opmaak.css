@@ -12,14 +12,34 @@
  * - #bbbbbb (Grijs)
  */
 
-body{
+html, body{
     font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
     font-size: 14px;
     font-weight: 600;
+    /*margin: 0px;*/
+    background-color: #006666;
+    height: 100%;
+}
+
+#main {
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+
+#wrapper{
+    max-width: 1500px;
+    margin: auto;
+    padding: 30px;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #table {
     border-spacing: 20px;
+    margin: 0px auto;
+    background-color: #6b8d8d;
 }
 
 .card {
