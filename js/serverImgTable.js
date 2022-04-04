@@ -404,7 +404,7 @@ function addServerImage(files){
     console.log(tableAmount);
 
     if(tableAmount == 10){
-        document.getElementById("imgTableTitle").innerHTML = "Afbeeldingen beschikbaar op server (" + serverImages.length + ").";
+        document.getElementById("imgTableTitle").innerHTML = "Afbeeldingen beschikbaar op server (" + serverImages.length + ")";
         return;
     }
     if((tableAmount) < 10){

@@ -90,7 +90,11 @@ function calculateImagesNeeded(){
 function addFileToSelectedTable(file){
 
     if(imagesNeeded == selectedImages.length){
-        document.getElementById(file + "checkbox").checked = false;
+        let toUncheck = document.getElementById(file + "checkbox");
+        if(toUncheck != null){
+            toUncheck.checked = false;
+        }
+        
         return;
     }
 
