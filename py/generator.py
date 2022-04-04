@@ -24,7 +24,7 @@ print("""
 
 
 try:
-    os.chmod("../spel.html", 0o774)
+    os.chmod("../spel.html", 0o777)
 except:
     pass
 file = open("../spel.html","w")

@@ -9,6 +9,7 @@
 let imagesNeeded = 0;
 let textNeeded = 0;
 var id = 0;
+var subid = 0;
 
 window.addEventListener("load",function(){
     document.getElementById("fileAjax").addEventListener("change", changeUploadButton);
@@ -185,6 +186,7 @@ function removeFileFromSelectedTable(file){
         if (file == div.children[i].value.split('?')[0])
         {
             div.removeChild(div.children[i]);
+            id -= 1;
             break;
         }
     }
