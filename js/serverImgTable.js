@@ -90,13 +90,13 @@ function createServerImgTable(){
         let span = document.createElement("span");
         check.type = "checkbox";
         check.id = serverImages[i] + ("checkbox");
-        check.className += "checkbox";
-        span.className += "checkmark";
-        label.className += "checkcontainer";
+        check.className += "checkbox ";
+        span.className += "checkmark ";
+        label.className += "checkcontainer ";
         label.appendChild(check);
         label.appendChild(span);
         prevlabel.appendChild(document.createTextNode(serverImages[i]));
-        prevlabel.className += "checklabel";
+        prevlabel.className += "checklabel ";
         td.appendChild(label);
         td.appendChild(prevlabel);
         check.addEventListener("change",function(){
@@ -148,13 +148,14 @@ function createArrows(table){
 
     arrowLeft.classList.add("arrow");
     arrowLeft.classList.add("arrow_last");
-    arrowLeft.classList.add("arrow_left");
+    spanLeft.className += "white_arrow ";
+    spanLeft.className += "arrow_left ";
     arrowLeft.setAttribute("id","prevServerImg");
-    spanLeft.className += "front";
-    spanRight.className += "front";
+    
     td1.addEventListener("click",previousServerImages);
     arrowRight.classList.add("arrow");
-    arrowRight.classList.add("arrow_right");
+    spanRight.className += "white_arrow ";
+    spanRight.className += "arrow_right ";
     arrowRight.setAttribute("id","nextServerImg");
     td2.addEventListener("click",nextServerImages);
     td1.setAttribute("style","text-align:center;");
@@ -269,14 +270,14 @@ function loadServerImagesFromIndex(page, direction, previousLength){
         let prevlabel = document.createElement("label");
         let span = document.createElement("span");
         check.type = "checkbox";
-        check.className += "checkbox";
+        check.className += "checkbox ";
         check.id = serverImages[i] + ("checkbox");
-        span.className += "checkmark";
-        label.className += "checkcontainer";
+        span.className += "checkmark ";
+        label.className += "checkcontainer ";
         label.appendChild(check);
         label.appendChild(span);
         prevlabel.appendChild(document.createTextNode(serverImages[i]));
-        prevlabel.className += "checklabel";
+        prevlabel.className += "checklabel ";
         td.appendChild(label);
         td.appendChild(prevlabel);
         td.id = serverImages[i] + ("x");
@@ -363,7 +364,7 @@ function displayServerImage(event){
         servImg.appendChild(img);
     }
     img.setAttribute("src","./media/" + event.target.textContent);
-    img.className += "zoom";
+    img.className += "zoom ";
 }
 
 function checkFileOnServer(filename){
