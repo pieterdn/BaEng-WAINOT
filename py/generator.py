@@ -75,10 +75,11 @@ else:# unique mode => 2 unique images that form a pair
 random.shuffle(imgList)
 classList = list.copy(imgList)
 
-for i in range(len(imgList)):
-    id = str(fs.getvalue("image[" + str(i) + "]"))
-    if (id.split(';')[0] == os.path.splitext(classList[i])[0]):
-        classList[i] = id.split(';')[1]
+for i in range(len(imgList)): # find the id that is with the image
+    for j in range(len(height*width)):
+        id = str(fs.getvalue("image[" + str(j) + "]"))
+        if (id.split(';')[0] == os.path.splitext(classList[i])[0]): # check if image is image from id
+            classList[i] = id.split(';')[1]
 
 # for i in range(len(imgList)):
 #     classList[i] = os.path.splitext(classList[i])[0]
