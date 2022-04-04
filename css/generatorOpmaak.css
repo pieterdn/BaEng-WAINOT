@@ -65,6 +65,7 @@ legend{
     border-radius: 50%;
     margin: 0px auto;
     margin-bottom: 8px;
+    border: solid #3e3636 1px;
 }
 
 .arrow:hover:not(.arrow_last) {
@@ -82,6 +83,7 @@ legend{
     border-radius: 50%;
     margin: 0px auto;
     margin-bottom: 8px;
+    border: solid #6e6060 1px;
 }
 
 .arrow_right {
@@ -284,6 +286,8 @@ select{
     width: 20px;
     background-color: rgb(233, 230, 230);
     border-radius: 50%;
+    border-radius: 50%;
+    border: solid #a9a2a2 1px;
 }
   
 /* On mouse-over, add a grey background color */
@@ -353,6 +357,7 @@ select{
     background-color: rgb(233, 230, 230);
     border-radius: 20%;
     z-index: 1;
+    border: solid #bfb9b9 1px;
 }
   
 /* On mouse-over, add a grey background color */
