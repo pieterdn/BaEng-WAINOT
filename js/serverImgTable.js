@@ -344,12 +344,17 @@ function loadServerImagesFromIndex(page, direction, previousLength){
  * @param {Event} event click event on a serverImgEntry
  */
 function displayServerImage(event){
-    if(event.target.textContent == "")
+    if(event.target.textContent == ""){
+        console.log("empty");
         return;
-
-    if(selectedServerImage.element != null){
-        selectedServerImage.element.classList.remove("selectedServerEntry");
     }
+
+    let selected = document.getElementsByClassName("selectedServerEntry");
+    for(let i = 0; i < selected.length; i++){
+        selected[i].classList.remove("selectedServerEntry");
+    }
+
+    console.log(event.target);
     event.target.classList.add("selectedServerEntry");
     selectedServerImage.element = event.target;
 
