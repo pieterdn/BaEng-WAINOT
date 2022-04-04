@@ -61,7 +61,11 @@ function createTextCard(x, y, name,width){
     div.classList.add("card");
     
     if(width > 4){
-        let cardwidth = (1000-((parseInt(width)+5) * 21))/parseInt(width);
+        let wrapper = document.getElementById("wrapper");
+        let style = getComputedStyle(wrapper);
+        maxWidth = style.maxWidth.replace("px","");
+
+        let cardwidth = (maxWidth-((parseInt(width)+5) * 21))/parseInt(width);
         let cardheight = cardwidth*0.75;
         let widthstring = cardwidth.toString();
         let heightstring = cardheight.toString();

@@ -6,9 +6,18 @@
  * chosenImages : images chosen for memory generator
  */
 
+let imagesNeeded = 0;
+let textNeeded = 0;
 
 window.addEventListener("load",function(){
     document.getElementById("fileAjax").addEventListener("change", changeUploadButton);
+    document.spelgenerator.dimensions.addEventListener("change", calculateImagesNeeded);
+    var gametype = document.getElementsByName("gametype")
+    for(let i = 0; i < gametype.length; i++){
+        gametype[i].addEventListener("change",calculateImagesNeeded);
+        //gametype[i].addEventListener("change",clearSelectedTable);
+    }
+    
     //document.spelgenerator.addEventListener("submit",checkInput);
     //document.getElementById('formAjax').addEventListener("submit",addToFileListFromUpload);
 });
@@ -38,11 +47,53 @@ function changeUploadButton(){
     }
 }
 
+function calculateImagesNeeded(){
+    //let oldAmount = imagesNeeded
+    let radioButtons = document.getElementsByName("gametype");
+    for(let i = 0; i < radioButtons.length; i++){
+        if(radioButtons[i].checked){
+            document.getElementById("imagePicker").style.display = "block";
+            let dimensions = document.spelgenerator.dimensions.value;
+            const dimvalues = dimensions.split("x");
+            let width = dimvalues[0];
+            let height = dimvalues[1];
+            let tileAmount = width * height;
+            let checkedValue = radioButtons[i].value;
+
+            if(strcmp(checkedValue,"uniek") == 0){
+                imagesNeeded = tileAmount;
+            }
+            if(strcmp(checkedValue,"paren") == 0){
+                imagesNeeded = tileAmount/2;
+            }
+            if(strcmp(checkedValue,"text") == 0){
+                imagesNeeded = tileAmount/2;
+                textNeeded = imagesNeeded;
+            }
+
+            document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
+                + selectedImages.length + "/" + imagesNeeded + ")";
+
+            if(selectedImages.length > imagesNeeded)
+                clearSelectedTable();
+        }
+    }
+}
+
 /**
  * Adds a file to the selected list
  * @param {String} file string of file to be added to list
  */
 function addFileToSelectedTable(file){
+
+    if(imagesNeeded == selectedImages.length){
+        let toUncheck = document.getElementById(file + "checkbox");
+        if(toUncheck != null){
+            toUncheck.checked = false;
+        }
+        
+        return;
+    }
 
     let flag = false;
     for(let i = 0; i < selectedImages.length; i++){
@@ -62,7 +113,7 @@ function addFileToSelectedTable(file){
 
     let begin = document.getElementById("chosenImages");
 
-    //If the first element is a textNode remove it and append the selected files table
+    //If the first element is a textNode remove it and append the selected files table and clear button
     if(begin.firstChild.nodeType == 3){
         begin.removeChild(begin.firstChild);
         let removeall = document.createElement("button");
@@ -75,16 +126,6 @@ function addFileToSelectedTable(file){
         begin.appendChild(removeall);
         begin.appendChild(table);
     }
-    let table = document.getElementById("chosenImagesTable");
-    let tr = document.createElement("tr");
-    let td2 = document.createElement("td");
-    let td = document.createElement("td");
-    tr.appendChild(td2);
-    td2.appendChild(document.createTextNode((Math.floor(id/2)).toString()));
-    tr.appendChild(td);
-    td.appendChild(document.createTextNode(file));
-    tr.id = file;
-    table.appendChild(tr);
     
     let hidden = document.getElementById("hiddenImages");
     let newImage = document.createElement("input");
@@ -93,6 +134,22 @@ function addFileToSelectedTable(file){
     newImage.setAttribute("name", "image[" + id + "]");
     hidden.appendChild(newImage);
     id += 1;
+    let td1 = document.createElement("td");
+    tr.appendChild(td1);
+    td1.appendChild(document.createTextNode(file));
+    tr.id = file;
+    table.appendChild(tr);
+    document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
+                + selectedImages.length + "/" + imagesNeeded + ")";
+    if(textNeeded != 0){
+        let td2 = document.createElement("td");
+        let input = document.createElement("input");
+        input.type = "text";
+        input.className += "imageText ";
+        tr.appendChild(td2);
+        td2.appendChild(input);
+    }
+    
 }
 
 function removeFileFromSelectedTable(file){
@@ -112,6 +169,8 @@ function removeFileFromSelectedTable(file){
         button = document.getElementById("clearButton");
         button.parentNode.removeChild(button);
         begin.appendChild(document.createTextNode("Er zijn momenteel geen afbeeldingen gekozen."))
+        document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
+                + selectedImages.length + "/" + imagesNeeded + ")";
     }
 }
 

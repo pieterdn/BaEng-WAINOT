@@ -61,15 +61,23 @@ window.addEventListener("load",function(){
  * @requires var serverImages: an array of strings of the files on the server in the media folder
  */
 function createServerImgTable(){
-    if(serverImages.length == 0){
-        div.appendChild(document.createTextNode("Geen afbeeldingen op de server"));
-        return;
-    }
-    
-
     let div = document.getElementById("allImages");
     let table = document.createElement("table");
     table.setAttribute("id","serverImgTable");
+    div.appendChild(table);
+    if(serverImages.length == 0){
+        let title = document.getElementById("imgTableTitle");
+        title.innerHTML = "Afbeeldingen beschikbaar op server";
+        let subtext = document.getElementById("nothingOnServer");
+        subtext.innerHTML = "Er staan momenteel geen afbeeldingen op de server.";
+        tableAmount = 0;
+        return;
+    }
+    
+    document.getElementById("imgTableTitle").innerHTML = "Afbeeldingen beschikbaar op server (" + serverImages.length + ")";
+
+    
+    
 
 
     //If they are more server images than the max table height times width arrow keys are generated to navigate
@@ -90,13 +98,13 @@ function createServerImgTable(){
         let span = document.createElement("span");
         check.type = "checkbox";
         check.id = serverImages[i] + ("checkbox");
-        check.className += "checkbox";
-        span.className += "checkmark";
-        label.className += "checkcontainer";
+        check.className += "checkbox ";
+        span.className += "checkmark ";
+        label.className += "checkcontainer ";
         label.appendChild(check);
         label.appendChild(span);
         prevlabel.appendChild(document.createTextNode(serverImages[i]));
-        prevlabel.className += "checklabel";
+        prevlabel.className += "checklabel ";
         td.appendChild(label);
         td.appendChild(prevlabel);
         check.addEventListener("change",function(){
@@ -132,7 +140,7 @@ function createServerImgTable(){
         }
         
     }
-    div.appendChild(table);
+    
 }
 
 function createArrows(table){
@@ -148,13 +156,14 @@ function createArrows(table){
 
     arrowLeft.classList.add("arrow");
     arrowLeft.classList.add("arrow_last");
-    arrowLeft.classList.add("arrow_left");
+    spanLeft.className += "white_arrow ";
+    spanLeft.className += "arrow_left ";
     arrowLeft.setAttribute("id","prevServerImg");
-    spanLeft.className += "front";
-    spanRight.className += "front";
+    
     td1.addEventListener("click",previousServerImages);
     arrowRight.classList.add("arrow");
-    arrowRight.classList.add("arrow_right");
+    spanRight.className += "white_arrow ";
+    spanRight.className += "arrow_right ";
     arrowRight.setAttribute("id","nextServerImg");
     td2.addEventListener("click",nextServerImages);
     td1.setAttribute("style","text-align:center;");
@@ -173,8 +182,6 @@ function createArrows(table){
  */
 function nextServerImages(){
     let max = serverImages.length/(maxServerTableHeight * maxServerTableWidth);
-    console.log(max);
-    console.log(selectedServerTable);
 
     if(selectedServerTable + 1 >= max)
         return;
@@ -269,14 +276,14 @@ function loadServerImagesFromIndex(page, direction, previousLength){
         let prevlabel = document.createElement("label");
         let span = document.createElement("span");
         check.type = "checkbox";
-        check.className += "checkbox";
+        check.className += "checkbox ";
         check.id = serverImages[i] + ("checkbox");
-        span.className += "checkmark";
-        label.className += "checkcontainer";
+        span.className += "checkmark ";
+        label.className += "checkcontainer ";
         label.appendChild(check);
         label.appendChild(span);
         prevlabel.appendChild(document.createTextNode(serverImages[i]));
-        prevlabel.className += "checklabel";
+        prevlabel.className += "checklabel ";
         td.appendChild(label);
         td.appendChild(prevlabel);
         td.id = serverImages[i] + ("x");
@@ -328,6 +335,8 @@ function loadServerImagesFromIndex(page, direction, previousLength){
         }
     }
     tableAmount = (end - start) + 1;
+    document.getElementById("imgTableTitle").innerHTML = "Afbeeldingen beschikbaar op server (" + serverImages.length + ")";
+    document.getElementById("nothingOnServer").innerHTML = "";
 }
 
 /**
@@ -335,12 +344,15 @@ function loadServerImagesFromIndex(page, direction, previousLength){
  * @param {Event} event click event on a serverImgEntry
  */
 function displayServerImage(event){
-    if(event.target.textContent == "")
+    if(event.target.textContent == ""){
         return;
-
-    if(selectedServerImage.element != null){
-        selectedServerImage.element.classList.remove("selectedServerEntry");
     }
+
+    let selected = document.getElementsByClassName("selectedServerEntry");
+    for(let i = 0; i < selected.length; i++){
+        selected[i].classList.remove("selectedServerEntry");
+    }
+
     event.target.classList.add("selectedServerEntry");
     selectedServerImage.element = event.target;
 
@@ -363,7 +375,7 @@ function displayServerImage(event){
         servImg.appendChild(img);
     }
     img.setAttribute("src","./media/" + event.target.textContent);
-    img.className += "zoom";
+    img.className += "zoom ";
 }
 
 function checkFileOnServer(filename){
@@ -380,6 +392,8 @@ function addServerImage(files){
     let amountAdded = files.length;
     previousLength = serverImages.length;
 
+    document.getElementById("nothingOnServer").innerHTML = "";
+
     for (var i = 0; i < amountAdded; i++){
         if(checkFileOnServer(files[i].name) == false){
             serverImages.push(files[i].name);
@@ -390,15 +404,17 @@ function addServerImage(files){
         return;
     }
 
+    console.log(tableAmount);
+
     if(tableAmount == 10){
+        document.getElementById("imgTableTitle").innerHTML = "Afbeeldingen beschikbaar op server (" + serverImages.length + ")";
         return;
     }
     if((tableAmount) < 10){
         loadServerImagesFromIndex(selectedServerTable,0,previousLength);
+
         if(tableAmount == 10){
             let max = serverImages.length/(maxServerTableHeight * maxServerTableWidth);
-            console.log(max);
-            console.log(selectedServerTable);
 
             if(selectedServerTable + 1 >= max)
                 return;
@@ -407,6 +423,7 @@ function addServerImage(files){
     }else{
         if(arrows == true){
             loadServerImagesFromIndex(selectedServerTable,0,previousLength);
+
             if(tableAmount == 10){
                 document.getElementById("nextServerImg").classList.remove("arrow_last");
             }

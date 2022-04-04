@@ -34,7 +34,9 @@ file.write("""
 	<script src="./js/script.js"></script>
 </head>
     <body onload="init()">
-        <table id="table">
+        <div id=main>
+        <div id="wrapper">
+            <table id="table">
 """)
 
 fs = cgi.FieldStorage()
@@ -103,7 +105,9 @@ for y in range(height):
     file.write("\t\t</tr>")
 
 file.write("""
-        </table>
+            </table>
+            </div>
+        </div>
     </body>
 </html>""")
 file.close()
