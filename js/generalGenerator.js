@@ -15,7 +15,7 @@ window.addEventListener("load",function(){
     var gametype = document.getElementsByName("gametype")
     for(let i = 0; i < gametype.length; i++){
         gametype[i].addEventListener("change",calculateImagesNeeded);
-        gametype[i].addEventListener("change",clearSelectedTable);
+        //gametype[i].addEventListener("change",clearSelectedTable);
     }
     
     //document.spelgenerator.addEventListener("submit",checkInput);
@@ -48,12 +48,10 @@ function changeUploadButton(){
 }
 
 function calculateImagesNeeded(){
-    console.log("calculateImagesNeeded was triggered.");
-
+    //let oldAmount = imagesNeeded
     let radioButtons = document.getElementsByName("gametype");
     for(let i = 0; i < radioButtons.length; i++){
         if(radioButtons[i].checked){
-            console.log("Button: " + radioButtons[i] + "was checked.");
             document.getElementById("imagePicker").style.display = "block";
             let dimensions = document.spelgenerator.dimensions.value;
             const dimvalues = dimensions.split("x");
@@ -72,11 +70,15 @@ function calculateImagesNeeded(){
                 imagesNeeded = tileAmount/2;
                 textNeeded = imagesNeeded;
             }
-            console.log("Images needed: " + imagesNeeded);
-            console.log("Text needed: " + textNeeded);
 
             document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
+
+            console.log(selectedImages.length);
+            console.log(imagesNeeded);
+
+            if(selectedImages.length > imagesNeeded)
+                clearSelectedTable();
         }
     }
 }
