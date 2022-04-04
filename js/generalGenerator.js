@@ -15,6 +15,7 @@ window.addEventListener("load",function(){
     var gametype = document.getElementsByName("gametype")
     for(let i = 0; i < gametype.length; i++){
         gametype[i].addEventListener("change",calculateImagesNeeded);
+        gametype[i].addEventListener("change",clearSelectedTable);
     }
     
     //document.spelgenerator.addEventListener("submit",checkInput);
