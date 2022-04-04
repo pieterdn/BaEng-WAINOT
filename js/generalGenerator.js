@@ -78,8 +78,6 @@ function calculateImagesNeeded(){
                 + selectedImages.length + "/" + imagesNeeded + ")";
         }
     }
-
-
 }
 
 /**
@@ -87,6 +85,11 @@ function calculateImagesNeeded(){
  * @param {String} file string of file to be added to list
  */
 function addFileToSelectedTable(file){
+
+    if(imagesNeeded == selectedImages.length){
+        document.getElementById(file + "checkbox").checked = false;
+        return;
+    }
 
     let flag = false;
     for(let i = 0; i < selectedImages.length; i++){
