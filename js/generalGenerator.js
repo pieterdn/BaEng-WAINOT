@@ -74,9 +74,6 @@ function calculateImagesNeeded(){
             document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
 
-            console.log(selectedImages.length);
-            console.log(imagesNeeded);
-
             if(selectedImages.length > imagesNeeded)
                 clearSelectedTable();
         }
