@@ -9,6 +9,12 @@
 
 window.addEventListener("load",function(){
     document.getElementById("fileAjax").addEventListener("change", changeUploadButton);
+    document.spelgenerator.dimensions.addEventListener("change", calculateImagesNeeded);
+    var gametype = document.getElementsByName("gametype")
+    for(let i = 0; i < gametype.length; i++){
+        gametype[i].addEventListener("change",calculateImagesNeeded);
+    }
+    
     //document.spelgenerator.addEventListener("submit",checkInput);
     //document.getElementById('formAjax').addEventListener("submit",addToFileListFromUpload);
 });
@@ -34,6 +40,18 @@ function changeUploadButton(){
         }else{
             let button = document.getElementById("choosebutton");
             button.innerHTML = amount + " bestand(en) geselecteerd"
+        }
+    }
+}
+
+function calculateImagesNeeded(){
+    console.log("calculateImagesNeeded was triggered.");
+
+    let radioButtons = document.getElementsByName("gametype");
+    for(let i = 0; i < radioButtons.length; i++){
+        if(radioButtons[i].checked){
+            console.log("Button: " + radioButtons[i] + "was checked.");
+            document.getElementById("imagePicker").style.display = "block";
         }
     }
 }
@@ -82,6 +100,8 @@ function addFileToSelectedTable(file){
     td.appendChild(document.createTextNode(file));
     tr.id = file;
     table.appendChild(tr);
+    document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
+        + selectedImages.length + ")";
 }
 
 function removeFileFromSelectedTable(file){
@@ -101,6 +121,7 @@ function removeFileFromSelectedTable(file){
         button = document.getElementById("clearButton");
         button.parentNode.removeChild(button);
         begin.appendChild(document.createTextNode("Er zijn momenteel geen afbeeldingen gekozen."))
+        document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen";
     }
 }
 

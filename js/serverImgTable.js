@@ -61,15 +61,23 @@ window.addEventListener("load",function(){
  * @requires var serverImages: an array of strings of the files on the server in the media folder
  */
 function createServerImgTable(){
-    if(serverImages.length == 0){
-        div.appendChild(document.createTextNode("Geen afbeeldingen op de server"));
-        return;
-    }
-    
-
     let div = document.getElementById("allImages");
     let table = document.createElement("table");
     table.setAttribute("id","serverImgTable");
+    div.appendChild(table);
+    if(serverImages.length == 0){
+        let title = document.getElementById("imgTableTitle");
+        title.innerHTML = "Afbeeldingen beschikbaar op server";
+        let subtext = document.getElementById("nothingOnServer");
+        subtext.innerHTML = "Er staan momenteel geen afbeeldingen op de server.";
+        tableAmount = 0;
+        return;
+    }
+    
+    document.getElementById("imgTableTitle").innerHTML = "Afbeeldingen beschikbaar op server (" + serverImages.length + ")";
+
+    
+    
 
 
     //If they are more server images than the max table height times width arrow keys are generated to navigate
@@ -132,7 +140,7 @@ function createServerImgTable(){
         }
         
     }
-    div.appendChild(table);
+    
 }
 
 function createArrows(table){
@@ -174,8 +182,6 @@ function createArrows(table){
  */
 function nextServerImages(){
     let max = serverImages.length/(maxServerTableHeight * maxServerTableWidth);
-    console.log(max);
-    console.log(selectedServerTable);
 
     if(selectedServerTable + 1 >= max)
         return;
@@ -329,6 +335,8 @@ function loadServerImagesFromIndex(page, direction, previousLength){
         }
     }
     tableAmount = (end - start) + 1;
+    document.getElementById("imgTableTitle").innerHTML = "Afbeeldingen beschikbaar op server (" + serverImages.length + ")";
+    document.getElementById("nothingOnServer").innerHTML = "";
 }
 
 /**
@@ -381,6 +389,8 @@ function addServerImage(files){
     let amountAdded = files.length;
     previousLength = serverImages.length;
 
+    document.getElementById("nothingOnServer").innerHTML = "";
+
     for (var i = 0; i < amountAdded; i++){
         if(checkFileOnServer(files[i].name) == false){
             serverImages.push(files[i].name);
@@ -391,15 +401,17 @@ function addServerImage(files){
         return;
     }
 
+    console.log(tableAmount);
+
     if(tableAmount == 10){
+        document.getElementById("imgTableTitle").innerHTML = "Afbeeldingen beschikbaar op server (" + serverImages.length + ").";
         return;
     }
     if((tableAmount) < 10){
         loadServerImagesFromIndex(selectedServerTable,0,previousLength);
+
         if(tableAmount == 10){
             let max = serverImages.length/(maxServerTableHeight * maxServerTableWidth);
-            console.log(max);
-            console.log(selectedServerTable);
 
             if(selectedServerTable + 1 >= max)
                 return;
@@ -408,6 +420,7 @@ function addServerImage(files){
     }else{
         if(arrows == true){
             loadServerImagesFromIndex(selectedServerTable,0,previousLength);
+
             if(tableAmount == 10){
                 document.getElementById("nextServerImg").classList.remove("arrow_last");
             }

@@ -57,7 +57,7 @@
                 </div>
                 <div class="tooltip">
                     <label class="radiocontainer">Paren
-                        <input type="radio" name="gametype" value="paren" checked="checked">
+                        <input type="radio" name="gametype" value="paren">
                         <span class="radiomark"></span>
                     </label>
                     <span class="tooltiptext">Combineren van twee identieke afbeeldingen.
@@ -74,19 +74,20 @@
             </fieldset>
             <input type="submit" id="submit-form" class="hidden" />
         </form>
-        <fieldset>
+        <fieldset id="imagePicker" style="display: none;">
             <legend>Kies afbeeldingen</legend>
-        <div style="display: flex;margin-right: 2em;">
+        <div style="display: flex;margin-right: -2em;">
             <div style="display: flex;flex-grow: 0.25;"></div>
             <div>
-                <h2>Geselecteerde afbeeldingen</h2>
+                <h2 id="selImgTitle">Geselecteerde afbeeldingen</h2>
                 <div id="chosenImages">
                     Er zijn momenteel geen afbeeldingen gekozen.
                 </div>
             </div>
             <div style="display: flex;flex-grow: 0.4;"></div>
             <div>
-                <h2>Afbeeldingen beschikbaar op server</h2>
+                <h2 id="imgTableTitle"></h2>
+                <div id="nothingOnServer"></div>
                 <div id="allImages">
                 </div>
             </div>
