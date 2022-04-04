@@ -130,8 +130,8 @@ function addFileToSelectedTable(file){
     let hidden = document.getElementById("hiddenImages");
     let newImage = document.createElement("input"); // <input type="hidden" name="image[x]" value="name;id">
     newImage.setAttribute("type", "hidden"); 
-    newImage.setAttribute("value", file.name + ";" + (Math.floor(id/2)).toString()); 
-    newImage.setAttribute("name", "image[" + id + "]");
+    newImage.setAttribute("value", file.name + "?" + (Math.floor(id/2)).toString()); 
+    newImage.setAttribute("name", "image" + id);
     hidden.appendChild(newImage);
     id += 1;
     let td1 = document.createElement("td");

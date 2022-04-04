@@ -58,8 +58,11 @@ if height*width > 18:
     height = 3
 
 #hard coded afb
-Templist =  os.listdir(os.path.abspath("../WAINOT/media"))
-#print(imgList)
+Templist = []
+
+for i in range(height*width):
+    Templist.append(fs.getvalue("image" + str(i)).split('?')[0])
+    print(Templist[i])
 
 imgList = 0
 
@@ -79,14 +82,12 @@ classList = list.copy(imgList)
 
 for i in range(len(imgList)): # find the id that is with the image
     for j in range(height*width):
-        id = str(fs.getvalue("image[" + str(j) + "]"))
-        if (id.split(';')[0] == os.path.splitext(classList[i])[0]): # check if image is image from id
-            classList[i] = id.split(';')[1]
+        id = str(fs.getvalue("image" + str(j))) # moet speciaal geval voor uniek zijn
+        if (id.split('?')[0] == classList[i]): # check if image is image from id
+            classList[i] = id.split('?')[1]
 
-# for i in range(len(imgList)):
-#     classList[i] = os.path.splitext(classList[i])[0]
-
-
+print(classList)
+print(imgList)
 
 tel = 0
 for y in range(height):
