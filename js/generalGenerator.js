@@ -116,7 +116,7 @@ function addFileToSelectedTable(file){
 
     let begin = document.getElementById("chosenImages");
 
-    //If the first element is a textNode remove it and append the selected files table
+    //If the first element is a textNode remove it and append the selected files table and clear button
     if(begin.firstChild.nodeType == 3){
         begin.removeChild(begin.firstChild);
         let removeall = document.createElement("button");
@@ -131,13 +131,22 @@ function addFileToSelectedTable(file){
     }
     let table = document.getElementById("chosenImagesTable");
     let tr = document.createElement("tr");
-    let td = document.createElement("td");
-    tr.appendChild(td);
-    td.appendChild(document.createTextNode(file));
+    let td1 = document.createElement("td");
+    tr.appendChild(td1);
+    td1.appendChild(document.createTextNode(file));
     tr.id = file;
     table.appendChild(tr);
     document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
+    if(textNeeded != 0){
+        let td2 = document.createElement("td");
+        let input = document.createElement("input");
+        input.type = "text";
+        input.className += "imageText ";
+        tr.appendChild(td2);
+        td2.appendChild(input);
+    }
+    
 }
 
 function removeFileFromSelectedTable(file){

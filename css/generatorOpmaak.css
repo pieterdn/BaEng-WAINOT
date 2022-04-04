@@ -203,9 +203,14 @@ legend{
 }
 
 /* Input boxes */
-input[type="text"] {
+#pixabay_input {
     padding: 6px 16px; 
     line-height: 20px;
+}
+
+.imageText{
+    margin-left: 20px;
+    padding: 3px 5px;
 }
 
 input[type="number"] {
