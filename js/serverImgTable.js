@@ -345,7 +345,6 @@ function loadServerImagesFromIndex(page, direction, previousLength){
  */
 function displayServerImage(event){
     if(event.target.textContent == ""){
-        console.log("empty");
         return;
     }
 
@@ -354,7 +353,6 @@ function displayServerImage(event){
         selected[i].classList.remove("selectedServerEntry");
     }
 
-    console.log(event.target);
     event.target.classList.add("selectedServerEntry");
     selectedServerImage.element = event.target;
 
