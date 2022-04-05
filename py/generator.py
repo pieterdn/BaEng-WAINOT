@@ -22,6 +22,11 @@ print("""
 </html>
 """)
 
+
+try:
+    os.chmod("../spel.html", 0o777)
+except:
+    pass
 file = open("../spel.html","w")
 
 file.write("""
@@ -34,34 +39,58 @@ file.write("""
 	<script src="./js/script.js"></script>
 </head>
     <body onload="init()">
-        <table id="table">
+        <div id=main>
+        <div id="wrapper">
+            <table id="table">
 """)
 
 fs = cgi.FieldStorage()
-width = int(fs.getvalue("width"))
-height = int(fs.getvalue("height"))
+dimensions = str(fs.getvalue("dimensions"))
+dimvalues = dimensions.split('x')
+
+width = int(dimvalues[0])
+height = int(dimvalues[1])
+
+#width = int(fs.getvalue("width"))
+#height = int(fs.getvalue("height"))
 
 
 #width = 5
 #height = 5
 
-if height*width > 18:
-    width = 6   #hard coded aantal afb
-    height = 3
+# if height*width > 18:
+#     width = 6   #hard coded aantal afb
+#     height = 3
 
 #hard coded afb
-Templist =  os.listdir(os.path.abspath("../media"))
-imgList = Templist[:math.ceil(height*width/2)] + Templist[:math.ceil(height*width/2)] #elk pretje 2x laten voorkomen
+Templist = []
+
+for i in range(height*width):
+    if fs.getvalue("image" + str(i)):
+        Templist.append(fs.getvalue("image" + str(i)).split('?')[0])
+    #print(Templist[i])
+
+imgList = 0
+
+if (fs.getvalue("gametype") == "paren"): # normal mode => 2 of the same image
+    imgList = Templist[:math.ceil(height*width/2)] + Templist[:math.ceil(height*width/2)] #elk pretje 2x laten voorkomen
+
+elif(fs.getvalue("gametype") == "text"):
+    # check dat er exact zoveel images aanwezig zijn
+    # text mode => 1 unique image with 1 text
+    imgList = Templist[:math.ceil(height*width/2)]
+
+else:# unique mode => 2 unique images that form a pair
+    imgList = Templist[:height*width]
+
 random.shuffle(imgList)
 classList = list.copy(imgList)
-#print(imgList)
 
-for i in range(len(imgList)):
-    classList[i] = os.path.splitext(classList[i])[0]
-
-
-
-
+for i in range(len(imgList)): # find the id that is with the image
+    for j in range(height*width):
+        id = str(fs.getvalue("image" + str(j))) # moet speciaal geval voor uniek zijn
+        if (id.split('?')[0] == classList[i]): # check if image is image from id
+            classList[i] = id.split('?')[1]
 
 tel = 0
 for y in range(height):
@@ -80,7 +109,9 @@ for y in range(height):
     file.write("\t\t</tr>")
 
 file.write("""
-        </table>
+            </table>
+            </div>
+        </div>
     </body>
 </html>""")
 file.close()
