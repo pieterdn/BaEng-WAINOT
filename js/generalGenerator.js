@@ -12,6 +12,7 @@ var id = 0;
 var subid = 0;
 var valid;
 var currentGametype = "paren";
+var oldType;
 
 window.addEventListener("load",function(){
     calculateImagesNeeded(null);
@@ -55,18 +56,12 @@ function changeUploadButton(){
 function calculateImagesNeeded(event){
     
     if(event != null){
-        if(strcmp(event.target.value,"text") == 0){
-            clearSelectedTable();
-        }
-        console.log(event.target);
+         if( (strcmp(event.target.value,"text") == 0) || (strcmp(oldType,"text") == 0)){
+             clearSelectedTable();
+         }
     }
     
-    let oldType = currentGametype;
-
-    if(strcmp(oldType,"text") == 0){
-        clearSelectedTable();
-    }
-
+    
     //let oldAmount = imagesNeeded
     let radioButtons = document.getElementsByName("gametype");
     for(let i = 0; i < radioButtons.length; i++){
@@ -82,10 +77,12 @@ function calculateImagesNeeded(event){
             if(strcmp(checkedValue,"uniek") == 0){
                 currentGametype = "uniek";
                 imagesNeeded = tileAmount;
+                textNeeded = 0;
             }
             if(strcmp(checkedValue,"paren") == 0){
                 currentGametype = "paren";
                 imagesNeeded = tileAmount/2;
+                textNeeded = 0;
             }
             if(strcmp(checkedValue,"text") == 0){
                 currentGametype = "text";
@@ -100,6 +97,7 @@ function calculateImagesNeeded(event){
                 clearSelectedTable();
         }
     }
+    oldType = currentGametype;
     checkValidity();
 }
 
