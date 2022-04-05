@@ -58,9 +58,9 @@ height = int(dimvalues[1])
 #width = 5
 #height = 5
 
-if height*width > 18:
-    width = 6   #hard coded aantal afb
-    height = 3
+# if height*width > 18:
+#     width = 6   #hard coded aantal afb
+#     height = 3
 
 #hard coded afb
 Templist = []
