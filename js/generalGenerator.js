@@ -55,13 +55,6 @@ function changeUploadButton(){
 
 function calculateImagesNeeded(event){
     
-    if(event != null){
-         if( (strcmp(event.target.value,"text") == 0) || (strcmp(oldType,"text") == 0)){
-             clearSelectedTable();
-         }
-    }
-    
-    
     //let oldAmount = imagesNeeded
     let radioButtons = document.getElementsByName("gametype");
     for(let i = 0; i < radioButtons.length; i++){
@@ -95,6 +88,17 @@ function calculateImagesNeeded(event){
 
             if(selectedImages.length > imagesNeeded)
                 clearSelectedTable();
+        }
+    }
+
+    if(event != null){
+        console.log(event.target.value);
+        console.log(oldType);
+
+        if(!((strcmp(oldType,"text") == 0) && (strcmp(currentGametype,"text") == 0))){
+            if((strcmp(event.target.value,"text") == 0) || (strcmp(oldType,"text") == 0)){
+                clearSelectedTable();
+            }
         }
     }
     oldType = currentGametype;
