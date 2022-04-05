@@ -2,12 +2,36 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title> spelgenerator </title>
-    <link rel="stylesheet" href="./css/opmaak.css">
+    <!-- opmaak.css niet includen!!!!! -->
+    <link rel="stylesheet" href="./css/generatorOpmaak.css">
     <script src="./js/previewscript.js"></script>
+<<<<<<< HEAD
     <script src="./js/pixabay-widget.js"></script>
+=======
+>>>>>>> master
     <script src="./js/script.js"></script>
+    <script src="./js/generalGenerator.js"></script>
+    <script src="./js/serverImgTable.js"></script>
+    <script src="./listServerFiles.php"></script>
+    <script src="./js/imageUpload.js"></script>
+
+    <script>
+        var pixabayWidget = { 'key': '26396227-a135d9f1b6b4609e8f1b86dd2' }
+    </script>
+    <script typr="text/javascript">
+        function zoekPixabay(){
+            string = document.getElementById("pixabay_input").value;
+            console.log(string);
+            document.getElementById("pixaReslut").setAttribute("data-search",string);
+            new initPixabayWidget();
+        } 
+    </script>
+    <script src="./js/pixabay-widget.js"></script>
+    <!-- <script src="./js/pixabay-widget.min.js" async defer></script> -->
+    
 </head>
     <body>
+        <div id="wrapper">
         <!-- pixabay API key veranderen -->
         <script>var pixabayWidget = { 'key': '26396227-a135d9f1b6b4609e8f1b86dd2' }</script>
         <script src="./js/pixabay-widget.js" async defer></script>
@@ -31,45 +55,109 @@
                 }
             }
         </script>
-        <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" >
+        
+        <h1>Memory generator</h1>
+        <form name="spelgenerator" action="./py/generator.py" method="post">
             <fieldset>
-                <label for="width">Breedte</label>
-                <input type="number" name="width" value="2"/>
-                <label for="height">Hoogte</label>
-                <input type="number" name="height" value="3"/>
+                <legend>Dimensies en speltype</legend>
+                <label for="dimensions">Breedte x Hoogte: </label>
+                <select name="dimensions" id="dimensions">
+                    <option value="2x2">2 x 2</option>
+                    <option value="3x2">3 x 2</option>
+                    <option value="4x3">4 x 3</option>
+                    <option value="4x4">4 x 4</option>
+                    <option value="5x4">5 x 4</option>
+                    <option value="6x4">6 x 4</option>
+                    <option value="6x5">6 x 5</option>
+                    <option value="6x6">6 x 6</option>
+                </select>
+                <label for="gametype">Kies het speltype: </label>
+                <div class="tooltip">
+                    <label class="radiocontainer">Uniek
+                        <input type="radio" name="gametype" value="uniek">
+                        <span class="radiomark"></span>
+                    </label>
+                    <span class="tooltiptext">Combineren van twee unieke afbeeldingen die een
+                        link hebben.
+                    </span>
+                </div>
+                <div class="tooltip">
+                    <label class="radiocontainer">Paren
+                        <input type="radio" name="gametype" value="paren" checked="true">
+                        <span class="radiomark"></span>
+                    </label>
+                    <span class="tooltiptext">Combineren van twee identieke afbeeldingen.
+                    </span>
+                </div>
+                <div class="tooltip">
+                    <label class="radiocontainer">Tekst en afbeelding
+                        <input type="radio" name="gametype" value="text">
+                        <span class="radiomark"></span>
+                    </label>
+                    <span class="tooltiptext">Combineren van een afbeelding met een woord.
+                    </span>
+                </div>
+
+                <label for="savegame">Voortgang opslaan:
+                    <label class="checkcontainer" id="modcheckcontainer">
+                        <input type="checkbox" name="savegame" id="savegame">
+                        <span class="checkmark" id="modcheck"></span>
+                    </label>
+                </label>
+                <input type="text" class="hidden" id="validation" name="validation">
             </fieldset>
-            <button type="submit">genereer!</button>
+            <div id="hiddenImages"></div>
+            <input type="submit" id="submit-form" class="hidden" onclick="validOrNot();"/>
         </form>
+        <fieldset id="imagePicker" style="display: block;">
+            <legend>Kies afbeeldingen</legend>
+        <div style="display: flex;margin-right: -2em;">
+            <div style="display: flex;flex-grow: 0.25;"></div>
+            <div>
+                <h2 id="selImgTitle">Geselecteerde afbeeldingen</h2>
+                <div id="chosenImages">
+                    Er zijn momenteel geen afbeeldingen gekozen.
+                </div>
+            </div>
+            <div style="display: flex;flex-grow: 0.4;"></div>
+            <div>
+                <h2 id="imgTableTitle"></h2>
+                <div id="nothingOnServer"></div>
+                <div id="allImages">
+                </div>
+            </div>
+            <div style="width:200px;height:200px">
+                <div id="serverImage"></div>
+            </div>
+        </div>
 
-        <input type="text" id="pixabay_input" name="pixabay_input" />
-        <button name="search_pixabay" onclick="zoekPixabay()"> zoek in pixabay </button>
+            <!--Image upload -->
+            <h2>Image upload</h2>
+            <form id="formAjax" action="uploadHandling.php" method="POST">
+                <input type="file" id="fileAjax" name="fileAjax" multiple/>
+                <label for="fileAjax" id="choosebutton" class="button-1">Kies bestand(en)</label>
+                <input class="button-1" type="submit" id="submit" name="submit" value="Upload" />
+                <div id="status"></div>
+            </form>
+            <!--End of Image upload-->
+        
+            <h2>Pixabay</h2>
+            <input type="text" id="pixabay_input" name="pixabay_input" />
+            <button class="button-1" name="search_pixabay" onclick = "zoekPixabay();"> Zoek op pixabay </button>
 
-        <div class="pixabay_widget" id="pixaReslut" data-search=" " data-max-rows="1" data-row-height="180" data-branding="false" data-navpos="top"></div>
-        <script typr="text/javascript">
-            function zoekPixabay(){
-                string = document.getElementById("pixabay_input").value;
-                console.log(string);
-                document.getElementById("pixaReslut").setAttribute("data-search",string);
-                new initPixabayWidget();
-            }
-            
-        </script>
-
-        <!--Image upload -->
-        <p>Image upload</p>
-        <form id="formAjax" action="uploadHandling.php" method="POST">
-            <input type="file" id="fileAjax" name="fileAjax" multiple/><br /><br />
-            <input type="submit" id="submit" name="submit" value="Upload" />
-        </form>
-        <p id="status"></p>
-        <script type="text/javascript" src="./js/imageUpload.js"></script>
-        <!--End of Image upload-->
-
-    </body>
-    <button id="memoryRefresh">refresh</button>
-    <button id="memoryShuffle">shuffle</button>
-
-    <div id="memoryPreview">
-
-    </div>
+            <div class="pixabay_widget" id="pixaReslut" data-search=" " data-max-rows="1" data-row-height="180" data-branding="false" data-navpos="top"></div>
+        </fieldset>
+        <fieldset>
+            <legend>Preview</legend>
+        <button class="button-1" id="memoryRefresh">Refresh</button>
+        <button class="button-1" id="memoryShuffle">Shuffle</button>
+        <button class="button-1" id="memoryReveal">Toon kaarten</button>
+        <div id="memoryPreview"></div>
+        </fieldset>
+        <div>
+        <label for="submit-form" id="genbutton" class="button-1">Genereer!</label>
+        <div id="validationMessage"></div></div>
+        </div>
+    </body>  
 </html>
+        
