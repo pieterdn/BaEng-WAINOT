@@ -11,9 +11,10 @@ let textNeeded = 0;
 var id = 0;
 var subid = 0;
 var valid;
+var currentGametype = "paren";
 
 window.addEventListener("load",function(){
-    calculateImagesNeeded();
+    calculateImagesNeeded(null);
     document.getElementById("fileAjax").addEventListener("change", changeUploadButton);
     document.spelgenerator.dimensions.addEventListener("change", calculateImagesNeeded);
     var gametype = document.getElementsByName("gametype")
@@ -51,7 +52,21 @@ function changeUploadButton(){
     }
 }
 
-function calculateImagesNeeded(){
+function calculateImagesNeeded(event){
+    
+    if(event != null){
+        if(strcmp(event.target.value,"text") == 0){
+            clearSelectedTable();
+        }
+        console.log(event.target);
+    }
+    
+    let oldType = currentGametype;
+
+    if(strcmp(oldType,"text") == 0){
+        clearSelectedTable();
+    }
+
     //let oldAmount = imagesNeeded
     let radioButtons = document.getElementsByName("gametype");
     for(let i = 0; i < radioButtons.length; i++){
@@ -65,15 +80,15 @@ function calculateImagesNeeded(){
             let checkedValue = radioButtons[i].value;
 
             if(strcmp(checkedValue,"uniek") == 0){
-                clearSelectedTable();
+                currentGametype = "uniek";
                 imagesNeeded = tileAmount;
             }
             if(strcmp(checkedValue,"paren") == 0){
-                clearSelectedTable();
+                currentGametype = "paren";
                 imagesNeeded = tileAmount/2;
             }
             if(strcmp(checkedValue,"text") == 0){
-                clearSelectedTable();
+                currentGametype = "text";
                 imagesNeeded = tileAmount/2;
                 textNeeded = imagesNeeded;
             }
