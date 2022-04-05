@@ -57,6 +57,10 @@ legend{
     margin-bottom: 10px;
 }
 
+#validationMessage{
+    padding-top: 10px;
+}
+
 /* Arrows */
 .arrow:not(.arrow_last) {
     height: 25px;
