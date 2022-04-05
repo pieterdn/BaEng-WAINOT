@@ -31,7 +31,7 @@
         <!-- pixabay API key veranderen -->
         
         <h1>Memory generator</h1>
-        <form name="spelgenerator" action="./py/generator.py" method="post" name="sizeForm" >
+        <form name="spelgenerator" action="./py/generator.py" method="post">
             <fieldset>
                 <legend>Dimensies en speltype</legend>
                 <label for="dimensions">Breedte x Hoogte: </label>
@@ -78,9 +78,10 @@
                         <span class="checkmark" id="modcheck"></span>
                     </label>
                 </label>
+                <input type="text" class="hidden" id="validation" name="validation">
             </fieldset>
             <div id="hiddenImages"></div>
-            <input type="submit" id="submit-form" class="hidden" />
+            <input type="submit" id="submit-form" class="hidden" onclick="validOrNot();"/>
         </form>
         <fieldset id="imagePicker" style="display: block;">
             <legend>Kies afbeeldingen</legend>
@@ -127,7 +128,9 @@
         <button class="button-1" id="memoryReveal">Toon kaarten</button>
         <div id="memoryPreview"></div>
         </fieldset>
+        <div>
         <label for="submit-form" id="genbutton" class="button-1">Genereer!</label>
+        <div id="validationMessage"></div></div>
         </div>
     </body>  
 </html>
