@@ -31,26 +31,6 @@
         <!-- pixabay API key veranderen -->
         <script>var pixabayWidget = { 'key': '26396227-a135d9f1b6b4609e8f1b86dd2' }</script>
         <script src="./js/pixabay-widget.js" async defer></script>
-
-
-        <script type="text/javascript">
-            function checkInput(event){
-                if(document.spelgenerator.width.value=='' || Number(document.spelgenerator.width.value)<0 ){
-                    window.alert('geen valide Breedte');
-                    document.sizeForm.width.focus();
-                    event.preventDefault();
-                }
-                else if(document.spelgenerator.height.value=='' || Number(document.spelgenerator.height.value)<0){
-                    window.alert('geen valide Hoogte');
-                    document.sizeForm.height.focus();
-                    event.preventDefault();
-                }
-                else if((Number(document.spelgenerator.width.value)*Number(document.spelgenerator.height.value))%2 == 1){
-                    window.alert('geen even aantal veltjes');
-                    event.preventDefault();
-                }
-            }
-        </script>
         
         <h1>Memory generator</h1>
         <form name="spelgenerator" action="./py/generator.py" method="post">
@@ -67,7 +47,7 @@
                     <option value="6x5">6 x 5</option>
                     <option value="6x6">6 x 6</option>
                 </select>
-                <label for="gametype">Kies het speltype: </label>
+                <label for="gametype">Speltype: </label>
                 <div class="tooltip">
                     <label class="radiocontainer">Uniek
                         <input type="radio" name="gametype" value="uniek">
@@ -93,6 +73,10 @@
                     <span class="tooltiptext">Combineren van een afbeelding met een woord.
                     </span>
                 </div>
+
+                <label for="gameName">Spelnaam:
+                    <input type="text" id="gameName" name="gameName" required>
+                </label>
 
                 <label for="savegame">Voortgang opslaan:
                     <label class="checkcontainer" id="modcheckcontainer">

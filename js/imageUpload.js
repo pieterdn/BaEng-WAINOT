@@ -8,18 +8,20 @@ window.addEventListener("load",function(){
   var amountNotUploaded = 0;
   
 
-
-
-myForm.onsubmit = function(event) {
-    event.preventDefault();
+  myForm.addEventListener("submit",function(event) {
+      amountNotUploaded = 0;
+      event.preventDefault();
 
       statusP.innerHTML = 'Uploading...';
 
       // Get the files from the form input
       var files = myFile.files;
 
-    // Amount of files
-    var amount = files.length;
+      // Create a FormData object
+      var formData = new FormData();
+
+      // Amount of files
+      var amount = files.length;
 
       for(var i = 0; i < amount; i++){
 
@@ -69,8 +71,5 @@ myForm.onsubmit = function(event) {
         xhr.send(formData);
 
       }
-    //clear previous data
-    formData = new FormData();
-    }
+  });
 });
-
