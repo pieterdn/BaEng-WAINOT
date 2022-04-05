@@ -12,6 +12,7 @@ var id = 0;
 var subid = 0;
 
 window.addEventListener("load",function(){
+    calculateImagesNeeded();
     document.getElementById("fileAjax").addEventListener("change", changeUploadButton);
     document.spelgenerator.dimensions.addEventListener("change", calculateImagesNeeded);
     var gametype = document.getElementsByName("gametype")
