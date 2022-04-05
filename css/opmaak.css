@@ -51,6 +51,7 @@ html, body{
     transform: rotateY(180deg);
     transition: transform 1000ms ease-out;
     background-color: #dcecec;
+    overflow: hidden;
 }
 
 .card.focus {
