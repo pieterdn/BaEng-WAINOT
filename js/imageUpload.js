@@ -1,3 +1,6 @@
+// Create a FormData object
+var formData = new FormData();
+
 window.addEventListener("load",function(){
   var myForm = document.getElementById('formAjax');  // Our HTML form's ID (wordt nog ergens anders gebruikt pas op bij aanpassen id)
   var myFile = document.getElementById('fileAjax');  // Our HTML files' ID (dit ook)
@@ -66,6 +69,7 @@ window.addEventListener("load",function(){
 
         // Send the data.
         xhr.send(formData);
+
       }
   });
 });
