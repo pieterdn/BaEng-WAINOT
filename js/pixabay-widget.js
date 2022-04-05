@@ -21,22 +21,18 @@ function getAPIimage(id,url){
         .then(resp => resp.blob())
         .then(blobobject => {
             const blob = window.URL.createObjectURL(blobobject);
-            const anchor = document.createElement('a');
-            anchor.style.display = 'none';
-            anchor.href = blob;
-            anchor.download = id+".png";
-            document.body.appendChild(anchor);
-            anchor.click();
-            window.URL.revokeObjectURL(blob);
-            // voor op server op te slaan
-            //var xhr = new XMLHttpRequest();
-            // Open the connection
-            //xhr.open('POST', '/uploadHandling.php', true);
-            //xhr.send(blob);
+            //const anchor = document.createElement('a');
+            //anchor.style.display = 'none';
+            //anchor.href = blob;
+            //anchor.download = id+".png";
+            //document.body.appendChild(anchor);
+            //anchor.click();
+            //window.URL.revokeObjectURL(blob);
+            var file = new File([blob], id+".png");
+            formData.append('fileAjax', file, file.name);
+            console.log('file added from pixabay');
         })
         .catch(() => console.log('An error in downloadin gthe file sorry'));
-
-    
 
 }
 

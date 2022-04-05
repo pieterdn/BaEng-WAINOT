@@ -2,6 +2,9 @@ var myForm = document.getElementById('formAjax');  // Our HTML form's ID
 var myFile = document.getElementById('fileAjax');  // Our HTML files' ID
 var statusP = document.getElementById('status');
 
+// Create a FormData object
+var formData = new FormData();
+
 myForm.onsubmit = function(event) {
     event.preventDefault();
 
@@ -9,9 +12,6 @@ myForm.onsubmit = function(event) {
 
     // Get the files from the form input
     var files = myFile.files;
-
-    // Create a FormData object
-    var formData = new FormData();
 
     // Amount of files
     var amount = files.length;
@@ -47,5 +47,8 @@ myForm.onsubmit = function(event) {
 
       // Send the data.
       xhr.send(formData);
+
+      //clear previous data
+      formData = new FormData();
     }
 }
