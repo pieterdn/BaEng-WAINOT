@@ -154,6 +154,7 @@ function addFileToSelectedTable(file){
         let input = document.createElement("input");
         input.type = "text";
         input.className += "imageText ";
+        input.id = file + "text";
         tr.appendChild(td2);
         td2.appendChild(input);
     }
