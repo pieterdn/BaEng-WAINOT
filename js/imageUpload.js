@@ -1,3 +1,6 @@
+// Create a FormData object
+var formData = new FormData();
+
 window.addEventListener("load",function(){
   var myForm = document.getElementById('formAjax');  // Our HTML form's ID (wordt nog ergens anders gebruikt pas op bij aanpassen id)
   var myFile = document.getElementById('fileAjax');  // Our HTML files' ID (dit ook)
@@ -35,7 +38,7 @@ window.addEventListener("load",function(){
           // Add the file to the AJAX request
           formData.append('fileAjax', file, file.name);
           //Add all uploaded files to the selected files list
-          addFileToSelectedTable(file.name)
+          addFileToSelectedTable(file.name);
         }
         else{
           amountNotUploaded +=1;
@@ -58,7 +61,7 @@ window.addEventListener("load",function(){
                 + amountNotUploaded + " Bestand(en) reeds aanwezig op server.";
             }
             document.getElementById("choosebutton").innerHTML = "Kies bestand(en)";
-            addServerImage(files);
+            addServerImage(files,1);
           } else {
             statusP.innerHTML = 'Upload error. Try again.';
           }
@@ -66,6 +69,7 @@ window.addEventListener("load",function(){
 
         // Send the data.
         xhr.send(formData);
+
       }
   });
 });
