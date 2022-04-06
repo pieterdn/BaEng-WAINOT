@@ -224,7 +224,6 @@ function checkValidity(){
 }
 
 function validOrNot(){
-    console.log("ValidOrNot");
     if(valid == false){
         for(let i = 0; i < imagesNeeded; i++){
             let id = selectedImages[i] + "text";
