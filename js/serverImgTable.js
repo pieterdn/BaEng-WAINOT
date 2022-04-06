@@ -388,17 +388,26 @@ function checkFileOnServer(filename){
     return false;
 }
 
-function addServerImage(files){
+function addServerImage(files,type){
     let amountAdded = files.length;
     previousLength = serverImages.length;
 
     document.getElementById("nothingOnServer").innerHTML = "";
 
-    for (var i = 0; i < amountAdded; i++){
-        if(checkFileOnServer(files[i].name) == false){
-            serverImages.push(files[i].name);
+    if(type == 1){
+        for (var i = 0; i < amountAdded; i++){
+            if(checkFileOnServer(files[i].name) == false){
+                serverImages.push(files[i].name);
+            }
+        }
+    }else{
+        for (var i = 0; i < amountAdded; i++){
+            if(checkFileOnServer(files[i]) == false){
+                serverImages.push(files[i]);
+            }
         }
     }
+    
  
     if(serverImages.length == previousLength){
         return;
