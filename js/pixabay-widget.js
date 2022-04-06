@@ -16,7 +16,15 @@
 //toevoeging voor api
 function getAPIimage(id,url){
     
-    console.log("get image");
+    console.log("get url");
+    console.log(url);
+    sendURL(url,id);
+
+
+
+
+
+    /*
     fetch(url)
         .then(resp => resp.blob())
         .then(blobobject => {
@@ -28,12 +36,32 @@ function getAPIimage(id,url){
             //document.body.appendChild(anchor);
             //anchor.click();
             //window.URL.revokeObjectURL(blob);
-            var file = new File([blob], id+".png");
-            formData.append('fileAjax', file, file.name);
-            console.log('file added from pixabay');
+            //var file = new File([blob], id+".png");
+            //formData.append('fileAjax', file, file.name);
+            //console.log('file added from pixabay');
         })
         .catch(() => console.log('An error in downloadin gthe file sorry'));
+    */
+}
+function setFeedback(){
+    if(httpObject.readyState == 4){
+        console.log(httpObject.responseText);
+    }
+}
 
+function sendURL(url,id){
+    httpObject = getHTTPObject();
+    if(httpObject != null){
+        httpObject.open("POST","/savePixabay.php",true);
+        httpObject.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        var data = "url="+url+"&id="+id;
+        httpObject.send(data);
+        httpObject.onreadystatechange = setFeedback;
+    }
+}
+
+function getHTTPObject(){
+    return new XMLHttpRequest();
 }
 
 
