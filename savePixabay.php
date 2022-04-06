@@ -16,7 +16,7 @@
         file_put_contents("media/" . $img, file_get_contents($url));
         //move_uploaded_file($img, $uploadPath);
 
-        echo "foto opgelsagen";
+        echo $img;
     }
     /*
     function file_get_contents_curl($url) {

@@ -46,6 +46,7 @@ function getAPIimage(id,url){
 function setFeedback(){
     if(httpObject.readyState == 4){
         console.log(httpObject.responseText);
+        addFileToSelectedTable(httpObject.responseText);
     }
 }
 
