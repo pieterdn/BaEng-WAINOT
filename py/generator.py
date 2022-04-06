@@ -1,4 +1,4 @@
-#!python
+#!/usr/bin/env python3
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
@@ -10,19 +10,25 @@ import math
 
 print("Content-type: text/html\n\n")
 
+fs = cgi.FieldStorage()
+filename = str(fs.getvalue("gameName"))
 
 print("""
 <!DOCTYPE html> 
 <html lang="nl">
 <head>
-    <meta http-equiv="refresh" content="1; ../spel.html">
-    <title> test </title>
+""")
+
+print('<meta http-equiv="refresh" content="1; ../' + filename +'.html">')
+
+print("""
+    <title> Memory </title>
 </head>
 <body/>
 </html>
 """)
-fs = cgi.FieldStorage()
-filename = str(fs.getvalue("gameName"))
+
+
 
 try:
     os.chmod("../" + filename + ".html", 0o777)
