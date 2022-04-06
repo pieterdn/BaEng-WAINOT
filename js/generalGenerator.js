@@ -155,7 +155,15 @@ function addFileToSelectedTable(file){
     let hidden = document.getElementById("hiddenImages");
     let newImage = document.createElement("input"); // <input type="hidden" name="image[x]" value="name;id">
     newImage.setAttribute("type", "hidden"); 
-    newImage.setAttribute("value", file + "?" + (Math.floor(id/2)).toString()); 
+
+
+    if (document.getElementById("uniek").checked)
+        newImage.setAttribute("value", file + "?" + (Math.floor(id/2)).toString());
+    if (document.getElementById("paren").checked)
+        newImage.setAttribute("value", file + "?" + id);
+    if (document.getElementById("text").checked)
+        newImage.setAttribute("value", file + "?" + id);
+
     newImage.setAttribute("name", "image" + id);
     hidden.appendChild(newImage);
     id += 1;

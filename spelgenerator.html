@@ -46,7 +46,7 @@
                 <label for="gametype">Speltype: </label>
                 <div class="tooltip">
                     <label class="radiocontainer">Uniek
-                        <input type="radio" name="gametype" value="uniek">
+                        <input type="radio" name="gametype" value="uniek" id="uniek">
                         <span class="radiomark"></span>
                     </label>
                     <span class="tooltiptext">Combineren van twee unieke afbeeldingen die een
@@ -55,7 +55,7 @@
                 </div>
                 <div class="tooltip">
                     <label class="radiocontainer">Paren
-                        <input type="radio" name="gametype" value="paren" checked="true">
+                        <input type="radio" name="gametype" value="paren" checked="true" id="paren">
                         <span class="radiomark"></span>
                     </label>
                     <span class="tooltiptext">Combineren van twee identieke afbeeldingen.
@@ -63,7 +63,7 @@
                 </div>
                 <div class="tooltip">
                     <label class="radiocontainer">Tekst en afbeelding
-                        <input type="radio" name="gametype" value="text">
+                        <input type="radio" name="gametype" value="text" id="text">
                         <span class="radiomark"></span>
                     </label>
                     <span class="tooltiptext">Combineren van een afbeelding met een woord.
@@ -74,7 +74,7 @@
                     <input type="text" id="gameName" name="gameName" required>
                 </label>
 
-                <label for="savegame">Voortgang opslaan:
+                <label for="savegame" class="hidden">Voortgang opslaan:
                     <label class="checkcontainer" id="modcheckcontainer">
                         <input type="checkbox" name="savegame" id="savegame">
                         <span class="checkmark" id="modcheck"></span>

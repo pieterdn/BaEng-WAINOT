@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!python
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
@@ -38,7 +38,7 @@ file.write("""
     <title> test </title>
 	<script src="./js/script.js"></script>
 </head>
-    <body onload="init()">
+    <body>
         <div id=main>
         <div id="wrapper">
             <table id="table">
@@ -71,6 +71,7 @@ for i in range(height*width):
     #print(Templist[i])
 
 imgList = 0
+
 
 if (fs.getvalue("gametype") == "paren"): # normal mode => 2 of the same image
     imgList = Templist[:math.ceil(height*width/2)] + Templist[:math.ceil(height*width/2)] #elk pretje 2x laten voorkomen
