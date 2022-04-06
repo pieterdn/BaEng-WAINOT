@@ -150,7 +150,7 @@ function arrayRemove(arr, value) {
 function checkEnd()
 {
     // check if each card is turned over and correct
-    if (document.getElementsByClass("correct").length == document.getElementsByClass("card").length)
+    if (document.getElementsByClassName("correct").length == document.getElementsByClassName("card").length)
         endOfGame();
 }
 
