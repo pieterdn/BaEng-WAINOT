@@ -413,8 +413,6 @@ function addServerImage(files,type){
         return;
     }
 
-    console.log(tableAmount);
-
     if(tableAmount == 10){
         document.getElementById("imgTableTitle").innerHTML = "Afbeeldingen beschikbaar op server (" + serverImages.length + ")";
         return;
