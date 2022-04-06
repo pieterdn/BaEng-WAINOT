@@ -92,8 +92,6 @@ function calculateImagesNeeded(event){
     }
 
     if(event != null){
-        console.log(event.target.value);
-        console.log(oldType);
 
         if(!((strcmp(oldType,"text") == 0) && (strcmp(currentGametype,"text") == 0))){
             if((strcmp(event.target.value,"text") == 0) || (strcmp(oldType,"text") == 0)){
