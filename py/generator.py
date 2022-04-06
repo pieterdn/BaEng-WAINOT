@@ -72,6 +72,7 @@ for i in range(height*width):
 
 imgList = 0
 
+
 if (fs.getvalue("gametype") == "paren"): # normal mode => 2 of the same image
     imgList = Templist[:math.ceil(height*width/2)] + Templist[:math.ceil(height*width/2)] #elk pretje 2x laten voorkomen
 
