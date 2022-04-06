@@ -157,4 +157,5 @@ function checkEnd()
 function endOfGame()
 {
     window.alert("Game is done yay");
+    // execute animation
 }
