@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!python
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
@@ -38,7 +38,7 @@ file.write("""
     <title> test </title>
 	<script src="./js/script.js"></script>
 </head>
-    <body onload="init()">
+    <body>
         <div id=main>
         <div id="wrapper">
             <table id="table">
