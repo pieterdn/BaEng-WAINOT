@@ -100,7 +100,8 @@ p.img {
     /*width: 200px; moet nog wat aan gewerkt worden*/
 }
 
-body {
-	background: #000;
+#canvas{
+    background-color: rgba(1,1,1,1);
 	margin: 0;
+    position: absolute;
 }
