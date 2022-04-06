@@ -21,13 +21,14 @@ print("""
 <body/>
 </html>
 """)
-
+fs = cgi.FieldStorage()
+filename = str(fs.getvalue("gameName"))
 
 try:
-    os.chmod("../spel.html", 0o777)
+    os.chmod("../" + filename + ".html", 0o777)
 except:
     pass
-file = open("../spel.html","w")
+file = open("../" + filename + ".html","w")
 
 file.write("""
 <!DOCTYPE html> 
@@ -44,7 +45,7 @@ file.write("""
             <table id="table">
 """)
 
-fs = cgi.FieldStorage()
+
 dimensions = str(fs.getvalue("dimensions"))
 dimvalues = dimensions.split('x')
 
