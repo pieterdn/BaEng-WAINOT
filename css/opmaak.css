@@ -52,6 +52,7 @@ html, body{
     transition: transform 1000ms ease-out;
     background-color: #dcecec;
     overflow: hidden;
+    z-index: 1;
 }
 
 .card.focus {
@@ -98,4 +99,10 @@ p.img {
 .img {
     height: 150px;
     /*width: 200px; moet nog wat aan gewerkt worden*/
+}
+
+#canvas{
+	margin: 0;
+    position: absolute;
+    z-index: 0;
 }
