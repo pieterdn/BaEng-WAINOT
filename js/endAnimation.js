@@ -266,11 +266,12 @@ function loop() {
   // setting the composite operation to destination-out will allow us to clear the canvas at a specific opacity, rather than wiping it entirely
   //ctx.globalCompositeOperation = 'destination-out';
   // decrease the alpha property to create more prominent trails
-  ctx.fillStyle = "rgba(0, 0, 0, 1)";
-  ctx.fillRect(0, 0, cw, ch);
+  // ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+  // ctx.fillRect(0, 0, cw, ch);
   // change the composite operation back to our main mode
   // lighter creates bright highlight points as the fireworks and particles overlap each other
   ctx.globalCompositeOperation = "lighter";
+  ctx.clearRect(0, 0, cw, ch);
 
   // loop over each firework, draw it, update it
   var i = fireworks.length;
