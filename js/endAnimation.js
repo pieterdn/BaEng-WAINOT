@@ -19,8 +19,8 @@ window.addEventListener("load", function () {
     canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d"),
     // full screen dimensions
-    cw = window.innerWidth,
-    ch = window.innerHeight,
+    cw = window.outerWidth,
+    ch = window.outerHeight,
     // firework collection
     fireworks = [],
     // particle collection
@@ -270,7 +270,7 @@ function loop() {
   // ctx.fillRect(0, 0, cw, ch);
   // change the composite operation back to our main mode
   // lighter creates bright highlight points as the fireworks and particles overlap each other
-  ctx.globalCompositeOperation = "lighter";
+  // ctx.globalCompositeOperation = "lighter";
   ctx.clearRect(0, 0, cw, ch);
 
   // loop over each firework, draw it, update it
