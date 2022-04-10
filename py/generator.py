@@ -10,24 +10,31 @@ import math
 
 print("Content-type: text/html\n\n")
 
+fs = cgi.FieldStorage()
+filename = str(fs.getvalue("gameName"))
 
 print("""
 <!DOCTYPE html> 
 <html lang="nl">
 <head>
-    <meta http-equiv="refresh" content="1; ../spel.html">
-    <title> test </title>
+""")
+
+print('<meta http-equiv="refresh" content="1; ../' + filename +'.html">')
+
+print("""
+    <title> Memory </title>
 </head>
 <body/>
 </html>
 """)
 
 
+
 try:
-    os.chmod("../spel.html", 0o777)
+    os.chmod("../" + filename + ".html", 0o777)
 except:
     pass
-file = open("../spel.html","w")
+file = open("../" + filename + ".html","w")
 
 file.write("""
 <!DOCTYPE html> 
@@ -46,7 +53,7 @@ file.write("""
             <table id="table">
 """)
 
-fs = cgi.FieldStorage()
+
 dimensions = str(fs.getvalue("dimensions"))
 dimvalues = dimensions.split('x')
 
