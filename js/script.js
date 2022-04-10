@@ -161,3 +161,8 @@ function endOfGame()
     document.getElementById("canvas").hidden = false;
     loop();
 }
+
+function restart()
+{
+    location.reload();
+}
