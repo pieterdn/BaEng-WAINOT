@@ -101,6 +101,9 @@ for y in range(height):
                         <div id=" """)
         file.write(str(x) + '_' + str(y))
         file.write('" class="' + classList[tel] +  ' card" tabindex="0">')
+        # if text: make p element with text inside
+        #   file.write(f""" <p class="img">{str(imgList[tel])}</p> """)
+        # else: do below
         file.write("""                             <img class="img" src=" """+ "./media/" + imgList[tel] +  """"/>
                         </div>
                     </td>
