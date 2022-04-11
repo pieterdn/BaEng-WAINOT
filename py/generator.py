@@ -47,7 +47,7 @@ file.write("""
     <script src="./js/endAnimation.js"></script>
 </head>
     <body>
-        <button onclick="restart()">Restart</button>
+        <button class="button-1" onclick="restart()">Restart</button>
         <canvas id="canvas" width="300" height="300" hidden="">Canvas is not supported in your browser.</canvas>
         <div id=main>
         <div id="wrapper">

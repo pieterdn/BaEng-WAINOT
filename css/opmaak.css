@@ -106,3 +106,55 @@ p.img {
     position: absolute;
     z-index: 0;
 }
+
+/* Button-1 */
+.button-1 {
+    appearance: none;
+    background-color: #6b8d8d;
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+  
+.button-1:focus:not(:focus-visible):not(.focus-visible) {
+    box-shadow: none;
+    outline: none;
+}
+  
+.button-1:hover {
+    background-color: #fea62c;
+}
+  
+.button-1:focus {
+    box-shadow: #fea62c 0 0 0 3px;
+    outline: none;
+}
+  
+.button-1:disabled {
+    background-color: #94d3a2;
+    border-color: rgba(27, 31, 35, .1);
+    color: rgba(255, 255, 255, .8);
+    cursor: default;
+}
+  
+.button-1:active {
+    background-color: #f7940a;
+    box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
