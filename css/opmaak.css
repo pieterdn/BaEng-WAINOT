@@ -131,6 +131,8 @@ p.img {
     touch-action: manipulation;
     vertical-align: middle;
     white-space: nowrap;
+    margin: 5px;
+    margin-left: 15px;
 }
   
 .button-1:focus:not(:focus-visible):not(.focus-visible) {
