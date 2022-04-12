@@ -14,17 +14,16 @@
     <script>
         var pixabayWidget = { 'key': '26396227-a135d9f1b6b4609e8f1b86dd2' }
     </script>
-    <script typr="text/javascript">
+    <script type="text/javascript">
         function zoekPixabay(){
             string = document.getElementById("pixabay_input").value;
             console.log(string);
-            document.getElementById("pixaReslut").setAttribute("data-search",string);
+            document.getElementById("pixaResult").setAttribute("data-search",string);
             new initPixabayWidget();
         } 
     </script>
     <script src="./js/pixabay-widget.js"></script>
-    <!-- <script src="./js/pixabay-widget.min.js" async defer></script> -->
-    
+
 </head>
     <body>
         <div id="wrapper">
@@ -85,6 +84,7 @@
                 <input type="text" class="hidden" id="validation" name="validation">
             </fieldset>
             <div id="hiddenImages"></div>
+            <div id="hiddenText"></div>
             <input type="submit" id="submit-form" class="hidden" onclick="validOrNot();"/>
         </form>
         <fieldset id="imagePicker" style="display: block;">

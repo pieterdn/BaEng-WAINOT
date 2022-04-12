@@ -1,2 +1,3 @@
 py/.htaccess
-spel.html
+*.html
+!spelgenerator.html
