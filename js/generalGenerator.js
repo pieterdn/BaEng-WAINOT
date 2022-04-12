@@ -93,11 +93,15 @@ function calculateImagesNeeded(event){
 
     if(event != null){
 
-        if(!((strcmp(oldType,"text") == 0) && (strcmp(currentGametype,"text") == 0))){
-            if((strcmp(event.target.value,"text") == 0) || (strcmp(oldType,"text") == 0)){
+        // if(!((strcmp(oldType,"text") == 0) && (strcmp(currentGametype,"text") == 0))){
+        //     if((strcmp(event.target.value,"text") == 0) || (strcmp(oldType,"text") == 0)){
+        //         clearSelectedTable();
+        //     }
+        // }
+        if((strcmp(event.target.value,"text") == 0) || (strcmp(oldType,"text") == 0)){
                 clearSelectedTable();
             }
-        }
+        
     }
     oldType = currentGametype;
     checkValidity();
@@ -164,7 +168,8 @@ function addFileToSelectedTable(file){
 
     newImage.setAttribute("name", "image" + id);
     hidden.appendChild(newImage);
-    id += 1;
+    if(textNeeded == 0)
+        id += 1;
     let table = document.getElementById("chosenImagesTable");
     let tr = document.createElement("tr");
     let td1 = document.createElement("td");
@@ -180,10 +185,17 @@ function addFileToSelectedTable(file){
         let input = document.createElement("input");
         input.type = "text";
         input.className += "imageText ";
-        input.id = file + "text";
+        input.id = file + "?text";
         input.addEventListener("change", checkValidity);
         tr.appendChild(td2);
         td2.appendChild(input);
+
+        let hiddenText = document.getElementById("hiddenText");
+        let newText = document.createElement("input");
+        newText.setAttribute("type", "hidden");
+        newText.setAttribute("name", "text" + id);
+        hiddenText.appendChild(newText);
+        id += 1;
     }
     checkValidity();
 }
@@ -206,7 +218,7 @@ function checkValidity(){
         }
         else{
             for(let i = 0; i < imagesNeeded; i++){
-                let id = selectedImages[i] + "text";
+                let id = selectedImages[i] + "?text";
                 let textfield = document.getElementById(id);
                 if(textfield.value == ""){
                     textfield.setCustomValidity("Tekstveld niet ingevuld");
@@ -265,9 +277,15 @@ function removeFileFromSelectedTable(file){
         {
             div.removeChild(div.children[i]);
             id -= 1;
+            if (strcmp(currentGametype, "text") == 0){
+                let divText = document.getElementById("hiddenText");
+                console.log(divText);
+                divText.removeChild(divText.children[i]);
+            }
             break;
         }
     }
+
     document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
     checkValidity();
