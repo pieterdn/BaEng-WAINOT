@@ -156,5 +156,13 @@ function checkEnd()
 
 function endOfGame()
 {
-    window.alert("Game is done yay");
+    //window.alert("Game is done yay");
+    // execute animation
+    document.getElementById("canvas").hidden = false;
+    loop();
+}
+
+function restart()
+{
+    location.reload();
 }

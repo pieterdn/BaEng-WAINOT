@@ -44,8 +44,11 @@ file.write("""
     <link rel="stylesheet" href="./css/opmaak.css">
     <title> test </title>
 	<script src="./js/script.js"></script>
+    <script src="./js/endAnimation.js"></script>
 </head>
     <body>
+        <button class="button-1" onclick="restart()">Restart</button>
+        <canvas id="canvas" width="300" height="300" hidden="">Canvas is not supported in your browser.</canvas>
         <div id=main>
         <div id="wrapper">
             <table id="table">
