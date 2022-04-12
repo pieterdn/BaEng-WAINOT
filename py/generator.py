@@ -10,24 +10,31 @@ import math
 
 print("Content-type: text/html\n\n")
 
+fs = cgi.FieldStorage()
+filename = str(fs.getvalue("gameName"))
 
 print("""
 <!DOCTYPE html> 
 <html lang="nl">
 <head>
-    <meta http-equiv="refresh" content="1; ../spel.html">
-    <title> test </title>
+""")
+
+print('<meta http-equiv="refresh" content="1; ../' + filename +'.html">')
+
+print("""
+    <title> Memory </title>
 </head>
 <body/>
 </html>
 """)
 
 
+
 try:
-    os.chmod("../spel.html", 0o774)
+    os.chmod("../" + filename + ".html", 0o777)
 except:
     pass
-file = open("../spel.html","w")
+file = open("../" + filename + ".html","w")
 
 file.write("""
 <!DOCTYPE html> 
@@ -37,14 +44,17 @@ file.write("""
     <link rel="stylesheet" href="./css/opmaak.css">
     <title> test </title>
 	<script src="./js/script.js"></script>
+    <script src="./js/endAnimation.js"></script>
 </head>
-    <body onload="init()">
+    <body>
+        <button class="button-1" onclick="restart()">Restart</button>
+        <canvas id="canvas" width="300" height="300" hidden="">Canvas is not supported in your browser.</canvas>
         <div id=main>
         <div id="wrapper">
             <table id="table">
 """)
 
-fs = cgi.FieldStorage()
+
 dimensions = str(fs.getvalue("dimensions"))
 dimvalues = dimensions.split('x')
 
@@ -58,9 +68,9 @@ height = int(dimvalues[1])
 #width = 5
 #height = 5
 
-if height*width > 18:
-    width = 6   #hard coded aantal afb
-    height = 3
+# if height*width > 18:
+#     width = 6   #hard coded aantal afb
+#     height = 3
 
 #hard coded afb
 Templist = []
@@ -71,6 +81,7 @@ for i in range(height*width):
     #print(Templist[i])
 
 imgList = 0
+
 
 if (fs.getvalue("gametype") == "paren"): # normal mode => 2 of the same image
     imgList = Templist[:math.ceil(height*width/2)] + Templist[:math.ceil(height*width/2)] #elk pretje 2x laten voorkomen
@@ -118,3 +129,4 @@ file.write("""
     </body>
 </html>""")
 file.close()
+

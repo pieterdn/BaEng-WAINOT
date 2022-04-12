@@ -137,6 +137,7 @@ function checkCards(){
         weg2.classList.remove("shown");
         },1000);
     }
+    checkEnd();
 }
 
 function arrayRemove(arr, value) { 
@@ -144,4 +145,24 @@ function arrayRemove(arr, value) {
     return arr.filter(function(ele){ 
         return ele != value; 
     });
+}
+
+function checkEnd()
+{
+    // check if each card is turned over and correct
+    if (document.getElementsByClassName("correct").length == document.getElementsByClassName("card").length)
+        endOfGame();
+}
+
+function endOfGame()
+{
+    //window.alert("Game is done yay");
+    // execute animation
+    document.getElementById("canvas").hidden = false;
+    loop();
+}
+
+function restart()
+{
+    location.reload();
 }

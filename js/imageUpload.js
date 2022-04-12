@@ -35,7 +35,7 @@ window.addEventListener("load",function(){
           // Add the file to the AJAX request
           formData.append('fileAjax', file, file.name);
           //Add all uploaded files to the selected files list
-          addFileToSelectedTable(file.name)
+          addFileToSelectedTable(file.name);
         }
         else{
           amountNotUploaded +=1;
@@ -58,7 +58,7 @@ window.addEventListener("load",function(){
                 + amountNotUploaded + " Bestand(en) reeds aanwezig op server.";
             }
             document.getElementById("choosebutton").innerHTML = "Kies bestand(en)";
-            addServerImage(files);
+            addServerImage(files,1);
           } else {
             statusP.innerHTML = 'Upload error. Try again.';
           }
@@ -66,6 +66,7 @@ window.addEventListener("load",function(){
 
         // Send the data.
         xhr.send(formData);
+
       }
   });
 });
