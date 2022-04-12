@@ -93,15 +93,17 @@ function calculateImagesNeeded(event){
 
     if(event != null){
 
-        // if(!((strcmp(oldType,"text") == 0) && (strcmp(currentGametype,"text") == 0))){
-        //     if((strcmp(event.target.value,"text") == 0) || (strcmp(oldType,"text") == 0)){
-        //         clearSelectedTable();
-        //     }
-        // }
-        if((strcmp(event.target.value,"text") == 0) || (strcmp(oldType,"text") == 0)){
+        if(!((strcmp(oldType,"text") == 0) && (strcmp(currentGametype,"text") == 0))){
+            if((strcmp(event.target.value,"text") == 0) || (strcmp(oldType,"text") == 0)){
                 clearSelectedTable();
             }
-        
+        }
+
+        if(!((strcmp(oldType,"uniek") == 0) && (strcmp(currentGametype,"uniek") == 0))){
+            if((strcmp(event.target.value,"uniek") == 0) || (strcmp(oldType,"uniek") == 0)){
+                clearSelectedTable();
+            }
+        }
     }
     oldType = currentGametype;
     checkValidity();
@@ -164,7 +166,8 @@ function addFileToSelectedTable(file){
     if (document.getElementById("paren").checked)
         newImage.setAttribute("value", file + "?" + id);
     if (document.getElementById("text").checked)
-        newImage.setAttribute("value", file + "?" + id);
+        newImage.setAttribute("value", file + "?" + (Math.floor(id/2)).toString());
+        //newImage.setAttribute("value", file + "?" + id);
 
     newImage.setAttribute("name", "image" + id);
     hidden.appendChild(newImage);
@@ -193,14 +196,15 @@ function addFileToSelectedTable(file){
         let hiddenText = document.getElementById("hiddenText");
         let newText = document.createElement("input");
         newText.setAttribute("type", "hidden");
-        newText.setAttribute("name", "text" + id);
+        newText.setAttribute("name", newImage.value.split('?')[0] + "?formText");
+        newText.setAttribute("id", newImage.value.split('?')[0] + "?formText");
         hiddenText.appendChild(newText);
         id += 1;
     }
     checkValidity();
 }
 
-function checkValidity(){
+function checkValidity(event){
     if(textNeeded == 0){
         if(imagesNeeded == selectedImages.length){
             document.getElementById("validation").setCustomValidity("");
@@ -228,6 +232,9 @@ function checkValidity(){
                 }
                 else{
                     document.getElementById("validation").setCustomValidity("");
+                    let textId = selectedImages[i] + "?formText";
+                    let outputText = document.getElementById(textId);
+                    outputText.value = textfield.value;
                     valid = true;
                 }
             }
@@ -277,9 +284,8 @@ function removeFileFromSelectedTable(file){
         {
             div.removeChild(div.children[i]);
             id -= 1;
-            if (strcmp(currentGametype, "text") == 0){
+            if (strcmp(oldType, "text") == 0){
                 let divText = document.getElementById("hiddenText");
-                console.log(divText);
                 divText.removeChild(divText.children[i]);
             }
             break;
