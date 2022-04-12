@@ -166,7 +166,7 @@ function addFileToSelectedTable(file){
     if (document.getElementById("paren").checked)
         newImage.setAttribute("value", file + "?" + id);
     if (document.getElementById("text").checked)
-        newImage.setAttribute("value", file + "?" + (Math.floor(id/2)).toString());
+        newImage.setAttribute("value", file + "?" + id);
         //newImage.setAttribute("value", file + "?" + id);
 
     newImage.setAttribute("name", "image" + id);
