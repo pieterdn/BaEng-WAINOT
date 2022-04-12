@@ -1,4 +1,4 @@
-#!python
+#!\Users\Gebruiker\AppData\Local\Microsoft\WindowsApps\python3.9.exe
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
@@ -14,7 +14,7 @@ print("Content-type: text/html\n\n")
 print("""
 <!DOCTYPE html> 
 <html lang="nl">
-<head>
+<head> 
     <meta http-equiv="refresh" content="1; ../spel.html">
     <title> test </title>
 </head>
@@ -29,6 +29,7 @@ except:
     pass
 file = open("../spel.html","w")
 
+
 file.write("""
 <!DOCTYPE html> 
 <html lang="nl">
@@ -36,20 +37,15 @@ file.write("""
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="./css/opmaak.css">
     <title> test </title>
+    <script src="./js/randomise.js"></script>
 	<script src="./js/script.js"></script>
+     
 </head>
     <body>
         <div id=main>
         <div id="wrapper">
             <table id="table">
 """)
-
-fs = cgi.FieldStorage()
-dimensions = str(fs.getvalue("dimensions"))
-dimvalues = dimensions.split('x')
-
-width = int(dimvalues[0])
-height = int(dimvalues[1])
 
 #width = int(fs.getvalue("width"))
 #height = int(fs.getvalue("height"))
@@ -64,6 +60,14 @@ height = int(dimvalues[1])
 
 #hard coded afb
 Templist = []
+
+
+fs = cgi.FieldStorage()
+dimensions = str(fs.getvalue("dimensions"))
+dimvalues = dimensions.split('x')
+
+width = int(dimvalues[0])
+height = int(dimvalues[1])
 
 for i in range(height*width):
     if fs.getvalue("image" + str(i)):
@@ -102,7 +106,7 @@ for y in range(height):
                         <div id=" """)
         file.write(str(x) + '_' + str(y))
         file.write('" class="' + classList[tel] +  ' card" tabindex="0">')
-        file.write("""                             <img class="img" src=" """+ "./media/" + imgList[tel] +  """"/>
+        file.write("""                             <img class="img"  id="foto """+ str(tel) +  """" src= " """+ "./media/" + imgList[tel] +  """" "/>
                         </div>
                     </td>
         """)
