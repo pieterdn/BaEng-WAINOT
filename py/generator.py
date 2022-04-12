@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!\Users\Gebruiker\AppData\Local\Microsoft\WindowsApps\python3.9.exe
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
@@ -43,6 +43,7 @@ file.write("""
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="./css/opmaak.css">
     <title> test </title>
+    <script src="./js/randomise.js"></script>
 	<script src="./js/script.js"></script>
     <script src="./js/endAnimation.js"></script>
 </head>
