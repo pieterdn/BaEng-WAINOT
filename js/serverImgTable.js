@@ -108,9 +108,11 @@ function createServerImgTable(){
                 addFileToSelectedTable(serverImages[i]);
             }
             else if((strcmp(currentGametype, "uniek") == 0)){
+                console.log("Clear whole table.");
                 clearSelectedTable();
             }
             else{
+                console.log("Remove one");
                 removeFileFromSelectedTable(serverImages[i]);
             }
         });
@@ -290,7 +292,13 @@ function loadServerImagesFromIndex(page, direction, previousLength){
         check.addEventListener("change",function(){
             if(this.checked){
                 addFileToSelectedTable(serverImages[i]);
-            }else{
+            }
+            else if((strcmp(currentGametype, "uniek") == 0)){
+                console.log("Clear whole table.");
+                clearSelectedTable();
+            }
+            else{
+                console.log("Remove one");
                 removeFileFromSelectedTable(serverImages[i]);
             }
         });
