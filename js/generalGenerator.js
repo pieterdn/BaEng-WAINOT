@@ -244,13 +244,15 @@ function checkValidity(event){
 
 function validOrNot(){
     if(valid == false){
-        for(let i = 0; i < imagesNeeded; i++){
-            let id = selectedImages[i] + "text";
-            let textfield = document.getElementById(id);
-            if(textfield.value == ""){
-                textfield.reportValidity();
-            }
-        }    
+        if(strcmp(currentGametype, "text") == 0){
+            for(let i = 0; i < selectedImages.length; i++){
+                let id = selectedImages[i] + "?text";
+                let textfield = document.getElementById(id);
+                if(textfield.value == ""){
+                    textfield.reportValidity();
+                }
+            }   
+        } 
         let div = document.getElementById("validationMessage");
         div.innerHTML = "Onvoldoende afbeeldingen geselecteerd of niet alle tekstvelden ingevuld.";
     }
