@@ -16,8 +16,6 @@
 //toevoeging voor api
 function getAPIimage(id,url){
     
-    console.log("get url");
-    console.log(url);
     sendURL(url,id);
 
 
