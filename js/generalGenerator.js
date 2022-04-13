@@ -13,9 +13,9 @@ var subid = 0;
 var valid;
 var currentGametype = "paren";
 var oldType;
-var colorTable =    ["#8accf1", "#fe0037", "#250861", "#d95d2c", "#998055", "#9d43a5", 
-                     "#a9bb70", "#ae788c", "#496100", "#5d5d5d", "#1a472a", "#c51f5d",
-                     "#96ceb4", "#ff6f69", "#ffcc5c", "#808080", "#ffa31a", "#1b1b1b"];
+var colorTable =    ["#33aa55", "#fe0037", "#250861", "#d95d2c", "#998055", "#9d43a5", 
+                     "#a9bb70", "#ae788c", "#496100", "#fe0037", "#1a472a", "#c51f5d",
+                     "#96ceb4", "#1a61b6", "#d32e97", "#9d43a5", "#ffa31a", "#8d3523"];
 
 window.addEventListener("load",function(){
     calculateImagesNeeded(null);
