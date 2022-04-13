@@ -13,6 +13,9 @@ var subid = 0;
 var valid;
 var currentGametype = "paren";
 var oldType;
+var colorTable =    ["#8accf1", "#fe0037", "#250861", "#d95d2c", "#998055", "#9d43a5", 
+                     "#a9bb70", "#ae788c", "#496100", "#5d5d5d", "#1a472a", "#c51f5d",
+                     "#96ceb4", "#ff6f69", "#ffcc5c", "#808080", "#ffa31a", "#1b1b1b"];
 
 window.addEventListener("load",function(){
     calculateImagesNeeded(null);
@@ -21,11 +24,7 @@ window.addEventListener("load",function(){
     var gametype = document.getElementsByName("gametype")
     for(let i = 0; i < gametype.length; i++){
         gametype[i].addEventListener("change",calculateImagesNeeded);
-        //gametype[i].addEventListener("change",clearSelectedTable);
     }
-    
-    //document.spelgenerator.addEventListener("submit",checkInput);
-    //document.getElementById('formAjax').addEventListener("submit",addToFileListFromUpload);
 });
 
 function strcmp ( str1, str2 ) {
@@ -55,7 +54,6 @@ function changeUploadButton(){
 
 function calculateImagesNeeded(event){
     
-    //let oldAmount = imagesNeeded
     let radioButtons = document.getElementsByName("gametype");
     for(let i = 0; i < radioButtons.length; i++){
         if(radioButtons[i].checked){
@@ -135,9 +133,6 @@ function addFileToSelectedTable(file){
     }
     else{
         selectedImages.push(file);
-        //serverImages.push(file);
-        //serverImages.sort();
-        //loadServerImagesFromIndex(selectedServerTable);
     }
 
     let begin = document.getElementById("chosenImages");
@@ -155,24 +150,6 @@ function addFileToSelectedTable(file){
         begin.appendChild(removeall);
         begin.appendChild(table);
     }
-    
-    let hidden = document.getElementById("hiddenImages");
-    let newImage = document.createElement("input"); // <input type="hidden" name="image[x]" value="name;id">
-    newImage.setAttribute("type", "hidden"); 
-
-
-    if (document.getElementById("uniek").checked)
-        newImage.setAttribute("value", file + "?" + (Math.floor(id/2)).toString());
-    if (document.getElementById("paren").checked)
-        newImage.setAttribute("value", file + "?" + id);
-    if (document.getElementById("text").checked)
-        newImage.setAttribute("value", file + "?" + id);
-        //newImage.setAttribute("value", file + "?" + id);
-
-    newImage.setAttribute("name", "image" + id);
-    hidden.appendChild(newImage);
-    if(textNeeded == 0)
-        id += 1;
     let table = document.getElementById("chosenImagesTable");
     let tr = document.createElement("tr");
     let td1 = document.createElement("td");
@@ -182,6 +159,23 @@ function addFileToSelectedTable(file){
     table.appendChild(tr);
     document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
+    
+    let hidden = document.getElementById("hiddenImages");
+    let newImage = document.createElement("input"); // <input type="hidden" name="image[x]" value="name;id">
+    newImage.setAttribute("type", "hidden"); 
+    if (document.getElementById("uniek").checked){
+        newImage.setAttribute("value", file + "?" + (Math.floor(id/2)).toString());
+        td1.style.color = colorTable[Math.floor(id/2)];
+    }
+    if (document.getElementById("paren").checked)
+        newImage.setAttribute("value", file + "?" + id);
+    if (document.getElementById("text").checked)
+        newImage.setAttribute("value", file + "?" + id);
+    newImage.setAttribute("name", "image" + id);
+    hidden.appendChild(newImage);
+
+    if(textNeeded == 0)
+        id += 1;
 
     if(textNeeded != 0){
         let td2 = document.createElement("td");
