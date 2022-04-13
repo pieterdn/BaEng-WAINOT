@@ -27,13 +27,9 @@ function setImages(){
     var height = rows.length;
     var width = rows[0].cells.length;
 
-    console.log("dimentions: "+width+"x"+height);
-
     let shuffledArray = shuffle(tdarray);
-    console.log(rows);
     for(let i=0; i<height; i++){
       let tr = rows[i];
-      console.log(tr);
       for(let j=0;j<width;j++){
         tr.removeChild(tr.lastChild);
       }
