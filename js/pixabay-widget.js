@@ -12,35 +12,6 @@
         new initPixabayWidget();
 */
 
-
-//toevoeging voor api
-function getAPIimage(id,url){
-    
-    sendURL(url,id);
-
-
-
-
-
-    /*
-    fetch(url)
-        .then(resp => resp.blob())
-        .then(blobobject => {
-            const blob = window.URL.createObjectURL(blobobject);
-            //const anchor = document.createElement('a');
-            //anchor.style.display = 'none';
-            //anchor.href = blob;
-            //anchor.download = id+".png";
-            //document.body.appendChild(anchor);
-            //anchor.click();
-            //window.URL.revokeObjectURL(blob);
-            //var file = new File([blob], id+".png");
-            //formData.append('fileAjax', file, file.name);
-            //console.log('file added from pixabay');
-        })
-        .catch(() => console.log('An error in downloadin gthe file sorry'));
-    */
-}
 function setFeedback(){
     if(httpObject.readyState == 4){
         addFileToSelectedTable(httpObject.responseText);
@@ -50,12 +21,15 @@ function setFeedback(){
     }
 }
 
-function sendURL(url,id){
+function sendURL(id,url){
     httpObject = getHTTPObject();
     if(httpObject != null){
         httpObject.open("POST","/savePixabay.php",true);
         httpObject.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        var data = "url="+url+"&id="+id;
+        var regex1 = /^(https:\/\/cdn\.pixabay\.com\/photo\/)+\d{4}\/\d{2}\/\d{2}\/\d{2}\/\d{2}\//;
+        var regex2 = /\d{4}[_]{2}\d{3}/;
+        let filename = url.toString().replace(regex1,"").replace(regex2,"");
+        var data = "url="+url+"&filename="+filename;
         httpObject.send(data);
         httpObject.onreadystatechange = setFeedback;
     }
@@ -64,8 +38,6 @@ function sendURL(url,id){
 function getHTTPObject(){
     return new XMLHttpRequest();
 }
-
-
 
 (function(){
     var cache = {}, counter = 0, o = {
@@ -161,7 +133,7 @@ function getHTTPObject(){
             for (var i=0,hits=data.hits;i<hits.length;i++) {
                 var w = hits[i].previewWidth, h = hits[i].previewHeight, src = hits[i].previewURL;
                 if (rh > h-10) w = w*(180/(h+1)), h = 180, src = src.replace('_150', '__180');                                  //hier href veranderen
-                html += '<div class="item" data-w="'+w+'" data-h="'+h+'"><a title="'+escapeHTML(toTitleCase(hits[i].tags))+'" onClick="getAPIimage('+hits[i].id+",'"+src+"'"+")"+'" target="'+target+'"><img src="https://pixabay.com/static/img/blank.gif" data-src="'+src+'"></a></div>';
+                html += '<div class="item" data-w="'+w+'" data-h="'+h+'"><a title="'+escapeHTML(toTitleCase(hits[i].tags))+'" onClick="sendURL('+hits[i].id+",'"+src+"'"+")"+'" target="'+target+'"><img src="https://pixabay.com/static/img/blank.gif" data-src="'+src+'"></a></div>';
             }
             if (navpos == 'bottom') html += nav;
 
