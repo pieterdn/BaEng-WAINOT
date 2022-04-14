@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!"C:\Users\Yana IJpelaar\AppData\Local\Programs\Python\Python39\python.exe" 
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
@@ -97,7 +97,7 @@ elif(fs.getvalue("gametype") == "text"):
             l.append(value)
     imgList = Templist[:math.ceil(height*width/2)] # imgList is list of all images + text
     imgList.extend(l)
-    #file.write(str(imgList))
+    # [cat.jpg, cow.jpg, kat, koe]
 
 else:# unique mode => 2 unique images that form a pair
     imgList = Templist[:height*width]
@@ -109,13 +109,12 @@ if (fs.getvalue("gametype") == "text"):
     for i in range(len(imgList)): # find the id that is with the image
         for j in range(height*width):
             id = str(fs.getvalue("image" + str(j))) # cat.jpg?0
-            if (len(classList[i].split('.')) == 0): # this entry is plain text
-                value = classList[i]
+            if (len(imgList[i].split('.')) == 1): # this entry is plain text
+                value = imgList[i]
                 if (fs.getvalue(id.split('?')[0] + "?formText") == value): # link found between image and its own text
                     classList[i] = id.split('?')[1]
                     continue
-
-            elif (id.split('?')[0] == classList[i]): # check if image is image from id -> cat.jpg == donkey.jpg or cat.jpg == cat.jpg
+            elif (id.split('?')[0] == imgList[i]): # check if image is image from id -> cat.jpg == donkey.jpg or cat.jpg == cat.jpg
                 classList[i] = id.split('?')[1]
                 
 else:
@@ -133,14 +132,20 @@ for y in range(height):
                     <td class="cardPosition">
                         <div id=" """)
         file.write(str(x) + '_' + str(y))
-        file.write('" class="' + classList[tel] +  ' card" tabindex="0">')
+        file.write('" class="' + classList[tel] +  ' card" tabindex="0">')        
+
+        if len(imgList[tel].split('.')) == 1:
+            file.write(f"""<p class="img">{imgList[tel]}</p>
+                            </div>
+                        </td>""")
         # if text: make p element with text inside
         #   file.write(f""" <p class="img">{str(imgList[tel])}</p> """)
         # else: do below
-        file.write("""                             <img class="img" src=" """+ "./media/" + imgList[tel] +  """"/>
-                        </div>
-                    </td>
-        """)
+        else:
+            file.write("""                             <img class="img" src=" """+ "./media/" + imgList[tel] +  """"/>
+                            </div>
+                        </td>
+            """)
         tel += 1
     file.write("\t\t</tr>")
 
