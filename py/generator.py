@@ -50,7 +50,7 @@ file.write("""
 <html lang="nl">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" href="./css/opmaak.css">
+    <link rel="stylesheet" href="./css/spelOpmaak.css">
     <title> test </title>
     <script src="./js/randomise.js"></script>
 	<script src="./js/script.js"></script>
