@@ -311,11 +311,16 @@ function addServerImage(files,type){
         return;
     if(tableAmount == 10){
         document.getElementById("imgTableTitle").innerHTML = "Afbeeldingen beschikbaar op server (" + serverImages.length + ")";
+        if(arrows == false)
+            createArrows(table);
+        document.getElementById("nextServerImg").classList.remove("arrow_last");
         return;
     }
     if((tableAmount) < 10){
         loadServerImagesFromIndex(selectedServerTable,0,previousLength);
         if(tableAmount == 10){
+            if((serverImages.length > 10) && arrows == false)
+                createArrows(table);
             let max = serverImages.length/(maxServerTableHeight * maxServerTableWidth);
             if(selectedServerTable + 1 >= max)
                 return;
