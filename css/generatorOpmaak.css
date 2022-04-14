@@ -252,7 +252,6 @@ select{
 .tooltip {
     position: relative;
     display: inline-block;
-    /* border-bottom: 1px dotted black; */
 }
 
 .tooltip .tooltiptext {
@@ -490,7 +489,6 @@ p.img {
     position: relative;
     top: 50%;
     margin:0px;
-    /*left: 50%;*/
     transform: translate(0px, -1em);
 }
 
