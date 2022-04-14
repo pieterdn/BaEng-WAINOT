@@ -1,4 +1,4 @@
-#!"C:\Users\Yana IJpelaar\AppData\Local\Programs\Python\Python39\python.exe" 
+#!/usr/bin/env python3
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
