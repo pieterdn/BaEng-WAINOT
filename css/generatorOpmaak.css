@@ -502,3 +502,45 @@ p.img {
 .img {
     height: 150px;
 }
+
+.close{
+    position: relative;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    overflow: hidden;
+    margin-right: 5px;
+    margin-top: 7px;
+}
+
+.close:hover::before, .close:hover::after {
+    background: rgb(255, 0, 0);
+}
+
+.close::before, .close::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    margin-top: -1px;
+    background: #000;
+}
+
+.close::before {
+    transform: rotate(45deg);
+}
+
+.close::after {
+    transform: rotate(-45deg);
+}
+
+.close .rounded::before, .close .rounder::after{
+    border-radius: 5px;
+}
+
+.close .heavy::before, .close .heavy::after {
+    height: 12px;
+    margin-top: -6px;
+}

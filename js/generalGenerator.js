@@ -175,9 +175,7 @@ function addFileToSelectedTable(file){
         begin.removeChild(begin.firstChild);
         let removeall = document.createElement("button");
         let table = document.createElement("table");
-        let tbody = document.createElement("tbody");
         table.id = "chosenImagesTable";
-        table.appendChild(tbody);
         removeall.className += "button-1 ";
         removeall.innerHTML = "Clear lijst";
         removeall.id = "clearButton";
@@ -186,12 +184,22 @@ function addFileToSelectedTable(file){
         begin.appendChild(table);
     }
     let table = document.getElementById("chosenImagesTable");
-    let tr = document.createElement("tr");
+    let tr = table.insertRow(selectedImages.length-1);
     let td1 = document.createElement("td");
+    let tddel = document.createElement("tddel");
+    let removeone = document.createElement("span");
+    tr.appendChild(tddel);
     tr.appendChild(td1);
-    td1.appendChild(document.createTextNode(file));
     tr.id = file;
-    table.appendChild(tr);
+    td1.appendChild(document.createTextNode(file));
+    tddel.appendChild(removeone);
+    removeone.id = file + "?toremove";
+    removeone.className += "close heavy rounded ";
+    removeone.addEventListener("click", function(){
+        removeFileFromSelectedTable(file);
+        document.getElementById(file + "checkbox").checked = false;
+    });
+
     document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
     
@@ -319,6 +327,7 @@ function removeFileFromSelectedTable(file){
         parent.parentNode.removeChild(parent);
         button = document.getElementById("clearButton");
         button.parentNode.removeChild(button);
+        document.getElementById("chosenImagesTable").parentNode.removeChild(document.getElementById("chosenImagesTable"));
         begin.appendChild(document.createTextNode("Er zijn momenteel geen afbeeldingen gekozen."))
         document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
