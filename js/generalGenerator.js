@@ -1,9 +1,35 @@
 /**
  * This file handles the input check and handles the selected images
- * Used HTML Ids:
+ * -----------------------------------------------------------------
+ * USED HTML ID'S:
  * formAjax : form used for uploading
  * fileAjax : files in the uploading form
  * chosenImages : images chosen for memory generator
+ * chosenImagesTable : table to show chosen images
+ * hiddenImages : div in form that gets processed by generator.py, this contains
+ *      the selected images
+ * hiddenText : same as images, but for text when in text and image gametype
+ * status : shows status of upload
+ * choosebutton : informs user of how many files where selected on the button
+ * imagePicker : id of fieldset that contains everything image-related
+ * selImgTitle : title of table that shows the selected images
+ * file + "checkbox" : checkbox id of a server image
+ * uniek : radiobutton for unique gametype
+ * paren : radiobutton for pairs gametype
+ * text : radiobutton for text and image gametype
+ * validation : hidden input in form that gets processed by generator.py. Used
+ *      to block submit when it's not valid
+ * selectedImages[i] + "?text" : id of textfield when in gametype text and image
+ * selectedImages[i] + "?formText" : id of hidden input in form that gets processed
+ *      by generator.py. Used in when gametype text and image is active.
+ * validationMessage : message underneath 'genereer'-button. Shows what's wrong
+ *      when the form is not valid.
+ * clearButton : id of button that can clear the whole chosenImages array and
+ *      chosenImagestable
+ * 
+ * USED HTML CLASSES:
+ * button-1 : used in css to format buttons
+ * imageText : used to format textfield when in text and image gametype
  */
 
 let imagesNeeded = 0;
@@ -27,11 +53,21 @@ window.addEventListener("load",function(){
     }
 });
 
+/**
+ * String compare function that returns 0 when the two strings are equal.
+ * @param {string} str1 
+ * @param {string} str2 
+ * @returns {-1|0|1}
+ */
 function strcmp ( str1, str2 ) {
     return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
 }
 
+/**
+ * Changes the text in the upload button.
+ */
 function changeUploadButton(){
+
     myFile = document.getElementById("fileAjax");
     var files = myFile.files;
     var amount = files.length;
@@ -52,6 +88,10 @@ function changeUploadButton(){
     }
 }
 
+/**
+ * Calculates the images needed for the current gametype and dimensions.
+ * @param {Event} event 
+ */
 function calculateImagesNeeded(event){
     
     let radioButtons = document.getElementsByName("gametype");
@@ -92,15 +132,13 @@ function calculateImagesNeeded(event){
     if(event != null){
 
         if(!((strcmp(oldType,"text") == 0) && (strcmp(currentGametype,"text") == 0))){
-            if((strcmp(event.target.value,"text") == 0) || (strcmp(oldType,"text") == 0)){
+            if((strcmp(event.target.value,"text") == 0) || (strcmp(oldType,"text") == 0))
                 clearSelectedTable();
-            }
         }
 
         if(!((strcmp(oldType,"uniek") == 0) && (strcmp(currentGametype,"uniek") == 0))){
-            if((strcmp(event.target.value,"uniek") == 0) || (strcmp(oldType,"uniek") == 0)){
+            if((strcmp(event.target.value,"uniek") == 0) || (strcmp(oldType,"uniek") == 0))
                 clearSelectedTable();
-            }
         }
     }
     oldType = currentGametype;
@@ -108,32 +146,27 @@ function calculateImagesNeeded(event){
 }
 
 /**
- * Adds a file to the selected list
- * @param {String} file string of file to be added to list
+ * Adds a file to the selected list.
+ * @param {String} file String of file to be added to list.
  */
 function addFileToSelectedTable(file){
 
     if(imagesNeeded == selectedImages.length){
         let toUncheck = document.getElementById(file + "checkbox");
-        if(toUncheck != null){
+        if(toUncheck != null)
             toUncheck.checked = false;
-        }
-        
         return;
     }
 
     let flag = false;
     for(let i = 0; i < selectedImages.length; i++){
-        if(strcmp(selectedImages[i],file) == 0){
+        if(strcmp(selectedImages[i],file) == 0)
             flag = true;
-        }
     }
-    if(flag == true){
+    if(flag == true)
         return;
-    }
-    else{
+    else
         selectedImages.push(file);
-    }
 
     let begin = document.getElementById("chosenImages");
 
@@ -143,7 +176,7 @@ function addFileToSelectedTable(file){
         let removeall = document.createElement("button");
         let table = document.createElement("table");
         table.id = "chosenImagesTable";
-        removeall.className += "button-1";
+        removeall.className += "button-1 ";
         removeall.innerHTML = "Clear lijst";
         removeall.id = "clearButton";
         removeall.addEventListener("click",clearSelectedTable);
@@ -198,6 +231,15 @@ function addFileToSelectedTable(file){
     checkValidity();
 }
 
+/**
+ * Checks wether the current selected images and/or textfields and title are
+ * selected and/or not empty.
+ * Changes the validity of the hidden input with id "validation".
+ * NOTE: the customValidity of this hidden input is changed, but the actual
+ * customValidity is never shown because it's hidden.
+ * Therefore the div with id "validationMessag" is used.
+ * @param {Event} event  
+ */
 function checkValidity(event){
     if(textNeeded == 0){
         if(imagesNeeded == selectedImages.length){
@@ -236,15 +278,18 @@ function checkValidity(event){
     }
 }
 
+/**
+ * Function that changes the text within the div with id "validationMessage",
+ * depending on the state of the boolean 'valid'.
+ */
 function validOrNot(){
     if(valid == false){
         if(strcmp(currentGametype, "text") == 0){
             for(let i = 0; i < selectedImages.length; i++){
                 let id = selectedImages[i] + "?text";
                 let textfield = document.getElementById(id);
-                if(textfield.value == ""){
+                if(textfield.value == "")
                     textfield.reportValidity();
-                }
             }   
         } 
         let div = document.getElementById("validationMessage");
@@ -252,12 +297,16 @@ function validOrNot(){
     }
 }
 
+/**
+ * Removes an image from the selectedImages array and the chosenImages table.
+ * @param {string} file String of the filename that needs to be removed from the
+ *      selectedImages array and the chosenImages table.
+ */
 function removeFileFromSelectedTable(file){
     let begin = document.getElementById("chosenImages");
     for(let i = 0; i < selectedImages.length; i++){
-        if(selectedImages[i] == file){
+        if(selectedImages[i] == file)
             selectedImages.splice(i,1);
-        }
     }
 
     let todelete = document.getElementById(file);
@@ -293,6 +342,9 @@ function removeFileFromSelectedTable(file){
     checkValidity();
 }
 
+/**
+ * Clears the selecedImages array and the chosenImages table.
+ */
 function clearSelectedTable(){
     while(selectedImages.length != 0){
         removeFileFromSelectedTable(selectedImages[0]);
@@ -300,6 +352,9 @@ function clearSelectedTable(){
     }
 }
 
+/**
+ * Unselects all the checkmarks of the serverImgTable.
+ */
 function unselectAllCheckmarks(){
     var checks = document.querySelectorAll('.checkbox');
     for (var i = 0; i < checks.length; i++){
