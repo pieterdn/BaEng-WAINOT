@@ -76,10 +76,6 @@ function createServerImgTable(){
     
     document.getElementById("imgTableTitle").innerHTML = "Afbeeldingen beschikbaar op server (" + serverImages.length + ")";
 
-    
-    
-
-
     //If they are more server images than the max table height times width arrow keys are generated to navigate
     tableAmount = serverImages.length;
     if(tableAmount > maxServerTableHeight*maxServerTableWidth){
@@ -110,7 +106,11 @@ function createServerImgTable(){
         check.addEventListener("change",function(){
             if(this.checked){
                 addFileToSelectedTable(serverImages[i]);
-            }else{
+            }
+            else if((strcmp(currentGametype, "uniek") == 0)){
+                clearSelectedTable();
+            }
+            else{
                 removeFileFromSelectedTable(serverImages[i]);
             }
         });
@@ -258,7 +258,6 @@ function loadServerImagesFromIndex(page, direction, previousLength){
         }
         paststart = start;
     }
-    //console.log(paststart, pastend, start, end);
     
     let table = document.getElementById("serverImgTable");
 
@@ -290,7 +289,11 @@ function loadServerImagesFromIndex(page, direction, previousLength){
         check.addEventListener("change",function(){
             if(this.checked){
                 addFileToSelectedTable(serverImages[i]);
-            }else{
+            }
+            else if((strcmp(currentGametype, "uniek") == 0)){
+                clearSelectedTable();
+            }
+            else{
                 removeFileFromSelectedTable(serverImages[i]);
             }
         });

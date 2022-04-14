@@ -13,6 +13,9 @@ var subid = 0;
 var valid;
 var currentGametype = "paren";
 var oldType;
+var colorTable =    ["#33aa55", "#fe0037", "#250861", "#d95d2c", "#998055", "#9d43a5", 
+                     "#a9bb70", "#ae788c", "#496100", "#fe0037", "#1a472a", "#c51f5d",
+                     "#96ceb4", "#1a61b6", "#d32e97", "#9d43a5", "#ffa31a", "#8d3523"];
 
 window.addEventListener("load",function(){
     calculateImagesNeeded(null);
@@ -21,11 +24,7 @@ window.addEventListener("load",function(){
     var gametype = document.getElementsByName("gametype")
     for(let i = 0; i < gametype.length; i++){
         gametype[i].addEventListener("change",calculateImagesNeeded);
-        //gametype[i].addEventListener("change",clearSelectedTable);
     }
-    
-    //document.spelgenerator.addEventListener("submit",checkInput);
-    //document.getElementById('formAjax').addEventListener("submit",addToFileListFromUpload);
 });
 
 function strcmp ( str1, str2 ) {
@@ -55,7 +54,6 @@ function changeUploadButton(){
 
 function calculateImagesNeeded(event){
     
-    //let oldAmount = imagesNeeded
     let radioButtons = document.getElementsByName("gametype");
     for(let i = 0; i < radioButtons.length; i++){
         if(radioButtons[i].checked){
@@ -98,6 +96,12 @@ function calculateImagesNeeded(event){
                 clearSelectedTable();
             }
         }
+
+        if(!((strcmp(oldType,"uniek") == 0) && (strcmp(currentGametype,"uniek") == 0))){
+            if((strcmp(event.target.value,"uniek") == 0) || (strcmp(oldType,"uniek") == 0)){
+                clearSelectedTable();
+            }
+        }
     }
     oldType = currentGametype;
     checkValidity();
@@ -129,9 +133,6 @@ function addFileToSelectedTable(file){
     }
     else{
         selectedImages.push(file);
-        //serverImages.push(file);
-        //serverImages.sort();
-        //loadServerImagesFromIndex(selectedServerTable);
     }
 
     let begin = document.getElementById("chosenImages");
@@ -149,22 +150,6 @@ function addFileToSelectedTable(file){
         begin.appendChild(removeall);
         begin.appendChild(table);
     }
-    
-    let hidden = document.getElementById("hiddenImages");
-    let newImage = document.createElement("input"); // <input type="hidden" name="image[x]" value="name;id">
-    newImage.setAttribute("type", "hidden"); 
-
-
-    if (document.getElementById("uniek").checked)
-        newImage.setAttribute("value", file + "?" + (Math.floor(id/2)).toString());
-    if (document.getElementById("paren").checked)
-        newImage.setAttribute("value", file + "?" + id);
-    if (document.getElementById("text").checked)
-        newImage.setAttribute("value", file + "?" + id);
-
-    newImage.setAttribute("name", "image" + id);
-    hidden.appendChild(newImage);
-    id += 1;
     let table = document.getElementById("chosenImagesTable");
     let tr = document.createElement("tr");
     let td1 = document.createElement("td");
@@ -174,21 +159,46 @@ function addFileToSelectedTable(file){
     table.appendChild(tr);
     document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
+    
+    let hidden = document.getElementById("hiddenImages");
+    let newImage = document.createElement("input"); // <input type="hidden" name="image[x]" value="name;id">
+    newImage.setAttribute("type", "hidden"); 
+    if (document.getElementById("uniek").checked){
+        newImage.setAttribute("value", file + "?" + (Math.floor(id/2)).toString());
+        td1.style.color = colorTable[Math.floor(id/2)];
+    }
+    if (document.getElementById("paren").checked)
+        newImage.setAttribute("value", file + "?" + id);
+    if (document.getElementById("text").checked)
+        newImage.setAttribute("value", file + "?" + id);
+    newImage.setAttribute("name", "image" + id);
+    hidden.appendChild(newImage);
+
+    if(textNeeded == 0)
+        id += 1;
 
     if(textNeeded != 0){
         let td2 = document.createElement("td");
         let input = document.createElement("input");
         input.type = "text";
         input.className += "imageText ";
-        input.id = file + "text";
+        input.id = file + "?text";
         input.addEventListener("change", checkValidity);
         tr.appendChild(td2);
         td2.appendChild(input);
+
+        let hiddenText = document.getElementById("hiddenText");
+        let newText = document.createElement("input");
+        newText.setAttribute("type", "hidden");
+        newText.setAttribute("name", newImage.value.split('?')[0] + "?formText");
+        newText.setAttribute("id", newImage.value.split('?')[0] + "?formText");
+        hiddenText.appendChild(newText);
+        id += 1;
     }
     checkValidity();
 }
 
-function checkValidity(){
+function checkValidity(event){
     if(textNeeded == 0){
         if(imagesNeeded == selectedImages.length){
             document.getElementById("validation").setCustomValidity("");
@@ -206,7 +216,7 @@ function checkValidity(){
         }
         else{
             for(let i = 0; i < imagesNeeded; i++){
-                let id = selectedImages[i] + "text";
+                let id = selectedImages[i] + "?text";
                 let textfield = document.getElementById(id);
                 if(textfield.value == ""){
                     textfield.setCustomValidity("Tekstveld niet ingevuld");
@@ -216,6 +226,9 @@ function checkValidity(){
                 }
                 else{
                     document.getElementById("validation").setCustomValidity("");
+                    let textId = selectedImages[i] + "?formText";
+                    let outputText = document.getElementById(textId);
+                    outputText.value = textfield.value;
                     valid = true;
                 }
             }
@@ -225,13 +238,15 @@ function checkValidity(){
 
 function validOrNot(){
     if(valid == false){
-        for(let i = 0; i < imagesNeeded; i++){
-            let id = selectedImages[i] + "text";
-            let textfield = document.getElementById(id);
-            if(textfield.value == ""){
-                textfield.reportValidity();
-            }
-        }    
+        if(strcmp(currentGametype, "text") == 0){
+            for(let i = 0; i < selectedImages.length; i++){
+                let id = selectedImages[i] + "?text";
+                let textfield = document.getElementById(id);
+                if(textfield.value == ""){
+                    textfield.reportValidity();
+                }
+            }   
+        } 
         let div = document.getElementById("validationMessage");
         div.innerHTML = "Onvoldoende afbeeldingen geselecteerd of niet alle tekstvelden ingevuld.";
     }
@@ -265,9 +280,14 @@ function removeFileFromSelectedTable(file){
         {
             div.removeChild(div.children[i]);
             id -= 1;
+            if (strcmp(oldType, "text") == 0){
+                let divText = document.getElementById("hiddenText");
+                divText.removeChild(divText.children[i]);
+            }
             break;
         }
     }
+
     document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
     checkValidity();

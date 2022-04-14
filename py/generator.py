@@ -43,6 +43,7 @@ file.write("""
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="./css/opmaak.css">
     <title> test </title>
+    <script src="./js/randomise.js"></script>
 	<script src="./js/script.js"></script>
     <script src="./js/endAnimation.js"></script>
 </head>
