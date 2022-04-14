@@ -48,7 +48,7 @@ function getHTTPObject(){
         truncate: true,
         lang: 'en',
         image_type: 'all', // 'photo', 'illustration'
-        safesearch: false,
+        safesearch: true,
         editors_choice: false,
         order: 'popular', // 'latest'
         target: '', // '_blank'
