@@ -1,3 +1,8 @@
+/*
+ * Credit for the barebones of this file goes to:
+ * https://uploadcare.com/blog/file-upload-ajax/
+ */
+
 window.addEventListener("load",function(){
   var myForm = document.getElementById('formAjax');  // Our HTML form's ID (wordt nog ergens anders gebruikt pas op bij aanpassen id)
   var myFile = document.getElementById('fileAjax');  // Our HTML files' ID (dit ook)
