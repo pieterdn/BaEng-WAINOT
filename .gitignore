@@ -1,4 +1,5 @@
 py/.htaccess
-spel.html
+*.html
+!spelgenerator.html
 py/%SystemDrive%
 /media
