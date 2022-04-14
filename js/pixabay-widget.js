@@ -131,8 +131,6 @@ function getHTTPObject(){
             if (navpos == 'top') html = nav;
             // flexImages markup
             for (var i=0,hits=data.hits;i<hits.length;i++) {
-                let str = hits[i].tags.split(", ")[0];
-                newString = str.replace(/\s/g, '_');
                 var w = hits[i].previewWidth, h = hits[i].previewHeight, src = hits[i].previewURL;
                 if (rh > h-10) w = w*(180/(h+1)), h = 180, src = src.replace('_150', '__180');                                  //hier href veranderen
                 html += '<div class="item" data-w="'+w+'" data-h="'+h+'"><a title="'+escapeHTML(toTitleCase(hits[i].tags))+'" onClick="sendURL('+hits[i].id+",'"+src+"'"+")"+'" target="'+target+'"><img src="https://pixabay.com/static/img/blank.gif" data-src="'+src+'"></a></div>';
