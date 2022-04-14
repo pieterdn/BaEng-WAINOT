@@ -175,7 +175,9 @@ function addFileToSelectedTable(file){
         begin.removeChild(begin.firstChild);
         let removeall = document.createElement("button");
         let table = document.createElement("table");
+        let tbody = document.createElement("tbody");
         table.id = "chosenImagesTable";
+        table.appendChild(tbody);
         removeall.className += "button-1 ";
         removeall.innerHTML = "Clear lijst";
         removeall.id = "clearButton";
