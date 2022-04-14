@@ -2,7 +2,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title> spelgenerator </title>
-    <!-- opmaak.css niet includen!!!!! -->
     <link rel="stylesheet" href="./css/generatorOpmaak.css">
     <script src="./js/previewscript.js"></script>
     <script src="./js/script.js"></script>
@@ -13,6 +12,7 @@
 
     <script>
         var pixabayWidget = { 'key': '26396227-a135d9f1b6b4609e8f1b86dd2' }
+        // pixabay API key veranderen
     </script>
     <script type="text/javascript">
         function zoekPixabay(){
@@ -27,8 +27,6 @@
 </head>
     <body>
         <div id="wrapper">
-        <!-- pixabay API key veranderen -->
-        
         <h1>Memory generator</h1>
         <form name="spelgenerator" action="./py/generator.py" method="post">
             <fieldset>
@@ -70,11 +68,9 @@
                     <span class="tooltiptext">Combineren van een afbeelding met een woord.
                     </span>
                 </div>
-
                 <label for="gameName">Spelnaam:
                     <input type="text" id="gameName" name="gameName" required>
                 </label>
-
                 <label for="savegame" class="hidden">Voortgang opslaan:
                     <label class="checkcontainer" id="modcheckcontainer">
                         <input type="checkbox" name="savegame" id="savegame">
@@ -89,27 +85,25 @@
         </form>
         <fieldset id="imagePicker" style="display: block;">
             <legend>Kies afbeeldingen</legend>
-        <div style="display: flex;margin-right: -2em;">
-            <div style="display: flex;flex-grow: 0.25;"></div>
-            <div>
-                <h2 id="selImgTitle">Geselecteerde afbeeldingen</h2>
-                <div id="chosenImages">
-                    Er zijn momenteel geen afbeeldingen gekozen.
+            <div style="display: flex;margin-right: -2em;">
+                <div style="display: flex;flex-grow: 0.25;"></div>
+                <div>
+                    <h2 id="selImgTitle">Geselecteerde afbeeldingen</h2>
+                    <div id="chosenImages">
+                        Er zijn momenteel geen afbeeldingen gekozen.
+                    </div>
+                </div>
+                <div style="display: flex;flex-grow: 0.4;"></div>
+                <div>
+                    <h2 id="imgTableTitle"></h2>
+                    <div id="nothingOnServer"></div>
+                    <div id="allImages">
+                    </div>
+                </div>
+                <div style="width:200px;height:200px">
+                    <div id="serverImage"></div>
                 </div>
             </div>
-            <div style="display: flex;flex-grow: 0.4;"></div>
-            <div>
-                <h2 id="imgTableTitle"></h2>
-                <div id="nothingOnServer"></div>
-                <div id="allImages">
-                </div>
-            </div>
-            <div style="width:200px;height:200px">
-                <div id="serverImage"></div>
-            </div>
-        </div>
-
-            <!--Image upload -->
             <h2>Image upload</h2>
             <form id="formAjax" action="uploadHandling.php" method="POST">
                 <input type="file" id="fileAjax" name="fileAjax" multiple/>
@@ -117,12 +111,9 @@
                 <input class="button-1" type="submit" id="submit" name="submit" value="Upload" />
                 <div id="status"></div>
             </form>
-            <!--End of Image upload-->
-        
             <h2>Pixabay</h2>
             <input type="text" id="pixabay_input" name="pixabay_input" />
             <button class="button-1" name="search_pixabay" onclick = "zoekPixabay();"> Zoek op pixabay </button>
-
             <div class="pixabay_widget" id="pixaReslut" data-search=" " data-max-rows="1" data-row-height="180" data-branding="false" data-navpos="top"></div>
         </fieldset>
         <fieldset>
@@ -138,4 +129,3 @@
         </div>
     </body>  
 </html>
-        
