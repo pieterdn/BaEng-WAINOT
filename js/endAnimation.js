@@ -1,3 +1,8 @@
+/**
+ * This file is for the animation when the game is over, it is a fireworks animation.
+ * All credits are due to: https://codepen.io/whqet/pen/abooRX 
+ */
+
 var canvas,
   ctx,
   cw,
@@ -73,8 +78,6 @@ window.requestAnimFrame = (function () {
     }
   );
 })();
-
-// now we are going to setup our function placeholders for the entire demo
 
 // get a random number within a range
 function random(min, max) {
@@ -260,16 +263,7 @@ function loop() {
   // create random color
   hue = random(0, 360);
 
-  // normally, clearRect() would be used to clear the canvas
-  // we want to create a trailing effect though
-  // setting the composite operation to destination-out will allow us to clear the canvas at a specific opacity, rather than wiping it entirely
-  //ctx.globalCompositeOperation = 'destination-out';
-  // decrease the alpha property to create more prominent trails
-  // ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-  // ctx.fillRect(0, 0, cw, ch);
-  // change the composite operation back to our main mode
-  // lighter creates bright highlight points as the fireworks and particles overlap each other
-  // ctx.globalCompositeOperation = "lighter";
+  // clearRect() will be used to clear the canvas
   ctx.clearRect(0, 0, cw, ch);
 
   // loop over each firework, draw it, update it
@@ -310,5 +304,3 @@ function loop() {
     limiterTick++;
   }
 }
-
-// once the window loads, we are ready for some fireworks!
