@@ -17,7 +17,7 @@
     <script type="text/javascript">
         function zoekPixabay(){
             string = document.getElementById("pixabay_input").value;
-            console.log(string);
+            //console.log(string);
             document.getElementById("pixaResult").setAttribute("data-search",string);
             new initPixabayWidget();
         } 
@@ -114,7 +114,7 @@
             <h2>Pixabay</h2>
             <input type="text" id="pixabay_input" name="pixabay_input" />
             <button class="button-1" name="search_pixabay" onclick = "zoekPixabay();"> Zoek op pixabay </button>
-            <div class="pixabay_widget" id="pixaReslut" data-search=" " data-max-rows="1" data-row-height="180" data-branding="false" data-navpos="top"></div>
+            <div class="pixabay_widget" id="pixaResult" data-search=" " data-max-rows="1" data-row-height="180" data-branding="false" data-navpos="top"></div>
         </fieldset>
         <fieldset>
             <legend>Preview</legend>
