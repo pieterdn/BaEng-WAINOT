@@ -380,8 +380,6 @@ function addServerImageToTable(start, end, startup){
         check.addEventListener("change",function(){
             if(this.checked)
                 addFileToSelectedTable(serverImages[i]);
-            else if((strcmp(currentGametype, "uniek") == 0))
-                clearSelectedTable();
             else
                 removeFileFromSelectedTable(serverImages[i]);
         });

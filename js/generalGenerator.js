@@ -37,6 +37,10 @@ let textNeeded = 0;
 var id = 0;
 var subid = 0;
 var valid;
+var currentPair = 0;
+var amountPerPair = [];
+var pairAmount;
+var imageNamesWithNumbers = [];
 var currentGametype = "paren";
 var oldType;
 var colorTable =    ["#33aa55", "#fe0037", "#250861", "#d95d2c", "#998055", "#9d43a5", 
@@ -124,25 +128,98 @@ function calculateImagesNeeded(event){
             document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
 
-            if(selectedImages.length > imagesNeeded)
+            if((selectedImages.length > imagesNeeded) && (strcmp(oldType, "uniek") != 0))
                 clearSelectedTable();
         }
     }
 
     if(event != null){
 
-        if(!((strcmp(oldType,"text") == 0) && (strcmp(currentGametype,"text") == 0))){
-            if((strcmp(event.target.value,"text") == 0) || (strcmp(oldType,"text") == 0))
-                clearSelectedTable();
+        if((strcmp(oldType, "uniek") == 0) && (strcmp(currentGametype, "uniek") != 0) && (strcmp(event.target.value, "clear") != 0)){
+            clearSelectedTableAfterUnique();
         }
 
-        if(!((strcmp(oldType,"uniek") == 0) && (strcmp(currentGametype,"uniek") == 0))){
-            if((strcmp(event.target.value,"uniek") == 0) || (strcmp(oldType,"uniek") == 0))
-                clearSelectedTable();
+        if((strcmp(oldType, "uniek") != 0) && (strcmp(currentGametype, "uniek") == 0) && (strcmp(event.target.value, "clear") != 0)){
+            clearSelectedTable();
+            createPairButtons();
+        }
+
+        if((strcmp(currentGametype, "uniek") == 0) && (strcmp(oldType, "uniek") == 0) && (strcmp(event.target.value, "clear") != 0)){
+            clearSelectedTableWhenUnique();
+            document.getElementById("chosenImagesTable").parentNode.removeChild(document.getElementById("chosenImagesTable"));
+            createPairButtons();
+        }
+
+        if((strcmp(oldType, "paren") == 0) && (strcmp(currentGametype, "text") == 0) && (strcmp(event.target.value, "clear") != 0)){
+            clearSelectedTable();
+        }
+
+        if((strcmp(oldType, "text") == 0) && (strcmp(currentGametype, "paren") == 0) && (strcmp(event.target.value, "clear") != 0)){
+            clearSelectedTable();
+        }
+
+        if((strcmp(currentGametype, "uniek") == 0) && (strcmp(event.target.value, "clear") == 0)){
+            clearSelectedTableWhenUnique();
+        }
+
+        if((strcmp(currentGametype, "paren") == 0) && (strcmp(event.target.value, "clear") == 0)){
+            clearSelectedTable();
+        }
+
+        if((strcmp(currentGametype, "text") == 0) && (strcmp(event.target.value, "clear") == 0)){
+            clearSelectedTable();
         }
     }
     oldType = currentGametype;
     checkValidity();
+}
+
+function createPairButtons(){
+
+    for(let i = 0; i < imagesNeeded; i++){
+        imageNamesWithNumbers[i] = "image" + i;
+    }
+    let begin = document.getElementById("chosenImages");
+    let table = document.createElement("table");
+    pairAmount = imagesNeeded/2;
+    table.id = "chosenImagesTable";
+    begin.appendChild(table);
+
+    for(let i = 0; i < pairAmount; i++){
+        amountPerPair[i] = 0;
+        let label = document.createElement("label");
+        let input = document.createElement("input");
+        let span = document.createElement("span");
+        let radiolabel = document.createElement("label");
+        let cel1 = document.createElement("td");
+        let cel2 = document.createElement("td");
+
+        newrow = table.insertRow(i);
+        newrow.id = "citrowid?" + i;
+        newrow.appendChild(cel1);
+        newrow.appendChild(cel2);
+        cel2.appendChild(label);
+        cel1.appendChild(radiolabel);
+        label.className += "radiocontainer2 ";
+        label.appendChild(input);
+        label.appendChild(span);
+        radiolabel.appendChild(document.createTextNode("Paar " + (i+1)));
+        span.className += "radiomark2 ";
+        input.type = "radio";
+        input.name = "selectedpair";
+        input.value = i;
+        input.id = "pair?" + i;
+        input.addEventListener("change", function(){
+            let radioButtons = document.getElementsByName("selectedpair");
+            for(let i = 0; i < radioButtons.length; i++){
+                if(radioButtons[i].checked){
+                    currentPair = radioButtons[i].value;
+                }
+            }
+        });
+    }
+    document.getElementById("pair?0").checked = true;
+    currentPair = 0;
 }
 
 /**
@@ -165,28 +242,38 @@ function addFileToSelectedTable(file){
     }
     if(flag == true)
         return;
-    else
+    else if(strcmp(currentGametype, "uniek") == 0){
+        addFileWhenUnique(file);
+        checkValidity();
+        return;
+    }else
         selectedImages.push(file);
-
+    
     let begin = document.getElementById("chosenImages");
 
-    //If the first element is a textNode remove it and append the selected files table and clear button
-    if(begin.firstChild.nodeType == 3){
-        begin.removeChild(begin.firstChild);
-        let removeall = document.createElement("button");
+    document.getElementById("nothingSelectedMessage").innerHTML = "";
+
+    if((document.getElementById("chosenImagesTable")) == null){
         let table = document.createElement("table");
         table.id = "chosenImagesTable";
+        begin.appendChild(table);
+    }
+    
+    if(document.getElementById("clearButton") == null){
+        let cleardiv = document.getElementById("clearButtonDiv");
+        let removeall = document.createElement("button");
         removeall.className += "button-1 ";
         removeall.innerHTML = "Clear lijst";
         removeall.id = "clearButton";
-        removeall.addEventListener("click",clearSelectedTable);
-        begin.appendChild(removeall);
-        begin.appendChild(table);
+        removeall.value = "clear";
+        removeall.addEventListener("click",calculateImagesNeeded);
+        cleardiv.appendChild(removeall);
     }
+
     let table = document.getElementById("chosenImagesTable");
     let tr = table.insertRow(selectedImages.length-1);
     let td1 = document.createElement("td");
-    let tddel = document.createElement("tddel");
+    let tddel = document.createElement("td");
     let removeone = document.createElement("span");
     tr.appendChild(tddel);
     tr.appendChild(td1);
@@ -206,10 +293,6 @@ function addFileToSelectedTable(file){
     let hidden = document.getElementById("hiddenImages");
     let newImage = document.createElement("input"); // <input type="hidden" name="image[x]" value="name;id">
     newImage.setAttribute("type", "hidden"); 
-    if (document.getElementById("uniek").checked){
-        newImage.setAttribute("value", file + "?" + (Math.floor(id/2)).toString());
-        td1.style.color = colorTable[Math.floor(id/2)];
-    }
     if (document.getElementById("paren").checked)
         newImage.setAttribute("value", file + "?" + id);
     if (document.getElementById("text").checked)
@@ -239,6 +322,62 @@ function addFileToSelectedTable(file){
         id += 1;
     }
     checkValidity();
+}
+
+function addFileWhenUnique(file){
+
+    if(amountPerPair[currentPair] == 2){
+        let toUncheck = document.getElementById(file + "checkbox");
+        if(toUncheck != null)
+            toUncheck.checked = false;
+        return;
+    }
+    else
+        selectedImages.push(file);
+
+    document.getElementById("nothingSelectedMessage").innerHTML = "";
+    
+    if(document.getElementById("clearButton") == null){
+        let cleardiv = document.getElementById("clearButtonDiv");
+        let removeall = document.createElement("button");
+        removeall.className += "button-1 ";
+        removeall.innerHTML = "Clear lijst";
+        removeall.id = "clearButton";
+        removeall.value = "clear";
+        removeall.addEventListener("click",calculateImagesNeeded);
+        cleardiv.appendChild(removeall);
+    }
+
+    let td1 = document.createElement("td");
+    let tddel = document.createElement("td");
+    let removeone = document.createElement("span");
+    let tr = document.getElementById("citrowid?" + currentPair);
+    tr.appendChild(tddel);
+    tr.appendChild(td1);
+    td1.appendChild(document.createTextNode(file));
+    td1.id = currentPair + "?td1?" + file;
+    tddel.appendChild(removeone);
+    tddel.id = currentPair + "?td2?" + file;
+    removeone.id = file + "?toremove";
+    removeone.className += "close heavy rounded ";
+    removeone.addEventListener("click", function(){
+        removeFileFromSelectedTable(file);
+        document.getElementById(file + "checkbox").checked = false;
+    });
+
+    document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
+                + selectedImages.length + "/" + imagesNeeded + ")";
+    
+    let hidden = document.getElementById("hiddenImages");
+    let newImage = document.createElement("input");
+    newImage.setAttribute("type", "hidden");
+    newImage.setAttribute("value", file + "?" + currentPair);
+    newImage.id = file + "?" + currentPair;
+    newImage.setAttribute("name", imageNamesWithNumbers[0]);
+    hidden.appendChild(newImage);
+
+    imageNamesWithNumbers.splice(newImage.name, 1);
+    amountPerPair[currentPair] += 1;
 }
 
 /**
@@ -313,25 +452,32 @@ function validOrNot(){
  *      selectedImages array and the chosenImages table.
  */
 function removeFileFromSelectedTable(file){
-    let begin = document.getElementById("chosenImages");
+
     for(let i = 0; i < selectedImages.length; i++){
         if(selectedImages[i] == file)
             selectedImages.splice(i,1);
     }
 
+    if((strcmp(currentGametype, "uniek") == 0) && (strcmp(oldType, "uniek") == 0)){
+        removeFileWhenUnique(file);
+        checkValidity();
+        return;
+    }
+
+    let table = document.getElementById("chosenImagesTable");
     let todelete = document.getElementById(file);
     let parent = todelete.parentNode;
     parent.removeChild(todelete);
 
-    if(!parent.hasChildNodes()){
-        parent.parentNode.removeChild(parent);
+    if(table.rows.length == 0){
         button = document.getElementById("clearButton");
         button.parentNode.removeChild(button);
         document.getElementById("chosenImagesTable").parentNode.removeChild(document.getElementById("chosenImagesTable"));
-        begin.appendChild(document.createTextNode("Er zijn momenteel geen afbeeldingen gekozen."))
+        document.getElementById("nothingSelectedMessage").innerHTML = "Er zijn momenteel geen afbeeldingen gekozen.";
         document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
     }
+
     let div = document.getElementById("hiddenImages");
     let l = div.children.length;
     for (let i = 0; i < l; i++)
@@ -353,6 +499,40 @@ function removeFileFromSelectedTable(file){
     checkValidity();
 }
 
+function removeFileWhenUnique(file){
+
+    let fileBelongsTo;
+    for(let i = 0; i < pairAmount; i++){
+        for(let j = 0; j < amountPerPair[i]; j++){
+            if(document.getElementById(i + "?td1?" + file) != null)
+                fileBelongsTo = i;
+        }
+    }
+
+    let todelete1 = document.getElementById(fileBelongsTo + "?td1?" + file);
+    let todelete2 = document.getElementById(fileBelongsTo + "?td2?" + file);
+    todelete1.parentNode.removeChild(todelete1);
+    todelete2.parentNode.removeChild(todelete2);
+
+    let hidden = document.getElementById("hiddenImages");
+    let toremove = document.getElementById(file + "?" + fileBelongsTo);
+    let nameToRecover = toremove.name;
+    imageNamesWithNumbers.push(nameToRecover);
+    hidden.removeChild(toremove);
+    amountPerPair[fileBelongsTo] -= 1;
+
+    document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
+                + selectedImages.length + "/" + imagesNeeded + ")";
+
+    if(selectedImages.length == 0){
+        button = document.getElementById("clearButton");
+        button.parentNode.removeChild(button);
+        document.getElementById("nothingSelectedMessage").innerHTML = "Er zijn momenteel geen afbeeldingen gekozen.";
+        document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
+                + selectedImages.length + "/" + imagesNeeded + ")";
+    }
+}
+
 /**
  * Clears the selecedImages array and the chosenImages table.
  */
@@ -361,6 +541,30 @@ function clearSelectedTable(){
         removeFileFromSelectedTable(selectedImages[0]);
         unselectAllCheckmarks();
     }
+}
+
+function clearSelectedTableWhenUnique(){
+    while(selectedImages.length != 0){
+        removeFileFromSelectedTable(selectedImages[0]);
+        unselectAllCheckmarks();
+    }
+}
+
+function clearSelectedTableAfterUnique(){
+    while(selectedImages.length != 0){
+        for(let i = 0; i < selectedImages.length; i++){
+            if(selectedImages[i] == selectedImages[0])
+                selectedImages.splice(i,1);
+        }
+    }
+    document.getElementById("chosenImagesTable").parentNode.removeChild(document.getElementById("chosenImagesTable"));
+    document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
+        + selectedImages.length + "/" + imagesNeeded + ")";
+    document.getElementById("nothingSelectedMessage").innerHTML = "Er zijn momenteel geen afbeeldingen gekozen.";
+    button = document.getElementById("clearButton");
+    if(button != null)
+        button.parentNode.removeChild(button);
+    unselectAllCheckmarks();
 }
 
 /**
