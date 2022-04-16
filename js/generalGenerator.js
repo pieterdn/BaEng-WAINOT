@@ -204,6 +204,7 @@ function createPairButtons(){
         label.appendChild(input);
         label.appendChild(span);
         radiolabel.appendChild(document.createTextNode("Paar " + (i+1)));
+        radiolabel.className += "pairLabel ";
         span.className += "radiomark2 ";
         input.type = "radio";
         input.name = "selectedpair";

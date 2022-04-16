@@ -615,7 +615,11 @@ p.img {
     margin-top: -6px;
 }
 
-#chosenImagesTable{
+#chosenImagesTable {
     margin-top: 10px;
     margin-left: 10px;
+}
+
+.pairLabel {
+    margin-right: 10px;
 }
