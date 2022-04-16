@@ -521,6 +521,9 @@ function removeFileWhenUnique(file){
     hidden.removeChild(toremove);
     amountPerPair[fileBelongsTo] -= 1;
 
+    let radiob = document.getElementById("pair?" + fileBelongsTo);
+    radiob.checked = true;
+
     document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
 
