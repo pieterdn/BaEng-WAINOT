@@ -501,7 +501,7 @@ function removeFileFromSelectedTable(file){
 }
 
 function removeFileWhenUnique(file){
-
+    console.log(amountPerPair);
     let fileBelongsTo;
     for(let i = 0; i < pairAmount; i++){
         for(let j = 0; j < amountPerPair[i]; j++){
@@ -524,6 +524,7 @@ function removeFileWhenUnique(file){
 
     let radiob = document.getElementById("pair?" + fileBelongsTo);
     radiob.checked = true;
+    currentPair = fileBelongsTo;
 
     document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
@@ -535,6 +536,7 @@ function removeFileWhenUnique(file){
         document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
     }
+    console.log(amountPerPair);
 }
 
 /**
@@ -568,6 +570,10 @@ function clearSelectedTableAfterUnique(){
     button = document.getElementById("clearButton");
     if(button != null)
         button.parentNode.removeChild(button);
+    let hidden = document.getElementById("hiddenImages");
+    while(hidden.firstChild != null){
+        hidden.removeChild(hidden.firstChild);
+    }
     unselectAllCheckmarks();
 }
 
