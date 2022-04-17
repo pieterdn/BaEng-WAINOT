@@ -196,6 +196,7 @@ function calculateImagesNeeded(event){
             RemakeArray = true;
             clearSelectedTable();
         }
+        changeBoard();
     }
     else
         RemakeArray = true;
@@ -206,7 +207,6 @@ function calculateImagesNeeded(event){
     }
     oldType = currentGametype;
     previousImagesNeeded = imagesNeeded;
-    changeBoard();
     checkValidity();
 }
 
