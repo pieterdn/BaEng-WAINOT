@@ -149,7 +149,6 @@ function calculateImagesNeeded(event){
         if(strcmp(event.target.name, "dimensions") == 0){
             if(imagesNeeded > previousImagesNeeded){
                 for(let i = 0; i < (imagesNeeded - previousImagesNeeded); i++){
-                    console.log((previousImagesNeeded + i)-selectedImages.length);
                     imageNamesWithNumbers[(previousImagesNeeded + i)-selectedImages.length] = "image?" + (previousImagesNeeded +i);
                 }
             }
@@ -201,12 +200,10 @@ function calculateImagesNeeded(event){
     else
         RemakeArray = true;
     if(RemakeArray == true){
-        console.log("remake");
         imageNamesWithNumbers = [];
         for(let i = 0; i < imagesNeeded; i++)
             imageNamesWithNumbers[i] = "image?" + i;
     }
-    console.log(imageNamesWithNumbers);
     oldType = currentGametype;
     previousImagesNeeded = imagesNeeded;
     checkValidity();
@@ -323,7 +320,8 @@ function addFileToSelectedTable(file){
     removeone.className += "close heavy rounded ";
     removeone.addEventListener("click", function(){
         removeFileFromSelectedTable(file);
-        document.getElementById(file + "checkbox").checked = false;
+        if(document.getElementById(file + "checkbox") != null)
+            document.getElementById(file + "checkbox").checked = false;
     });
 
     document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
@@ -344,7 +342,6 @@ function addFileToSelectedTable(file){
     newImage.setAttribute("name", imageNamesWithNumbers[0]);
     hidden.appendChild(newImage);
     imageNamesWithNumbers.splice(newImage.name, 1);
-    console.log(imageNamesWithNumbers);
 
     if(textNeeded == 0)
         id += 1;
@@ -367,6 +364,7 @@ function addFileToSelectedTable(file){
         hiddenText.appendChild(newText);
         id += 1;
     }
+    console.log(imageNamesWithNumbers);
     checkValidity();
 }
 
@@ -517,18 +515,14 @@ function removeFileFromSelectedTable(file){
     }
 
     let nameToRecover;
-    for(let j = 0; j <= selectedImages.length; j++){
-        console.log(document.getElementById(file + "?" + j));
+    for(let j = 0; j <= imagesNeeded; j++){
         if(document.getElementById(file + "?" + j) != null){
             let toRecover = document.getElementById(file + "?" + j);
             nameToRecover = toRecover.name;
-            console.log(toRecover);
-            console.log(nameToRecover);
         }
     }
 
     imageNamesWithNumbers.push(nameToRecover);
-    console.log(imageNamesWithNumbers);
 
     let table = document.getElementById("chosenImagesTable");
     let todelete = document.getElementById(file);
@@ -562,6 +556,7 @@ function removeFileFromSelectedTable(file){
             break;
         }
     }
+    console.log(imageNamesWithNumbers);
     checkValidity();
 }
 
