@@ -162,6 +162,7 @@ function calculateImagesNeeded(event){
         }
 
         if((strcmp(oldType, "uniek") != 0) && (strcmp(currentGametype, "uniek") == 0) && (strcmp(event.target.value, "clear") != 0)){
+            RemakeArray = true;
             clearSelectedTable();
             createPairButtons();
         }
@@ -263,7 +264,7 @@ function createPairButtons(){
  * @param {String} file String of file to be added to list.
  */
 function addFileToSelectedTable(file){
-
+    console.log(imageNamesWithNumbers);
     if(imagesNeeded == selectedImages.length){
         let toUncheck = document.getElementById(file + "checkbox");
         if(toUncheck != null)
