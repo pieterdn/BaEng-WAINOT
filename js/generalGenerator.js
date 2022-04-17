@@ -24,8 +24,13 @@
  *      by generator.py. Used in when gametype text and image is active.
  * validationMessage : message underneath 'genereer'-button. Shows what's wrong
  *      when the form is not valid.
+ * nothingSelectedMessage : id of message when no image is selected
+ * clearButtonDiv : id of div that contains the clearButton
  * clearButton : id of button that can clear the whole chosenImages array and
  *      chosenImagestable
+ * "citrowid?" + i : rowid of the rows in chosenImagesTable
+ * "pair?" + i : id of the radiobuttons when in uniek mode
+ * file + "?toremove" : id of the cross before a file in the chosenImagesTable
  * 
  * USED HTML CLASSES:
  * button-1 : used in css to format buttons
@@ -94,6 +99,7 @@ function changeUploadButton(){
 
 /**
  * Calculates the images needed for the current gametype and dimensions.
+ * Called by changing the dimension, gametype or pressing the clear button.
  * @param {Event} event 
  */
 function calculateImagesNeeded(event){
@@ -135,9 +141,9 @@ function calculateImagesNeeded(event){
 
     if(event != null){
 
-        if((strcmp(oldType, "uniek") == 0) && (strcmp(currentGametype, "uniek") != 0) && (strcmp(event.target.value, "clear") != 0)){
+        if((strcmp(oldType, "uniek") == 0) && (strcmp(currentGametype, "uniek") != 0) && (strcmp(event.target.value, "clear") != 0))
             clearSelectedTableAfterUnique();
-        }
+        
 
         if((strcmp(oldType, "uniek") != 0) && (strcmp(currentGametype, "uniek") == 0) && (strcmp(event.target.value, "clear") != 0)){
             clearSelectedTable();
@@ -145,40 +151,42 @@ function calculateImagesNeeded(event){
         }
 
         if((strcmp(currentGametype, "uniek") == 0) && (strcmp(oldType, "uniek") == 0) && (strcmp(event.target.value, "clear") != 0)){
-            clearSelectedTableWhenUnique();
+            clearSelectedTable();
             document.getElementById("chosenImagesTable").parentNode.removeChild(document.getElementById("chosenImagesTable"));
             createPairButtons();
         }
 
-        if((strcmp(oldType, "paren") == 0) && (strcmp(currentGametype, "text") == 0) && (strcmp(event.target.value, "clear") != 0)){
+        if((strcmp(oldType, "paren") == 0) && (strcmp(currentGametype, "text") == 0) && (strcmp(event.target.value, "clear") != 0))
             clearSelectedTable();
-        }
+        
 
-        if((strcmp(oldType, "text") == 0) && (strcmp(currentGametype, "paren") == 0) && (strcmp(event.target.value, "clear") != 0)){
+        if((strcmp(oldType, "text") == 0) && (strcmp(currentGametype, "paren") == 0) && (strcmp(event.target.value, "clear") != 0))
             clearSelectedTable();
-        }
+        
 
-        if((strcmp(currentGametype, "uniek") == 0) && (strcmp(event.target.value, "clear") == 0)){
-            clearSelectedTableWhenUnique();
-        }
-
-        if((strcmp(currentGametype, "paren") == 0) && (strcmp(event.target.value, "clear") == 0)){
+        if((strcmp(currentGametype, "uniek") == 0) && (strcmp(event.target.value, "clear") == 0))
             clearSelectedTable();
-        }
+        
 
-        if((strcmp(currentGametype, "text") == 0) && (strcmp(event.target.value, "clear") == 0)){
+        if((strcmp(currentGametype, "paren") == 0) && (strcmp(event.target.value, "clear") == 0))
             clearSelectedTable();
-        }
+        
+
+        if((strcmp(currentGametype, "text") == 0) && (strcmp(event.target.value, "clear") == 0))
+            clearSelectedTable();
+        
     }
     oldType = currentGametype;
     checkValidity();
 }
 
+/**
+ * Function that creates the radiobuttons when in gametype 'uniek'.
+ */
 function createPairButtons(){
 
-    for(let i = 0; i < imagesNeeded; i++){
+    for(let i = 0; i < imagesNeeded; i++)
         imageNamesWithNumbers[i] = "image" + i;
-    }
     let begin = document.getElementById("chosenImages");
     let table = document.createElement("table");
     pairAmount = imagesNeeded/2;
@@ -210,12 +218,12 @@ function createPairButtons(){
         input.name = "selectedpair";
         input.value = i;
         input.id = "pair?" + i;
+        //Changes the currentPair value when changing radiobutton.
         input.addEventListener("change", function(){
             let radioButtons = document.getElementsByName("selectedpair");
             for(let i = 0; i < radioButtons.length; i++){
-                if(radioButtons[i].checked){
+                if(radioButtons[i].checked)
                     currentPair = radioButtons[i].value;
-                }
             }
         });
     }
@@ -325,6 +333,11 @@ function addFileToSelectedTable(file){
     checkValidity();
 }
 
+/**
+ * Adds a file to the selected list, specifically when gametype 'uniek' is
+ * selected.
+ * @param {String} file String of file to be added
+ */
 function addFileWhenUnique(file){
 
     if(amountPerPair[currentPair] == 2){
@@ -359,6 +372,7 @@ function addFileWhenUnique(file){
     td1.id = currentPair + "?td1?" + file;
     tddel.appendChild(removeone);
     tddel.id = currentPair + "?td2?" + file;
+    tddel.className += "tddel ";
     removeone.id = file + "?toremove";
     removeone.className += "close heavy rounded ";
     removeone.addEventListener("click", function(){
@@ -470,13 +484,16 @@ function removeFileFromSelectedTable(file){
     let parent = todelete.parentNode;
     parent.removeChild(todelete);
 
+    document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
+                + selectedImages.length + "/" + imagesNeeded + ")";
+
     if(table.rows.length == 0){
         button = document.getElementById("clearButton");
         button.parentNode.removeChild(button);
         document.getElementById("chosenImagesTable").parentNode.removeChild(document.getElementById("chosenImagesTable"));
         document.getElementById("nothingSelectedMessage").innerHTML = "Er zijn momenteel geen afbeeldingen gekozen.";
-        document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
-                + selectedImages.length + "/" + imagesNeeded + ")";
+        // document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
+        //         + selectedImages.length + "/" + imagesNeeded + ")";
     }
 
     let div = document.getElementById("hiddenImages");
@@ -494,14 +511,16 @@ function removeFileFromSelectedTable(file){
             break;
         }
     }
-
-    document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
-                + selectedImages.length + "/" + imagesNeeded + ")";
     checkValidity();
 }
 
+/**
+ * Removes an image from the selectedImages array and the chosenImages table,
+ * specifically when gametype 'uniek' is active.
+ * @param {String} file String of the filename that needs to be removed from the
+ *      selectedImages array and the chosenImages table.
+ */
 function removeFileWhenUnique(file){
-    console.log(amountPerPair);
     let fileBelongsTo;
     for(let i = 0; i < pairAmount; i++){
         for(let j = 0; j < amountPerPair[i]; j++){
@@ -533,10 +552,9 @@ function removeFileWhenUnique(file){
         button = document.getElementById("clearButton");
         button.parentNode.removeChild(button);
         document.getElementById("nothingSelectedMessage").innerHTML = "Er zijn momenteel geen afbeeldingen gekozen.";
-        document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
-                + selectedImages.length + "/" + imagesNeeded + ")";
+        // document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
+        //         + selectedImages.length + "/" + imagesNeeded + ")";
     }
-    console.log(amountPerPair);
 }
 
 /**
@@ -549,13 +567,10 @@ function clearSelectedTable(){
     }
 }
 
-function clearSelectedTableWhenUnique(){
-    while(selectedImages.length != 0){
-        removeFileFromSelectedTable(selectedImages[0]);
-        unselectAllCheckmarks();
-    }
-}
-
+/**
+ * Clears the selectedImages array and the chosenImages table after the gametype
+ * 'uniek' was active.
+ */
 function clearSelectedTableAfterUnique(){
     while(selectedImages.length != 0){
         for(let i = 0; i < selectedImages.length; i++){
