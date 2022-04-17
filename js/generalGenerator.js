@@ -365,7 +365,6 @@ function addFileToSelectedTable(file){
         hiddenText.appendChild(newText);
         id += 1;
     }
-    console.log(imageNamesWithNumbers);
     checkValidity();
 }
 
@@ -557,7 +556,6 @@ function removeFileFromSelectedTable(file){
             break;
         }
     }
-    console.log(imageNamesWithNumbers);
     checkValidity();
 }
 

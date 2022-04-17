@@ -55,7 +55,6 @@ function createTextCard(x, y, name,width){
     p.appendChild(document.createTextNode(name));
     img.classList.add("img");
     if (selectedImages[name] != null){
-        console.log("Yes");
         img.src = "./media/" + selectedImages[name];
         div.appendChild(img);
     }
