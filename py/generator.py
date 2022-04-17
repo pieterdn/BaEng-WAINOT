@@ -77,7 +77,7 @@ height = int(dimvalues[1])
 Templist = []
 
 for i in range(height*width):
-    temp = fs.getvalue("image" + str(i))
+    temp = fs.getvalue("image?" + str(i))
     if temp:
         Templist.append(temp.split('?')[0])
 
@@ -105,7 +105,7 @@ classList = list.copy(imgList)
 if (fs.getvalue("gametype") == "text"):
     for i in range(len(imgList)): # find the id that is with the image
         for j in range(height*width):
-            id = str(fs.getvalue("image" + str(j))) # get image + id of image
+            id = str(fs.getvalue("image?" + str(j))) # get image + id of image
             if (len(imgList[i].split('.')) == 1): # this entry is plain text
                 value = imgList[i]
                 if (fs.getvalue(id.split('?')[0] + "?formText") == value): # link found between image and its own text
@@ -117,7 +117,7 @@ if (fs.getvalue("gametype") == "text"):
 else:
     for i in range(len(imgList)): # find the id that is with the image
         for j in range(height*width):
-            id = str(fs.getvalue("image" + str(j)))
+            id = str(fs.getvalue("image?" + str(j)))
             if (id.split('?')[0] == classList[i]): # check if image is image from id
                 classList[i] = id.split('?')[1]
 
