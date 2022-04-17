@@ -37,8 +37,10 @@
  * imageText : used to format textfield when in text and image gametype
  */
 
+let previousImagesNeeded;
 let imagesNeeded = 0;
 let textNeeded = 0;
+var RemakeArray;
 var id = 0;
 var subid = 0;
 var valid;
@@ -104,6 +106,7 @@ function changeUploadButton(){
  */
 function calculateImagesNeeded(event){
     
+    RemakeArray = false;
     let radioButtons = document.getElementsByName("gametype");
     for(let i = 0; i < radioButtons.length; i++){
         if(radioButtons[i].checked){
@@ -134,16 +137,30 @@ function calculateImagesNeeded(event){
             document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
                 + selectedImages.length + "/" + imagesNeeded + ")";
 
-            if((selectedImages.length > imagesNeeded) && (strcmp(oldType, "uniek") != 0))
+            if((selectedImages.length > imagesNeeded) && (strcmp(oldType, "uniek") != 0)){
+                RemakeArray = true;
                 clearSelectedTable();
+            }
         }
     }
 
     if(event != null){
 
-        if((strcmp(oldType, "uniek") == 0) && (strcmp(currentGametype, "uniek") != 0) && (strcmp(event.target.value, "clear") != 0))
+        if(strcmp(event.target.name, "dimensions") == 0){
+            if(imagesNeeded > previousImagesNeeded){
+                for(let i = 0; i < (imagesNeeded - previousImagesNeeded); i++){
+                    console.log((previousImagesNeeded + i)-selectedImages.length);
+                    imageNamesWithNumbers[(previousImagesNeeded + i)-selectedImages.length] = "image?" + (previousImagesNeeded +i);
+                }
+            }
+            else
+                RemakeArray = true;
+        }
+
+        if((strcmp(oldType, "uniek") == 0) && (strcmp(currentGametype, "uniek") != 0) && (strcmp(event.target.value, "clear") != 0)){
+            RemakeArray = true;
             clearSelectedTableAfterUnique();
-        
+        }
 
         if((strcmp(oldType, "uniek") != 0) && (strcmp(currentGametype, "uniek") == 0) && (strcmp(event.target.value, "clear") != 0)){
             clearSelectedTable();
@@ -156,27 +173,42 @@ function calculateImagesNeeded(event){
             createPairButtons();
         }
 
-        if((strcmp(oldType, "paren") == 0) && (strcmp(currentGametype, "text") == 0) && (strcmp(event.target.value, "clear") != 0))
+        if((strcmp(oldType, "paren") == 0) && (strcmp(currentGametype, "text") == 0) && (strcmp(event.target.value, "clear") != 0)){
+            RemakeArray = true;
             clearSelectedTable();
-        
+        }
 
-        if((strcmp(oldType, "text") == 0) && (strcmp(currentGametype, "paren") == 0) && (strcmp(event.target.value, "clear") != 0))
+        if((strcmp(oldType, "text") == 0) && (strcmp(currentGametype, "paren") == 0) && (strcmp(event.target.value, "clear") != 0)){
+            RemakeArray = true;
             clearSelectedTable();
-        
+        }
 
-        if((strcmp(currentGametype, "uniek") == 0) && (strcmp(event.target.value, "clear") == 0))
+        if((strcmp(currentGametype, "uniek") == 0) && (strcmp(event.target.value, "clear") == 0)){
+            RemakeArray = true;
             clearSelectedTable();
-        
+        }
 
-        if((strcmp(currentGametype, "paren") == 0) && (strcmp(event.target.value, "clear") == 0))
+        if((strcmp(currentGametype, "paren") == 0) && (strcmp(event.target.value, "clear") == 0)){
+            RemakeArray = true;
             clearSelectedTable();
-        
+        }
 
-        if((strcmp(currentGametype, "text") == 0) && (strcmp(event.target.value, "clear") == 0))
+        if((strcmp(currentGametype, "text") == 0) && (strcmp(event.target.value, "clear") == 0)){
+            RemakeArray = true;
             clearSelectedTable();
-        
+        }
     }
+    else
+        RemakeArray = true;
+    if(RemakeArray == true){
+        console.log("remake");
+        imageNamesWithNumbers = [];
+        for(let i = 0; i < imagesNeeded; i++)
+            imageNamesWithNumbers[i] = "image?" + i;
+    }
+    console.log(imageNamesWithNumbers);
     oldType = currentGametype;
+    previousImagesNeeded = imagesNeeded;
     checkValidity();
 }
 
@@ -185,8 +217,6 @@ function calculateImagesNeeded(event){
  */
 function createPairButtons(){
 
-    for(let i = 0; i < imagesNeeded; i++)
-        imageNamesWithNumbers[i] = "image" + i;
     let begin = document.getElementById("chosenImages");
     let table = document.createElement("table");
     pairAmount = imagesNeeded/2;
@@ -302,12 +332,19 @@ function addFileToSelectedTable(file){
     let hidden = document.getElementById("hiddenImages");
     let newImage = document.createElement("input"); // <input type="hidden" name="image[x]" value="name;id">
     newImage.setAttribute("type", "hidden"); 
-    if (document.getElementById("paren").checked)
-        newImage.setAttribute("value", file + "?" + id);
-    if (document.getElementById("text").checked)
-        newImage.setAttribute("value", file + "?" + id);
-    newImage.setAttribute("name", "image" + id);
+    let idFromName = imageNamesWithNumbers[0].split('?')[1];
+    if (document.getElementById("paren").checked){
+        newImage.setAttribute("value", file + "?" + idFromName);
+        newImage.id = file + "?" + idFromName;
+    }
+    if (document.getElementById("text").checked){
+        newImage.setAttribute("value", file + "?" + idFromName);
+        newImage.id = file + "?" + idFromName;
+    }
+    newImage.setAttribute("name", imageNamesWithNumbers[0]);
     hidden.appendChild(newImage);
+    imageNamesWithNumbers.splice(newImage.name, 1);
+    console.log(imageNamesWithNumbers);
 
     if(textNeeded == 0)
         id += 1;
@@ -467,7 +504,7 @@ function validOrNot(){
  *      selectedImages array and the chosenImages table.
  */
 function removeFileFromSelectedTable(file){
-
+    
     for(let i = 0; i < selectedImages.length; i++){
         if(selectedImages[i] == file)
             selectedImages.splice(i,1);
@@ -478,6 +515,20 @@ function removeFileFromSelectedTable(file){
         checkValidity();
         return;
     }
+
+    let nameToRecover;
+    for(let j = 0; j <= selectedImages.length; j++){
+        console.log(document.getElementById(file + "?" + j));
+        if(document.getElementById(file + "?" + j) != null){
+            let toRecover = document.getElementById(file + "?" + j);
+            nameToRecover = toRecover.name;
+            console.log(toRecover);
+            console.log(nameToRecover);
+        }
+    }
+
+    imageNamesWithNumbers.push(nameToRecover);
+    console.log(imageNamesWithNumbers);
 
     let table = document.getElementById("chosenImagesTable");
     let todelete = document.getElementById(file);
