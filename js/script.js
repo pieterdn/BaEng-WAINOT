@@ -133,7 +133,8 @@ function checkCards(){
         weg2.classList.remove("shown");
         },1000);
     }
-    checkEnd();
+    if(document.getElementById("previewtable") == null)
+        checkEnd();
 }
 
 function arrayRemove(arr, value) { 

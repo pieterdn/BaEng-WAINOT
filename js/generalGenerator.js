@@ -174,7 +174,7 @@ function calculateImagesNeeded(event){
 
         if((strcmp(currentGametype, "text") == 0) && (strcmp(event.target.value, "clear") == 0))
             clearSelectedTable();
-        
+        changeBoard();
     }
     oldType = currentGametype;
     checkValidity();

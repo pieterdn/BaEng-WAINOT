@@ -3,9 +3,6 @@ var widthCurrent = 0;
 var heightCurrent = 0;
 
 window.addEventListener("load",function(){
-    // document.spelgenerator.width.addEventListener("change",changeBoard);
-    // document.spelgenerator.height.addEventListener("change",changeBoard);
-    document.spelgenerator.dimensions.addEventListener("change",changeBoard);
     document.getElementById("memoryRefresh").addEventListener("click",boardRefresh);
     document.getElementById("memoryShuffle").addEventListener("click",boardReshuffle);
     document.getElementById("memoryReveal").addEventListener("click",revealAllCards);
@@ -17,27 +14,25 @@ window.addEventListener("load",function(){
     let height = dimvalues[1];
     let memprev = document.getElementById("memoryPreview");
 
-    if(width*height%2 == 1){
-        width -= 1;
-    }
-
     widthCurrent = width;
     heightCurrent = height;
 
     let table = document.createElement("table");
     table.id = "previewtable";
     memprev.appendChild(table);
+    let x = 0;
 
     for(let i = 0; i < height; i++){
         let tr = document.createElement("tr");
         table.appendChild(tr);
         for(let j = 0; j < width; j++){
             let num = j+width*i;
-
-            let td = createTextCard(i, j, Math.floor(((num - j%2)/2)).toString(),width);
+            //3x2 (6) | 5x4 (20)
+            let td = createTextCard(i, j, Math.floor(((num - x)/2)).toString(),width);
 
             //vind geen betere manier
             tableArray[num] = td;
+            x = 1-x;
         }
     }
     let shuffledArray = [...tableArray];
@@ -55,8 +50,18 @@ function createTextCard(x, y, name,width){
     let td = document.createElement("td");
     let div = document.createElement("div");
     let p = document.createElement("p");
+    let img = document.createElement("img");
     p.classList.add("img");
     p.appendChild(document.createTextNode(name));
+    img.classList.add("img");
+    if (selectedImages[name] != null){
+        console.log("Yes");
+        img.src = "./media/" + selectedImages[name];
+        div.appendChild(img);
+    }
+    else{
+        div.appendChild(p);
+    }
     div.setAttribute("id", x.toString() + "_" + y.toString());
     div.classList.add("card");
     
@@ -78,7 +83,8 @@ function createTextCard(x, y, name,width){
     td.classList.add("cardPosition");
 
     td.appendChild(div);
-    div.appendChild(p); 
+    //div.appendChild(p); 
+    div.appendChild(img);
     return td;
 }
 
@@ -96,20 +102,21 @@ function changeBoard(event){
         heightCurrent = height;
     }
     clickedCards = [];
-    
     let table = document.getElementById("previewtable");
     let prevHeight = table.childNodes.length;
     for(let i = 0; i < prevHeight; i++){
         table.removeChild(table.lastChild);
     }
 
+    let x = 0;
     for(let i = 0; i < height; i++){
         let tr = document.createElement("tr");
         table.appendChild(tr);
         for(let j = 0; j < width; j++){
             let num = j+width*i;
-
-            tableArray[num] = createTextCard(i, j, (Math.floor((num - j%2)/2)).toString(),width);
+            tableArray[num] = createTextCard(i, j, (Math.floor((num - x)/2)).toString(),width);
+            
+            x = 1-x;
         }
     }
     tableArray.length = width*height;
