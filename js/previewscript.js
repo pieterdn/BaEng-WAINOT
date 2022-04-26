@@ -205,13 +205,12 @@ function revealAllCards(){
 }
 
 function refreshPreviewImages(){
+    console.log("refresh");
     let imgs = [];
     Array.from(document.getElementById("hiddenImages").childNodes).forEach( el => imgs.push(el.value));
 
     imgs.sort((a, b) => a.slice(a.length - 1, a.length).localeCompare(b.slice(b.length - 1, b.length)));
-    console.log("imgs:");
-    console.log(imgs);
-    // console.log(imgs[0].slice(imgs[0].length - 1, imgs[0].length))
+
     if(currentGametype == "paren")
         refreshParenPreviewImages(imgs);
     else if(currentGametype == "uniek")
@@ -222,12 +221,12 @@ function refreshPreviewImages(){
 }
 
 function refreshParenPreviewImages(imgs){
-    let imgClass = [];
+    let onlyTheseOnes = [];
 
     imgs.forEach(function(img){
-        imgClass.push(img.split("?")[1]);
         Array.from(document.getElementsByClassName(img.split("?")[1]))
             .forEach(function(div){
+                onlyTheseOnes.push(div);
                 let imgEl = document.createElement("img");
                 imgEl.classList += "img";
                 imgEl.src = "./media/" + img.split("?")[0];
@@ -235,27 +234,15 @@ function refreshParenPreviewImages(imgs){
                 div.appendChild(imgEl);
             });
     });
-    console.log(imgClass);
-    for(let i = 0; i < tableArray.length; i++){
-        let div = tableArray[i].firstChild;
-        if(!(imgClass.includes(div.classList[1]))){
-            if(div.firstChild.tagName != "P"){
-                let p = document.createElement("p");
-                p.innerText = div.classList[1];
-                p.classList += "img";
-                div.removeChild(div.firstChild);
-                div.appendChild(p);
-            }
-        }
-    }
+    removeUnwantedImages(onlyTheseOnes);
+
 }
 
 function refreshUniekPreviewImages(imgs){
-    let imgClass = [];
     let prevClass = undefined;
+    let onlyTheseOnes = [];
 
     imgs.forEach(function(img){
-        imgClass.push(img.split("?")[1]);
         //tweede uniek
         let div;
         if(prevClass == img.split("?")[1] && prevClass !== undefined){
@@ -265,6 +252,7 @@ function refreshUniekPreviewImages(imgs){
         else{
             div = document.getElementsByClassName(img.split("?")[1])[0];
         }
+        onlyTheseOnes.push(div);
 
         let imgEl = document.createElement("img");
         imgEl.classList += "img";
@@ -273,32 +261,48 @@ function refreshUniekPreviewImages(imgs){
         div.appendChild(imgEl);
 
         prevClass = img.split("?")[1];
-
-        // Array.from(document.getElementsByClassName(img.split("?")[1]))
-        //     .forEach(function(div){
-        //         console.log(div);
-        //         let imgEl = document.createElement("img");
-        //         imgEl.classList += "img";
-        //         imgEl.src = "./media/" + img.split("?")[0];
-        //         console.log(div.firstChild);
-        //         div.removeChild(div.firstChild);
-        //         console.log(div.firstChild);
-        //         div.appendChild(imgEl);
-        //         console.log(imgEl);
-        //     });
     });
-    console.log(imgClass);
-    // for(let i = 0; i < tableArray.length; i++){
-    //     let div = tableArray[i].firstChild;
-    //     if(!(imgClass.includes(div.classList[1]))){
-    //         if(div.firstChild.tagName != "P"){
-    //             console.log(div);
-    //             let p = document.createElement("p");
-    //             p.innerText = div.classList[1];
-    //             p.classList += "img";
-    //             div.removeChild(div.firstChild);
-    //             div.appendChild(p);
-    //         }
-    //     }
-    // }
+
+    removeUnwantedImages(onlyTheseOnes);
+}
+
+function refreshTextPreviewImages(imgs){
+    let onlyTheseOnes = [];
+    imgs.forEach(function(img){
+        let divImg = document.getElementsByClassName(img.split("?")[1])[0];
+        onlyTheseOnes.push(divImg);
+        let divText = document.getElementsByClassName(img.split("?")[1])[1];
+        onlyTheseOnes.push(divText);
+
+        console.log(img.split("?")[0] + "?formText");
+        let text = document.getElementById(img.split("?")[0] + "?text").value;
+        console.log(document.getElementById(img.split("?")[0] + "?text").value);
+
+        let imgEl = document.createElement("img");
+        imgEl.classList += "img";
+        imgEl.src = "./media/" + img.split("?")[0];
+        divImg.removeChild(divImg.firstChild);
+        divImg.appendChild(imgEl);
+
+        let textEl = document.createElement("p");
+        textEl.classList += "img";
+        textEl.innerText = text;
+        divText.removeChild(divText.firstChild);
+        divText.appendChild(textEl);
+    });
+    
+    removeUnwantedImages(onlyTheseOnes);
+}
+
+function removeUnwantedImages(onlyTheseOnes){
+    for(let i = 0; i < tableArray.length; i++){
+        let div = tableArray[i].firstChild;
+        if(!onlyTheseOnes.includes(div)){
+            let p = document.createElement("p");
+            p.innerText = div.classList[1];
+            p.classList += "img";
+            div.removeChild(div.firstChild);
+            div.appendChild(p);
+        }
+    }
 }

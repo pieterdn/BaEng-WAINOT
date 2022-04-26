@@ -353,6 +353,7 @@ function addFileToSelectedTable(file){
         input.className += "imageText ";
         input.id = file + "?text";
         input.addEventListener("change", checkValidity);
+        input.addEventListener("change", refreshPreviewImages);
         tr.appendChild(td2);
         td2.appendChild(input);
 
