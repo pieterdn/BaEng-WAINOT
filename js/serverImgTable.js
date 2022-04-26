@@ -382,6 +382,7 @@ function addServerImageToTable(start, end, startup){
                 addFileToSelectedTable(serverImages[i]);
             else
                 removeFileFromSelectedTable(serverImages[i]);
+            refreshPreviewImages();
         });
 
         //When the serverImgTable is created for the first time.

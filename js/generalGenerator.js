@@ -366,7 +366,6 @@ function addFileToSelectedTable(file){
         id += 1;
     }
     checkValidity();
-    refreshPreviewImages();
 }
 
 /**
@@ -429,7 +428,6 @@ function addFileWhenUnique(file){
 
     imageNamesWithNumbers.splice(newImage.name, 1);
     amountPerPair[currentPair] += 1;
-    refreshPreviewImages();
 }
 
 /**
@@ -511,8 +509,8 @@ function removeFileFromSelectedTable(file){
     }
 
     if((strcmp(currentGametype, "uniek") == 0) && (strcmp(oldType, "uniek") == 0)){
-        removeFileWhenUnique(file);
         checkValidity();
+        removeFileWhenUnique(file);
         return;
     }
 
@@ -559,7 +557,6 @@ function removeFileFromSelectedTable(file){
         }
     }
     checkValidity();
-    refreshPreviewImages();
 }
 
 /**
@@ -603,7 +600,6 @@ function removeFileWhenUnique(file){
         // document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
         //         + selectedImages.length + "/" + imagesNeeded + ")";
     }
-    refreshPreviewImages();
 }
 
 /**

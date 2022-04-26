@@ -205,7 +205,6 @@ function revealAllCards(){
 }
 
 function refreshPreviewImages(){
-    console.log("refresh");
     let imgs = [];
     Array.from(document.getElementById("hiddenImages").childNodes).forEach( el => imgs.push(el.value));
 
@@ -274,9 +273,7 @@ function refreshTextPreviewImages(imgs){
         let divText = document.getElementsByClassName(img.split("?")[1])[1];
         onlyTheseOnes.push(divText);
 
-        console.log(img.split("?")[0] + "?formText");
         let text = document.getElementById(img.split("?")[0] + "?text").value;
-        console.log(document.getElementById(img.split("?")[0] + "?text").value);
 
         let imgEl = document.createElement("img");
         imgEl.classList += "img";
