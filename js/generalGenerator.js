@@ -365,6 +365,7 @@ function addFileToSelectedTable(file){
         id += 1;
     }
     checkValidity();
+    refreshPreviewImages();
 }
 
 /**
@@ -427,6 +428,7 @@ function addFileWhenUnique(file){
 
     imageNamesWithNumbers.splice(newImage.name, 1);
     amountPerPair[currentPair] += 1;
+    refreshPreviewImages();
 }
 
 /**
@@ -556,6 +558,7 @@ function removeFileFromSelectedTable(file){
         }
     }
     checkValidity();
+    refreshPreviewImages();
 }
 
 /**
@@ -599,6 +602,7 @@ function removeFileWhenUnique(file){
         // document.getElementById("selImgTitle").innerHTML = "Geselecteerde afbeeldingen ("
         //         + selectedImages.length + "/" + imagesNeeded + ")";
     }
+    refreshPreviewImages();
 }
 
 /**
@@ -609,6 +613,7 @@ function clearSelectedTable(){
         removeFileFromSelectedTable(selectedImages[0]);
         unselectAllCheckmarks();
     }
+    refreshPreviewImages();
 }
 
 /**

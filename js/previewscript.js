@@ -1,6 +1,7 @@
 var tableArray = [];
 var widthCurrent = 0;
 var heightCurrent = 0;
+var curReveal = 0;
 
 window.addEventListener("load",function(){
     // document.spelgenerator.width.addEventListener("change",changeBoard);
@@ -82,7 +83,7 @@ function createTextCard(x, y, name,width){
     return td;
 }
 
-function changeBoard(event){
+function changeBoard(){
     let dimensions = document.spelgenerator.dimensions.value;
     const dimvalues = dimensions.split("x");
 
@@ -125,6 +126,8 @@ function changeBoard(event){
         }
     }
     addCardEventListeners();
+    if(curReveal == 1)
+        revealAllCards();
 }
 
 function shuffle(array) {
@@ -156,6 +159,7 @@ function boardRefresh(event){
         }
         card.classList.remove("correct");
     }
+    curReveal = 0;
 }
 
 function boardReshuffle(event){
@@ -197,4 +201,104 @@ function revealAllCards(){
 
         card.removeAttribute("tabindex","0");
     }
+    curReveal = 1;
+}
+
+function refreshPreviewImages(){
+    let imgs = [];
+    Array.from(document.getElementById("hiddenImages").childNodes).forEach( el => imgs.push(el.value));
+
+    imgs.sort((a, b) => a.slice(a.length - 1, a.length).localeCompare(b.slice(b.length - 1, b.length)));
+    console.log("imgs:");
+    console.log(imgs);
+    // console.log(imgs[0].slice(imgs[0].length - 1, imgs[0].length))
+    if(currentGametype == "paren")
+        refreshParenPreviewImages(imgs);
+    else if(currentGametype == "uniek")
+        refreshUniekPreviewImages(imgs);
+    else if(currentGametype == "text")
+        refreshTextPreviewImages(imgs);
+    
+}
+
+function refreshParenPreviewImages(imgs){
+    let imgClass = [];
+
+    imgs.forEach(function(img){
+        imgClass.push(img.split("?")[1]);
+        Array.from(document.getElementsByClassName(img.split("?")[1]))
+            .forEach(function(div){
+                let imgEl = document.createElement("img");
+                imgEl.classList += "img";
+                imgEl.src = "./media/" + img.split("?")[0];
+                div.removeChild(div.firstChild);
+                div.appendChild(imgEl);
+            });
+    });
+    console.log(imgClass);
+    for(let i = 0; i < tableArray.length; i++){
+        let div = tableArray[i].firstChild;
+        if(!(imgClass.includes(div.classList[1]))){
+            if(div.firstChild.tagName != "P"){
+                let p = document.createElement("p");
+                p.innerText = div.classList[1];
+                p.classList += "img";
+                div.removeChild(div.firstChild);
+                div.appendChild(p);
+            }
+        }
+    }
+}
+
+function refreshUniekPreviewImages(imgs){
+    let imgClass = [];
+    let prevClass = undefined;
+
+    imgs.forEach(function(img){
+        imgClass.push(img.split("?")[1]);
+        //tweede uniek
+        let div;
+        if(prevClass == img.split("?")[1] && prevClass !== undefined){
+            div = document.getElementsByClassName(img.split("?")[1])[1];
+        }
+        //eerste uniek
+        else{
+            div = document.getElementsByClassName(img.split("?")[1])[0];
+        }
+
+        let imgEl = document.createElement("img");
+        imgEl.classList += "img";
+        imgEl.src = "./media/" + img.split("?")[0];
+        div.removeChild(div.firstChild);
+        div.appendChild(imgEl);
+
+        prevClass = img.split("?")[1];
+
+        // Array.from(document.getElementsByClassName(img.split("?")[1]))
+        //     .forEach(function(div){
+        //         console.log(div);
+        //         let imgEl = document.createElement("img");
+        //         imgEl.classList += "img";
+        //         imgEl.src = "./media/" + img.split("?")[0];
+        //         console.log(div.firstChild);
+        //         div.removeChild(div.firstChild);
+        //         console.log(div.firstChild);
+        //         div.appendChild(imgEl);
+        //         console.log(imgEl);
+        //     });
+    });
+    console.log(imgClass);
+    // for(let i = 0; i < tableArray.length; i++){
+    //     let div = tableArray[i].firstChild;
+    //     if(!(imgClass.includes(div.classList[1]))){
+    //         if(div.firstChild.tagName != "P"){
+    //             console.log(div);
+    //             let p = document.createElement("p");
+    //             p.innerText = div.classList[1];
+    //             p.classList += "img";
+    //             div.removeChild(div.firstChild);
+    //             div.appendChild(p);
+    //         }
+    //     }
+    // }
 }
