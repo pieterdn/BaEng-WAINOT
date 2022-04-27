@@ -1,4 +1,4 @@
-#!"C:\Users\Yana IJpelaar\AppData\Local\Programs\Python\Python39\python.exe" 
+#!\Users\Gebruiker\AppData\Local\Microsoft\WindowsApps\python3.9.exe
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 
@@ -7,6 +7,7 @@ import cgi, cgitb
 import os
 import random
 import math
+import subprocess
 
 print("Content-type: text/html\n\n")
 
@@ -61,6 +62,9 @@ dimvalues = dimensions.split('x')
 
 width = int(dimvalues[0])
 height = int(dimvalues[1])
+
+# if the script don't need output.
+subprocess.call(["php","-f", "../maakSQLTabellen.php","width:"+width+"", "height:"+height+"", "tableName:"+filename+""])
 
 #width = int(fs.getvalue("width"))
 #height = int(fs.getvalue("height"))
