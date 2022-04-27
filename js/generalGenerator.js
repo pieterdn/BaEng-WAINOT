@@ -320,6 +320,7 @@ function addFileToSelectedTable(file){
     removeone.className += "close heavy rounded ";
     removeone.addEventListener("click", function(){
         removeFileFromSelectedTable(file);
+        refreshPreviewImages();
         if(document.getElementById(file + "checkbox") != null)
             document.getElementById(file + "checkbox").checked = false;
     });

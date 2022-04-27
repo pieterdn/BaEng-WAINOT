@@ -57,6 +57,7 @@ window.addEventListener("load",function(){
           if (xhr.status == 200) {
             if(amountNotUploaded == 0){
               statusP.innerHTML = amount + ' Bestand(en) geupload naar server! ';
+              refreshPreviewImages();
             }
             else{
               statusP.innerHTML = (amount-amountNotUploaded) + ' Bestand(en) geupload naar server! '
@@ -73,5 +74,6 @@ window.addEventListener("load",function(){
         xhr.send(formData);
 
       }
+      
   });
 });
