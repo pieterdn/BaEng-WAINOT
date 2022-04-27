@@ -1,3 +1,8 @@
+<!-- 
+    Credit for the barebones of this file goes to:
+    https://uploadcare.com/blog/file-upload-ajax/
+-->
+
 <?php
     $currentDir = getcwd();
     $uploadDirectory = "//media/";

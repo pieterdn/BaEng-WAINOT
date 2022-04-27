@@ -1,3 +1,8 @@
+/*
+ * Credit for the barebones of this file goes to:
+ * https://uploadcare.com/blog/file-upload-ajax/
+ */
+
 window.addEventListener("load",function(){
   var myForm = document.getElementById('formAjax');  // Our HTML form's ID (wordt nog ergens anders gebruikt pas op bij aanpassen id)
   var myFile = document.getElementById('fileAjax');  // Our HTML files' ID (dit ook)
@@ -52,6 +57,7 @@ window.addEventListener("load",function(){
           if (xhr.status == 200) {
             if(amountNotUploaded == 0){
               statusP.innerHTML = amount + ' Bestand(en) geupload naar server! ';
+              refreshPreviewImages();
             }
             else{
               statusP.innerHTML = (amount-amountNotUploaded) + ' Bestand(en) geupload naar server! '
@@ -68,5 +74,6 @@ window.addEventListener("load",function(){
         xhr.send(formData);
 
       }
+      
   });
 });

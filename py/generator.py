@@ -1,14 +1,23 @@
 #!\Users\Gebruiker\AppData\Local\Microsoft\WindowsApps\python3.9.exe
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
-
 #(linux shebang: !/usr/bin/env python3)
+
+# This file handles making the html page of the game itself.
+# Used HTML Names:
+# gameName : name of the game, will be name of file that is generated
+# dimensions : the dimensions of the game (2x2, 3x2, ...)
+# imageX : contains 1 image with id next to it for connecting multiple images (image.jpg?0)
+# gametype : the type of game that is being made (text, uniek, paren)
+# imageX?formText : the text that is linked to a certain image
+
 import cgi, cgitb
 import os
 import random
 import math
 import subprocess
 
+# give browser temporary html page to show user
 print("Content-type: text/html\n\n")
 
 fs = cgi.FieldStorage()
@@ -20,6 +29,7 @@ print("""
 <head>
 """)
 
+# refresh to game after python file is done
 print('<meta http-equiv="refresh" content="1; ../' + filename +'.html">')
 
 print("""
@@ -29,8 +39,7 @@ print("""
 </html>
 """)
 
-
-
+# make html file and give that file permissions to be executed
 try:
     os.chmod("../" + filename + ".html", 0o777)
 except:
@@ -42,7 +51,7 @@ file.write("""
 <html lang="nl">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" href="./css/opmaak.css">
+    <link rel="stylesheet" href="./css/spelOpmaak.css">
     <title> test </title>
     <script src="./js/randomise.js"></script>
     <script src="./js/Databank.js"></script>
@@ -64,45 +73,27 @@ dimvalues = dimensions.split('x')
 width = int(dimvalues[0])
 height = int(dimvalues[1])
 
-# if the script don't need output.
-subprocess.call(["php","-f", "../maakSQLTabellen.php","width:"+width+"", "height:"+height+"", "tableName:"+filename+""])
-
-#width = int(fs.getvalue("width"))
-#height = int(fs.getvalue("height"))
-
-
-#width = 5
-#height = 5
-
-# if height*width > 18:
-#     width = 6   #hard coded aantal afb
-#     height = 3
-
-#hard coded afb
 Templist = []
 
 for i in range(height*width):
-    if fs.getvalue("image" + str(i)):
-        Templist.append(fs.getvalue("image" + str(i)).split('?')[0])
-    #print(Templist[i])
+    temp = fs.getvalue("image?" + str(i))
+    if temp:
+        Templist.append(temp.split('?')[0])
 
-imgList = 0
-
+imgList = []
 
 if (fs.getvalue("gametype") == "paren"): # normal mode => 2 of the same image
-    imgList = Templist[:math.ceil(height*width/2)] + Templist[:math.ceil(height*width/2)] #elk pretje 2x laten voorkomen
+    imgList = Templist[:math.ceil(height*width/2)] + Templist[:math.ceil(height*width/2)]
 
 elif(fs.getvalue("gametype") == "text"):
-    # check dat er exact zoveel images aanwezig zijn
-    # text mode => 1 unique image with 1 text
-    l = [] # lijst van alle teksten
-    for i, img in enumerate(Templist):
+    # text mode => 1 unique image with 1 text element
+    l = [] # list of all text
+    for img in Templist:
         if img != "":
             value = str(fs.getvalue(img + "?formText"))
             l.append(value)
-    imgList = Templist[:math.ceil(height*width/2)] # imgList is list of all images + text
-    imgList.extend(l)
-    # [cat.jpg, cow.jpg, kat, koe]
+    imgList = Templist[:math.ceil(height*width/2)] # imgList is list of all images
+    imgList.extend(l) # extend imageList with all words
 
 else:# unique mode => 2 unique images that form a pair
     imgList = Templist[:height*width]
@@ -113,22 +104,23 @@ classList = list.copy(imgList)
 if (fs.getvalue("gametype") == "text"):
     for i in range(len(imgList)): # find the id that is with the image
         for j in range(height*width):
-            id = str(fs.getvalue("image" + str(j))) # cat.jpg?0
+            id = str(fs.getvalue("image?" + str(j))) # get image + id of image
             if (len(imgList[i].split('.')) == 1): # this entry is plain text
                 value = imgList[i]
                 if (fs.getvalue(id.split('?')[0] + "?formText") == value): # link found between image and its own text
                     classList[i] = id.split('?')[1]
                     continue
-            elif (id.split('?')[0] == imgList[i]): # check if image is image from id -> cat.jpg == donkey.jpg or cat.jpg == cat.jpg
+            elif (id.split('?')[0] == imgList[i]): # check if image is image from id
                 classList[i] = id.split('?')[1]
                 
 else:
     for i in range(len(imgList)): # find the id that is with the image
         for j in range(height*width):
-            id = str(fs.getvalue("image" + str(j)))
+            id = str(fs.getvalue("image?" + str(j)))
             if (id.split('?')[0] == classList[i]): # check if image is image from id
                 classList[i] = id.split('?')[1]
 
+# write all in table file, height rows and width columns
 tel = 0
 for y in range(height):
     file.write("\t\t<tr>")
@@ -137,16 +129,14 @@ for y in range(height):
                     <td class="cardPosition">
                         <div id=" """)
         file.write(str(x) + '_' + str(y))
-        file.write('" class="' + classList[tel] +  ' card" tabindex="0">')        
+        file.write('" class="' + classList[tel] +  ' card" tabindex="0">')  
+        # each card has a class, this is being checked to know if the right ones are selected      
 
-        if len(imgList[tel].split('.')) == 1:
+        if len(imgList[tel].split('.')) == 1: # text has been found, make a p tag with class image so that the text can be displayed as an svg
             file.write(f"""<p class="img">{imgList[tel]}</p>
                             </div>
                         </td>""")
-        # if text: make p element with text inside
-        #   file.write(f""" <p class="img">{str(imgList[tel])}</p> """)
-        # else: do below
-        else:
+        else: # no text has been found so this must be an image, make an image tag with the correct source
             file.write("""                             <img class="img" src=" """+ "./media/" + imgList[tel] +  """"/>
                             </div>
                         </td>
@@ -161,4 +151,3 @@ file.write("""
     </body>
 </html>""")
 file.close()
-

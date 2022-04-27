@@ -12,8 +12,14 @@
  * - #bbbbbb (Grijs)
  */
 
+ @font-face {
+    font-family: 'wainotFont'; /*a name to be used later*/
+    src: "./font/varelaround-regular-webfont.woff"; /*src to font*/
+}
+
 body{
-    font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    /*font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";*/
+    font-family: 'wainotFont';
     font-size: 14px;
     font-weight: 600;
     margin: 0px;
@@ -160,7 +166,8 @@ legend{
     color: #fff;
     cursor: pointer;
     display: inline-block;
-    font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    /*font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";*/
+    font-family: wainotFont;
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
@@ -252,7 +259,6 @@ select{
 .tooltip {
     position: relative;
     display: inline-block;
-    /* border-bottom: 1px dotted black; */
 }
 
 .tooltip .tooltiptext {
@@ -275,7 +281,7 @@ select{
     visibility: visible;
 }
 
-/* Radiobutton */
+/* Radiobutton type 1 */
 /* Customize the label (the radiocontainer) */
 .radiocontainer {
     display: block;
@@ -341,6 +347,76 @@ select{
     left: 6px;
     width: 8px;
     height: 8px;
+    border-radius: 50%;
+    background: rgb(255, 255, 255);
+}
+
+/* Radiobutton type 2 */
+/* Customize the label (the radiocontainer) */
+.radiocontainer2 {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    padding-right: 10px;
+    padding-top: 9px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+  
+/* Hide the browser's default radio button */
+.radiocontainer2 input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+  
+/* Create a custom radio button */
+.radiomark2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 17px;
+    width: 17px;
+    background-color: rgb(233, 230, 230);
+    border-radius: 50%;
+    border-radius: 50%;
+    border: solid #a9a2a2 1px;
+}
+  
+/* On mouse-over, add a grey background color */
+.radiocontainer2:hover input ~ .radiomark2 {
+    background-color: #ccc;
+}
+  
+/* When the radio button is checked, add a blue background */
+.radiocontainer2 input:checked ~ .radiomark2 {
+    background-color: #006666;
+}
+  
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radiomark2:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+  
+/* Show the indicator (dot/circle) when checked */
+.radiocontainer2 input:checked ~ .radiomark2:after {
+    display: block;
+}
+  
+/* Style the indicator (dot/circle) */
+.radiocontainer2 .radiomark2:after {
+    top: 5px;
+    left: 5px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: rgb(255, 255, 255);
 }
@@ -451,6 +527,8 @@ select{
     transform: rotateY(180deg);
     transition: transform 1000ms ease-out;
     background-color: #dcecec;
+    overflow: hidden;
+    z-index: 1;
 }
 
 .card.focus {
@@ -492,9 +570,64 @@ p.img {
     margin:0px;
     /*left: 50%;*/
     transform: translate(0px, -1em);
+    font-size: 20pt;
 }
 
 .img {
     height: 150px;
-    /*width: 200px; moet nog wat aan gewerkt worden*/
+}
+
+.close{
+    position: relative;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    overflow: hidden;
+    margin-right: 5px;
+    margin-top: 7px;
+}
+
+.close:hover::before, .close:hover::after {
+    background: rgb(255, 0, 0);
+}
+
+.close::before, .close::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    margin-top: -1px;
+    background: #000;
+}
+
+.close::before {
+    transform: rotate(45deg);
+}
+
+.close::after {
+    transform: rotate(-45deg);
+}
+
+.close .rounded::before, .close .rounder::after{
+    border-radius: 5px;
+}
+
+.close .heavy::before, .close .heavy::after {
+    height: 12px;
+    margin-top: -6px;
+}
+
+#chosenImagesTable {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.pairLabel {
+    margin-right: 10px;
+}
+
+.tddel {
+    padding-bottom: 6px;
 }

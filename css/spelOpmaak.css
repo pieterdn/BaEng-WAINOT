@@ -12,11 +12,16 @@
  * - #bbbbbb (Grijs)
  */
 
+ @font-face {
+    font-family: 'wainotFont'; /*a name to be used later*/
+    src: "./font/varelaround-regular-webfont.woff"; /*src to font*/
+}
+
 html, body{
-    font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    /*font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";*/
+    font-family: wainotFont;
     font-size: 14px;
     font-weight: 600;
-    /*margin: 0px;*/
     background-color: #006666;
     height: 100%;
 }
@@ -94,11 +99,11 @@ p.img {
     margin:0px;
     /*left: 50%;*/
     transform: translate(0px, -1em);
+    font-size: 20pt;
 }
 
 .img {
     height: 150px;
-    /*width: 200px; moet nog wat aan gewerkt worden*/
 }
 
 #canvas{
@@ -118,7 +123,8 @@ p.img {
     color: #fff;
     cursor: pointer;
     display: inline-block;
-    font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    /*font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";*/
+    font-family: wainotFont;
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
