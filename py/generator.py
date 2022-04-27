@@ -45,6 +45,7 @@ file.write("""
     <link rel="stylesheet" href="./css/opmaak.css">
     <title> test </title>
     <script src="./js/randomise.js"></script>
+    <script src="./js/Databank.js"></script>
 	<script src="./js/script.js"></script>
     <script src="./js/endAnimation.js"></script>
 </head>

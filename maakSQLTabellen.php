@@ -32,7 +32,7 @@ if ($conn->connect_error) {
 
 $sql = 'CREATE TABLE MemoryGame (PersonID int, GameName varchar(20)';
 
-for ($x = 0; $x <= 10; $x++) {
+for ($x = 0; $x <= 32; $x++) {  //32 -> max 64 kaarten per 2
     $sql .= ', foto' . $x . ' int';
 }
 

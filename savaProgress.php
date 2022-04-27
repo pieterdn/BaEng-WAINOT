@@ -37,8 +37,8 @@ function getProgress($varID){
         }
     }
     catch( Exception $e) {
-        //nog nooit gespeeld
-        echo 'geen data gevonden';
+        //nog nooit gespeeld -> doe niks laad spel
+        //echo 'geen data gevonden';
     }
 }
 
