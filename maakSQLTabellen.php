@@ -29,39 +29,17 @@ if ($conn->connect_error) {
 } else {
     echo "Connected to MySQL server successfully!";
 }
-
+$sql = 'DROP TABLE MemoryGame;';
+$conn->query($sql);
 $sql = 'CREATE TABLE MemoryGame (PersonID int, GameName varchar(20)';
 
 for ($x = 0; $x <= 32; $x++) {  //32 -> max 64 kaarten per 2
     $sql .= ', foto' . $x . ' int';
 }
 
-$sql .= ');';
-/*
-// select query
-$sql = 'CREATE TABLE ' . $_GET["tableName"] . ' (';
-
-for ($i = 0; $i < $_GET["width"]*$_GET["height"]; $i++) {
-        $sql += 'foto' . strval($i) . ' char(1)';
-        if($i == ($_GET["width"]*$_GET["height"])-1)
-            break;
-        $sql += ',';
-}
-
-$sql +=  ');';
-*/
+$sql .= ');'; 
 $conn->query($sql);
+//$sql = 'INSERT INTO MemoryGame (PersonID, GameName, foto0,foto1,foto2) VALUES ("123","test.html","1","0","0");';
+//$conn->query($sql);
 
-/*
-if ($result = $conn->query($sql)) {
-    while ($data = $result->fetch_object()) {
-        $users[] = $data;
-    }
-}
-
-foreach ($users as $user) {
-    echo "<br>";
-    echo $user->username . " " . $user->password;
-    echo "<br>";
-}*/
 ?>
