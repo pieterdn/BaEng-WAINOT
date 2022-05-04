@@ -121,15 +121,7 @@ function checkCards(){
         clickedCards[0].removeAttribute("tabindex");
         clickedCards[1].classList.add("correct");
         clickedCards[1].removeAttribute("tabindex");
-
-        //functie uit Databank.js voor progress
-        kaartnr = clickedCards[0].classList[0];
-        sendSQL_progress(kaartnr);
-
-
-        clickedCards.length = 0;   
-        
-
+        clickedCards.length = 0;
     }else{
 
         let weg1 = clickedCards[0];
@@ -161,9 +153,6 @@ function checkEnd()
 function endOfGame()
 {
     //window.alert("Game is done yay");
-    sendSQL_reset_progress();
-
-
     // execute animation
     document.getElementById("canvas").hidden = false;
     loop();

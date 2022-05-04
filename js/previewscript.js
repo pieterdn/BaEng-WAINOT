@@ -1,7 +1,6 @@
 var tableArray = [];
 var widthCurrent = 0;
 var heightCurrent = 0;
-var curReveal = 0;
 
 window.addEventListener("load",function(){
     // document.spelgenerator.width.addEventListener("change",changeBoard);
@@ -83,7 +82,7 @@ function createTextCard(x, y, name,width){
     return td;
 }
 
-function changeBoard(){
+function changeBoard(event){
     let dimensions = document.spelgenerator.dimensions.value;
     const dimvalues = dimensions.split("x");
 
@@ -126,8 +125,6 @@ function changeBoard(){
         }
     }
     addCardEventListeners();
-    if(curReveal == 1)
-        revealAllCards();
 }
 
 function shuffle(array) {
@@ -159,7 +156,6 @@ function boardRefresh(event){
         }
         card.classList.remove("correct");
     }
-    curReveal = 0;
 }
 
 function boardReshuffle(event){
@@ -200,106 +196,5 @@ function revealAllCards(){
             card.classList.add("correct");
 
         card.removeAttribute("tabindex","0");
-    }
-    curReveal = 1;
-}
-
-function refreshPreviewImages(){
-    let imgs = [];
-    Array.from(document.getElementById("hiddenImages").childNodes).forEach( el => imgs.push(el.value));
-
-    imgs.sort((a, b) => a.slice(a.length - 1, a.length).localeCompare(b.slice(b.length - 1, b.length)));
-
-    if(currentGametype == "paren")
-        refreshParenPreviewImages(imgs);
-    else if(currentGametype == "uniek")
-        refreshUniekPreviewImages(imgs);
-    else if(currentGametype == "text")
-        refreshTextPreviewImages(imgs);
-    
-}
-
-function refreshParenPreviewImages(imgs){
-    let onlyTheseOnes = [];
-
-    imgs.forEach(function(img){
-        Array.from(document.getElementsByClassName(img.split("?")[1]))
-            .forEach(function(div){
-                onlyTheseOnes.push(div);
-                let imgEl = document.createElement("img");
-                imgEl.classList += "img";
-                imgEl.src = "./media/" + img.split("?")[0];
-                div.removeChild(div.firstChild);
-                div.appendChild(imgEl);
-            });
-    });
-    removeUnwantedImages(onlyTheseOnes);
-
-}
-
-function refreshUniekPreviewImages(imgs){
-    let prevClass = undefined;
-    let onlyTheseOnes = [];
-
-    imgs.forEach(function(img){
-        //tweede uniek
-        let div;
-        if(prevClass == img.split("?")[1] && prevClass !== undefined){
-            div = document.getElementsByClassName(img.split("?")[1])[1];
-        }
-        //eerste uniek
-        else{
-            div = document.getElementsByClassName(img.split("?")[1])[0];
-        }
-        onlyTheseOnes.push(div);
-
-        let imgEl = document.createElement("img");
-        imgEl.classList += "img";
-        imgEl.src = "./media/" + img.split("?")[0];
-        div.removeChild(div.firstChild);
-        div.appendChild(imgEl);
-
-        prevClass = img.split("?")[1];
-    });
-
-    removeUnwantedImages(onlyTheseOnes);
-}
-
-function refreshTextPreviewImages(imgs){
-    let onlyTheseOnes = [];
-    imgs.forEach(function(img){
-        let divImg = document.getElementsByClassName(img.split("?")[1])[0];
-        onlyTheseOnes.push(divImg);
-        let divText = document.getElementsByClassName(img.split("?")[1])[1];
-        onlyTheseOnes.push(divText);
-
-        let text = document.getElementById(img.split("?")[0] + "?text").value;
-
-        let imgEl = document.createElement("img");
-        imgEl.classList += "img";
-        imgEl.src = "./media/" + img.split("?")[0];
-        divImg.removeChild(divImg.firstChild);
-        divImg.appendChild(imgEl);
-
-        let textEl = document.createElement("p");
-        textEl.classList += "img";
-        textEl.innerText = text;
-        divText.removeChild(divText.firstChild);
-        divText.appendChild(textEl);
-    });
-    
-    removeUnwantedImages(onlyTheseOnes);
-}
-
-function removeUnwantedImages(onlyTheseOnes){
-    for(let i = 0; i < tableArray.length; i++){
-        let div = tableArray[i].firstChild;
-        if(!onlyTheseOnes.includes(div)){
-            let p = document.createElement("p");
-            p.innerText = div.classList[1];
-            p.classList += "img";
-            div.removeChild(div.firstChild);
-            div.appendChild(p);
-        }
     }
 }

@@ -1,4 +1,4 @@
-#!\Users\Gebruiker\AppData\Local\Microsoft\WindowsApps\python3.9.exe
+#!/usr/bin/env python3
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 #(linux shebang: !/usr/bin/env python3)
@@ -15,7 +15,6 @@ import cgi, cgitb
 import os
 import random
 import math
-import subprocess
 
 # give browser temporary html page to show user
 print("Content-type: text/html\n\n")
@@ -54,7 +53,6 @@ file.write("""
     <link rel="stylesheet" href="./css/spelOpmaak.css">
     <title> test </title>
     <script src="./js/randomise.js"></script>
-    <script src="./js/Databank.js"></script>
 	<script src="./js/script.js"></script>
     <script src="./js/endAnimation.js"></script>
 </head>

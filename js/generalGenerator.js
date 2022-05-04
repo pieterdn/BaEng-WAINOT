@@ -264,6 +264,7 @@ function createPairButtons(){
  * @param {String} file String of file to be added to list.
  */
 function addFileToSelectedTable(file){
+    console.log(imageNamesWithNumbers);
     if(imagesNeeded == selectedImages.length){
         let toUncheck = document.getElementById(file + "checkbox");
         if(toUncheck != null)
@@ -320,7 +321,6 @@ function addFileToSelectedTable(file){
     removeone.className += "close heavy rounded ";
     removeone.addEventListener("click", function(){
         removeFileFromSelectedTable(file);
-        refreshPreviewImages();
         if(document.getElementById(file + "checkbox") != null)
             document.getElementById(file + "checkbox").checked = false;
     });
@@ -354,7 +354,6 @@ function addFileToSelectedTable(file){
         input.className += "imageText ";
         input.id = file + "?text";
         input.addEventListener("change", checkValidity);
-        input.addEventListener("change", refreshPreviewImages);
         tr.appendChild(td2);
         td2.appendChild(input);
 
@@ -510,8 +509,8 @@ function removeFileFromSelectedTable(file){
     }
 
     if((strcmp(currentGametype, "uniek") == 0) && (strcmp(oldType, "uniek") == 0)){
-        checkValidity();
         removeFileWhenUnique(file);
+        checkValidity();
         return;
     }
 
@@ -611,7 +610,6 @@ function clearSelectedTable(){
         removeFileFromSelectedTable(selectedImages[0]);
         unselectAllCheckmarks();
     }
-    refreshPreviewImages();
 }
 
 /**

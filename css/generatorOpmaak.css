@@ -527,8 +527,6 @@ select{
     transform: rotateY(180deg);
     transition: transform 1000ms ease-out;
     background-color: #dcecec;
-    overflow: hidden;
-    z-index: 1;
 }
 
 .card.focus {
@@ -568,9 +566,7 @@ p.img {
     position: relative;
     top: 50%;
     margin:0px;
-    /*left: 50%;*/
     transform: translate(0px, -1em);
-    font-size: 20pt;
 }
 
 .img {
