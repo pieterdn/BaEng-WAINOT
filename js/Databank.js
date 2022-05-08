@@ -14,10 +14,10 @@ function setStart(){
 }
 
 function setOutput(){
-    console.log('setOutput');
+    //console.log('setOutput');
     if(httpObject.readyState == 4){
         var response = httpObject.responseText;
-        console.log(response);
+        //console.log(response);
         var items = response.split(";");
         var tabel = document.getElementById("table");
         var rows = tabel.getElementsByTagName("tr");

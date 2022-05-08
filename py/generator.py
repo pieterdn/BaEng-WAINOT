@@ -1,4 +1,4 @@
-#!\Users\Gebruiker\AppData\Local\Microsoft\WindowsApps\python3.9.exe
+#!/usr/bin/env python3
 #^ systeem afhankelijk
 # -*- coding: UTF-8 -*-
 #(linux shebang: !/usr/bin/env python3)
