@@ -1,5 +1,5 @@
 <?php
-   $PYTHON='python3';
+   $PYTHON='python';
    putenv("REQUEST_METHOD=GET");
    $s = http_build_query($_POST);
    echo "$s";

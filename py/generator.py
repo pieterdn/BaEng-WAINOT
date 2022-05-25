@@ -133,7 +133,6 @@ for y in range(height):
         # each card has a class, this is being checked to know if the right ones are selected      
 
         if len(imgList[tel].split('.')) == 1: # text has been found, make a p tag with class image so that the text can be displayed as an svg
-            eprint(imgList[tel])
             file.write(f"""<p class="img">{imgList[tel]}</p>
                             </div>
                         </td>""")
