@@ -90,7 +90,7 @@ elif(fs.getvalue("gametype") == "text"):
     l = [] # list of all text
     for img in Templist:
         if img != "":
-            value = str(fs.getvalue(img[:-4] + img[-4:].replace(".","_") + "?formText"))
+            value = str(fs.getvalue(img.replace(".","_") + "?formText"))
             l.append(value)
     imgList = Templist[:math.ceil(height*width/2)] # imgList is list of all images
     imgList.extend(l) # extend imageList with all words
@@ -107,7 +107,7 @@ if (fs.getvalue("gametype") == "text"):
             id = str(fs.getvalue("image?" + str(j))) # get image + id of image
             if (len(imgList[i].split('.')) == 1): # this entry is plain text
                 value = imgList[i]
-                if (fs.getvalue(id.split('?')[0] + "?formText") == value): # link found between image and its own text
+                if (fs.getvalue((id.split('?')[0]).replace(".","_") + "?formText") == value): # link found between image and its own text
                     classList[i] = id.split('?')[1]
                     continue
             elif (id.split('?')[0] == imgList[i]): # check if image is image from id
