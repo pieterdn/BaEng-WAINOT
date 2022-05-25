@@ -34,8 +34,7 @@ window.addEventListener("load",function(){
         table.appendChild(tr);
         for(let j = 0; j < width; j++){
             let num = j+width*i;
-
-            let td = createTextCard(i, j, Math.floor(((num - j%2)/2)).toString(),width);
+            let td = createTextCard(i, j, Math.floor(((num - (i+j)%2)/2)).toString(),width);
 
             //vind geen betere manier
             tableArray[num] = td;
@@ -79,7 +78,7 @@ function createTextCard(x, y, name,width){
     td.classList.add("cardPosition");
 
     td.appendChild(div);
-    div.appendChild(p); 
+    div.appendChild(p);
     return td;
 }
 
@@ -109,8 +108,9 @@ function changeBoard(){
         table.appendChild(tr);
         for(let j = 0; j < width; j++){
             let num = j+width*i;
-
-            tableArray[num] = createTextCard(i, j, (Math.floor((num - j%2)/2)).toString(),width);
+            console.log("width:"+width.toString() +" i:"+ i.toString() +" j:"+ j.toString() + " num:" + num.toString() + " " + Math.floor(((num - j%2)/2)).toString());
+            console.log(Math.floor(((num - (i+j)%2)/2)).toString());
+            tableArray[num] = createTextCard(i, j, (Math.floor((num - (i+j)%2)/2)).toString(),width);
         }
     }
     tableArray.length = width*height;
