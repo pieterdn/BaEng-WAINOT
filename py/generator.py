@@ -90,7 +90,7 @@ elif(fs.getvalue("gametype") == "text"):
     l = [] # list of all text
     for img in Templist:
         if img != "":
-            value = str(fs.getvalue(img + "?formText"))
+            value = str(fs.getvalue(img[:-4] + img[-4:].replace(".","_") + "?formText"))
             l.append(value)
     imgList = Templist[:math.ceil(height*width/2)] # imgList is list of all images
     imgList.extend(l) # extend imageList with all words
@@ -133,6 +133,7 @@ for y in range(height):
         # each card has a class, this is being checked to know if the right ones are selected      
 
         if len(imgList[tel].split('.')) == 1: # text has been found, make a p tag with class image so that the text can be displayed as an svg
+            eprint(imgList[tel])
             file.write(f"""<p class="img">{imgList[tel]}</p>
                             </div>
                         </td>""")
